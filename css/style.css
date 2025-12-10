@@ -40,6 +40,36 @@ a {
     font-weight: 600;
 }
 
+/* Conteneur du badge "Disponible" */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; 
+    padding: 6px 12px;
+    background-color: #dbeafe; 
+    color: #2563eb; 
+    border: 1px solid #bfdbfe;
+    border-radius: 9999px; 
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* Point qui clignote */
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #2563eb;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); } 
+    100% { opacity: 1; transform: scale(1); }
+}
+
 /* Mise en page de la section navbar */
 .navbar {
     position: fixed;
