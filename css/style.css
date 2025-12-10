@@ -1,5 +1,25 @@
-/*Body*/
+/* Mise en page de la section body */
 body {
-    background-color: #f3f4f6; 
+    margin: 0;
+    padding: 0;
     font-family: sans-serif;
+    background-color: #f3f4f6;
+    color: #1f2937;
+}
+
+/* Mise en page de la section principale */
+#home {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 10%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+a {
+    color: #2563eb;
+    text-decoration: none;
 }
