@@ -37,4 +37,46 @@ p {
 a {
     color: #2563eb;
     text-decoration: none;
+    font-weight: 600;
+}
+
+/* Mise en page de la section navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+    z-index: 100; /* Premier plan*/
+}
+
+/* Contenu du navbar */
+.nav-content {
+    background: white;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #1f2937;
+}
+
+.nav-links a {
+    font-size: 0.9rem;
+    color: #4b5563;
+    font-weight: 500;
+    margin-left: 1rem;
+}
+
+.nav-links a:hover {
+    color: #2563eb; 
 }
