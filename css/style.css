@@ -40,6 +40,49 @@ a {
     font-weight: 600;
 }
 
+/* Groupe pour aligner les boutons */
+.cta-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* Base boutons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.2s; 
+    cursor: pointer;
+}
+
+/* Bouton Principal */
+.btn-primary {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3); 
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8; 
+    transform: translateY(-2px); 
+}
+
+/* Bouton Secondaire */
+.btn-secondary {
+    background-color: transparent;
+    color: #1f2937;
+    border: 1px solid #d1d5db;
+}
+
+.btn-secondary:hover {
+    background-color: #e5e7eb; 
+}
+
 /* Conteneur du badge "Disponible" */
 .status-badge {
     display: inline-flex;
