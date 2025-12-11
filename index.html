@@ -7,21 +7,28 @@
     <link rel="icon" type="image/png" href="docs/Simonetoile.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+    <canvas id="interactive-bg"></canvas>
+
     <nav class="navbar">
         <div class="nav-content">
-            <a href="#home" class="nav-logo">VS.</a>
+            <a href="#home" class="nav-logo">VS<span>.</span></a>
             
             <div class="nav-links">
                 <a href="#about">À propos</a>
                 <a href="#projects">Projets</a>
                 <a href="#contact">Contact</a>
+            </div>
+
+            <div class="nav-tools">
+                <button class="btn-tool text-xs">FR</button>
+                <button class="btn-tool"><i class="fas fa-moon"></i></button>
+                <button class="btn-tool"><i class="fas fa-wand-magic-sparkles"></i></button>
             </div>
         </div>
     </nav>
@@ -35,10 +42,10 @@
             
             <h1>Victor Simonet</h1>
         
-        <div class="typing-wrapper">
-            <span class="prompt">></span> 
-            <span id="typing-text">Développeur Fullstack</span><span class="cursor">_</span>
-        </div>
+            <div class="typing-wrapper">
+                <span class="prompt">></span> 
+                <span id="typing-text">Développeur Fullstack</span><span class="cursor">_</span>
+            </div>
 
             <p>
                 Développement Fullstack, Administration Système & Ingénierie Embarquée.
@@ -54,7 +61,86 @@
                 </a>
             </div>
         </section>
+
+        <section id="about" class="section-padding">
+            <h2 class="section-title">01. À propos</h2>
+            
+            <div class="about-grid">
+                <div class="about-left">
+                    <p class="about-bio">
+                        Passionné par l'architecture système et le développement web moderne. Mon objectif est de créer des outils robustes qui simplifient la vie des utilisateurs.
+                    </p>
+
+                    <div class="video-placeholder">
+                        <i class="fas fa-play-circle"></i>
+                        <span>Présentation Vidéo</span>
+                    </div>
+
+                    <h3>Stack Technique</h3>
+                    <div class="skills-container">
+                        <span class="skill-badge">Linux / Admin</span>
+                        <span class="skill-badge">C / C++</span>
+                        <span class="skill-badge">Java</span>
+                        <span class="skill-badge">Oracle APEX</span>
+                        <span class="skill-badge">JS / HTML</span>
+                        <span class="skill-badge">Docker</span>
+                    </div>
+                </div>
+
+                <div class="about-right">
+                    <h3>Parcours</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h4>BUT Informatique</h4>
+                            <span class="date">2024 - Présent</span>
+                            <p>Parcours administration, gestion et exploitation des données.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>Baccalauréat Technologique</h4>
+                            <span class="date">2023</span>
+                            <p>Systèmes d'Information et Numérique.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section-padding">
+            <h2 class="section-title">02. Projets Sélectionnés</h2>
+            
+            <div id="github-projects" class="projects-grid">
+                <div class="project-card-placeholder">
+                    Chargement des projets...
+                </div>
+            </div>
+            
+            <div class="center-btn">
+                <a href="https://github.com/simonet4" target="_blank" class="text-link">Voir tout sur GitHub -></a>
+            </div>
+        </section>
+
+        <section id="contact" class="section-padding contact-section">
+            <div class="contact-card">
+                <h2>Restons en contact</h2>
+                <p>Je suis actuellement ouvert aux opportunités.</p>
+                
+                <a href="mailto:contact@victorsimonet.me" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Envoyer un Email
+                </a>
+
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </section>
+
     </main>
+
+    <footer>
+        <p>© 2025 - Conçu & Développé par Victor Simonet</p>
+    </footer>
+
     <script src="js/script.js"></script>
 
 </body>
