@@ -1,3 +1,44 @@
+/* Mise en page de la section navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+    z-index: 100; /* Premier plan*/
+}
+
+/* Contenu du navbar */
+.nav-content {
+    background: white;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #1f2937;
+}
+
+.nav-links a {
+    font-size: 0.9rem;
+    color: #4b5563;
+    font-weight: 500;
+    margin-left: 1rem;
+}
+
+.nav-links a:hover {
+    color: #2563eb; 
+}
+
 /* Mise en page de la section body */
 body {
     margin: 0;
@@ -113,43 +154,27 @@ a {
     100% { opacity: 1; transform: scale(1); }
 }
 
-/* Mise en page de la section navbar */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 1.5rem 0;
-    display: flex;
-    justify-content: center;
-    z-index: 100; /* Premier plan*/
+/* Style pour l'effet de texte tapé */
+.typing-wrapper {
+    font-family: monospace;
+    font-size: 1.5rem;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+    height: 1.5em;
 }
 
-/* Contenu du navbar */
-.nav-content {
-    background: white;
-    padding: 0.75rem 2rem;
-    border-radius: 9999px;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+.prompt {
+    color: #2563eb;
+    margin-right: 0.5rem;
 }
 
-.nav-logo {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: #1f2937;
+.cursor {
+    font-weight: bold;
+    color: #2563eb;
+    animation: blink 1s step-end infinite;
 }
 
-.nav-links a {
-    font-size: 0.9rem;
-    color: #4b5563;
-    font-weight: 500;
-    margin-left: 1rem;
-}
-
-.nav-links a:hover {
-    color: #2563eb; 
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
