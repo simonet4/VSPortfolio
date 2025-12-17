@@ -1,7 +1,10 @@
 # 👨‍💻 Personal Portfolio - Victor Simonet
 
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fvictorsimonet.me&label=victorsimonet.me)](https://victorsimonet.me)
 ![Project Status](https://img.shields.io/badge/status-active-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT_Modified-blue)
+
+**🌐 Live Demo:** [https://victorsimonet.me](https://victorsimonet.me)
 
 A modern, high-performance, and interactive portfolio designed to showcase my skills in Fullstack Development, System Administration, and Embedded Engineering.
 
