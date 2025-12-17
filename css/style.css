@@ -1,3 +1,28 @@
+/* Variables & Thèmes */
+:root {
+    /* Mode Clair */
+    --bg-body: #f3f4f6;
+    --text-main: #1f2937;
+    --text-muted: #4b5563;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --bg-card: #ffffff;
+    --border-color: #e5e7eb;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+html.dark {
+    /* Mode Sombre */
+    --bg-body: #0B0C10;
+    --text-main: #F3F4F6;
+    --text-muted: #9ca3af;
+    --primary: #66FCF1;
+    --primary-hover: #45A29E;
+    --bg-card: #1f2937;
+    --border-color: #374151;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+}
+
 /* Mise en page de la section navbar */
 .navbar {
     position: fixed;
@@ -12,31 +37,33 @@
 
 /* Contenu du navbar */
 .nav-content {
-    background: white;
+    background: var(--bg-card);
     padding: 0.75rem 2rem;
     border-radius: 9999px;
     display: flex;
     align-items: center;
     gap: 2rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
 }
 
 .nav-logo {
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 700;
     font-size: 1.25rem;
-    color: #1f2937;
+    color: var(--text-main);
 }
 
 .nav-links a {
     font-size: 0.9rem;
-    color: #4b5563;
+    color: var(--text-muted);
     font-weight: 500;
     margin-left: 1rem;
+    transition: color 0.2s;
 }
 
 .nav-links a:hover {
-    color: #2563eb; 
+    color: var(--primary); 
 }
 
 /* Mise en page de la section body */
@@ -44,8 +71,9 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif; 
-    background-color: #f3f4f6;
-    color: #1f2937;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Mise en page de la section principale */
@@ -65,18 +93,19 @@ h1 {
     font-size: 4rem;
     margin: 0;
     line-height: 1.1;
+    color: var(--text-main);
 }
 
 p {
     font-size: 1.25rem;
-    color: #4b5563;
+    color: var(--text-muted);
     margin-top: 1rem;
     margin-bottom: 2rem;
     max-width: 600px;
 }
 
 a {
-    color: #2563eb;
+    color: var(--primary);
     text-decoration: none;
     font-weight: 600;
 }
@@ -102,26 +131,31 @@ a {
 
 /* Bouton Principal */
 .btn-primary {
-    background-color: #2563eb;
+    background-color: var(--primary);
     color: white;
     border: none;
     box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3); 
 }
 
+html.dark .btn-primary { 
+    color: #000; 
+    box-shadow: 0 0 15px rgba(102, 252, 241, 0.4); 
+}
+
 .btn-primary:hover {
-    background-color: #1d4ed8; 
+    background-color: var(--primary-hover); 
     transform: translateY(-2px); 
 }
 
 /* Bouton Secondaire */
 .btn-secondary {
     background-color: transparent;
-    color: #1f2937;
-    border: 1px solid #d1d5db;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
 }
 
 .btn-secondary:hover {
-    background-color: #e5e7eb; 
+    background-color: var(--border-color); 
 }
 
 /* Conteneur du badge "Disponible" */
@@ -130,9 +164,9 @@ a {
     align-items: center;
     gap: 8px; 
     padding: 6px 12px;
-    background-color: #dbeafe; 
-    color: #2563eb; 
-    border: 1px solid #bfdbfe;
+    background-color: rgba(37, 99, 235, 0.1); 
+    color: var(--primary); 
+    border: 1px solid rgba(37, 99, 235, 0.2);
     border-radius: 9999px; 
     font-size: 0.85rem;
     font-weight: 600;
@@ -143,7 +177,7 @@ a {
 .status-dot {
     width: 8px;
     height: 8px;
-    background-color: #2563eb;
+    background-color: var(--primary);
     border-radius: 50%;
     animation: pulse 2s infinite;
 }
@@ -158,19 +192,19 @@ a {
 .typing-wrapper {
     font-family: monospace;
     font-size: 1.5rem;
-    color: #6b7280;
+    color: var(--text-muted);
     margin-bottom: 1.5rem;
     height: 1.5em;
 }
 
 .prompt {
-    color: #2563eb;
+    color: var(--primary);
     margin-right: 0.5rem;
 }
 
 .cursor {
     font-weight: bold;
-    color: #2563eb;
+    color: var(--primary);
     animation: blink 1s step-end infinite;
 }
 
@@ -189,7 +223,7 @@ a {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    color: #1f2937;
+    color: var(--text-main);
 }
 
 /* Outils Navigation */
@@ -197,7 +231,7 @@ a {
     display: flex;
     gap: 0.5rem;
     margin-left: 1rem;
-    border-left: 1px solid #e5e7eb;
+    border-left: 1px solid var(--border-color);
     padding-left: 1rem;
 }
 
@@ -206,12 +240,18 @@ a {
     border: none;
     cursor: pointer;
     font-size: 1rem;
-    color: #4b5563;
+    color: var(--text-muted);
     transition: color 0.2s;
 }
-.btn-tool:hover { color: #2563eb; }
+.btn-tool:hover { color: var(--primary); }
 
-.text-xs { font-size: 0.75rem; font-weight: bold; border: 1px solid #4b5563; border-radius: 4px; padding: 2px 4px; }
+.text-xs { 
+    font-size: 0.75rem; 
+    font-weight: bold; 
+    border: 1px solid var(--text-muted); 
+    border-radius: 4px; 
+    padding: 2px 4px; 
+}
 
 /* Canvas Fond */
 #interactive-bg {
@@ -233,16 +273,16 @@ a {
 }
 
 .video-placeholder {
-    background: #e5e7eb;
+    background: var(--bg-card);
     height: 200px;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #6b7280;
+    color: var(--text-muted);
     margin: 1.5rem 0;
-    border: 2px dashed #d1d5db;
+    border: 2px dashed var(--border-color);
 }
 
 .video-placeholder i { font-size: 2rem; margin-bottom: 0.5rem; }
@@ -256,18 +296,18 @@ a {
 }
 
 .skill-badge {
-    background: white;
-    border: 1px solid #e5e7eb;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
     padding: 0.4rem 0.8rem;
     border-radius: 50px;
     font-size: 0.85rem;
     font-weight: 600;
-    color: #1f2937;
+    color: var(--text-main);
 }
 
 /* Timeline */
 .timeline {
-    border-left: 2px solid #e5e7eb;
+    border-left: 2px solid var(--border-color);
     padding-left: 1.5rem;
     margin-top: 1rem;
 }
@@ -284,13 +324,13 @@ a {
     top: 0.4rem;
     width: 0.8rem;
     height: 0.8rem;
-    background: #2563eb;
+    background: var(--primary);
     border-radius: 50%;
 }
 
 .timeline-item h4 { margin: 0; font-size: 1.1rem; }
-.timeline-item .date { color: #2563eb; font-size: 0.9rem; font-family: monospace; }
-.timeline-item p { font-size: 1rem; margin-top: 0.5rem; color: #4b5563; }
+.timeline-item .date { color: var(--primary); font-size: 0.9rem; font-family: monospace; }
+.timeline-item p { font-size: 1rem; margin-top: 0.5rem; color: var(--text-muted); }
 
 /* Projets */
 .projects-grid {
@@ -301,24 +341,24 @@ a {
 }
 
 .project-card-placeholder {
-    background: white;
+    background: var(--bg-card);
     padding: 2rem;
     border-radius: 12px;
     text-align: center;
-    color: #6b7280;
-    border: 1px solid #e5e7eb;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
 }
 
 .center-btn { text-align: center; }
-.text-link { color: #2563eb; font-weight: 600; text-decoration: none; }
+.text-link { color: var(--primary); font-weight: 600; text-decoration: none; }
 
 .contact-section { text-align: center; padding-bottom: 4rem; }
 .contact-card {
-    background: white;
+    background: var(--bg-card);
     padding: 3rem;
     border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border-color);
 }
 
 .social-links {
@@ -329,13 +369,23 @@ a {
     font-size: 1.5rem;
 }
 
-.social-links a { color: #4b5563; transition: 0.2s; }
-.social-links a:hover { color: #2563eb; }
+.social-links a { color: var(--text-muted); transition: 0.2s; }
+.social-links a:hover { color: var(--primary); }
 
 footer {
     text-align: center;
     padding: 2rem;
-    color: #6b7280;
+    color: var(--text-muted);
     font-size: 0.9rem;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid var(--border-color);
 }
+
+/* Icônes Thème */
+#theme-toggle .fa-sun { display: none; }
+#theme-toggle .fa-moon { display: inline-block; }
+
+html.dark #theme-toggle .fa-sun { 
+    display: inline-block; 
+    color: var(--primary);
+}
+html.dark #theme-toggle .fa-moon { display: none; }

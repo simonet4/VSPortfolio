@@ -77,3 +77,38 @@ function type() {
 }
 
 document.addEventListener('DOMContentLoaded', type);
+
+// Thème Sombre / Clair
+
+const themeBtn = document.getElementById('theme-toggle');
+const htmlElement = document.documentElement; 
+
+function initTheme() {
+    // Sauvegarde dans le navigateur?
+    const savedTheme = localStorage.getItem('theme');
+    // Préférences système
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        htmlElement.classList.add('dark');
+    } else {
+        htmlElement.classList.remove('dark');
+    }
+}
+
+// Toggle thème
+function toggleTheme() {
+    // On inverse la classe .dark
+    htmlElement.classList.toggle('dark');
+    
+    // Sauvegarde le choix
+    if (htmlElement.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
+    }
+}
+if (themeBtn) {
+    themeBtn.addEventListener('click', toggleTheme);
+}
+
+initTheme();

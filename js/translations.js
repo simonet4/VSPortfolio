@@ -1,5 +1,5 @@
 // Traductions
-const translations = {
+translations = {
     fr: {
         btn: "FR",
         nav: {
