@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Victor Simonet | Portfolio</title>
     <link rel="icon" type="image/png" href="docs/Simonetoile.png">
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -20,13 +18,13 @@
             <a href="#home" class="nav-logo">VS<span>.</span></a>
             
             <div class="nav-links">
-                <a href="#about">À propos</a>
-                <a href="#projects">Projets</a>
-                <a href="#contact">Contact</a>
+                <a href="#about" data-i18n="nav.about">À propos</a>
+                <a href="#projects" data-i18n="nav.projects">Projets</a>
+                <a href="#contact" data-i18n="nav.contact">Contact</a>
             </div>
 
             <div class="nav-tools">
-                <button class="btn-tool text-xs">FR</button>
+                <button id="lang-btn" class="btn-tool text-xs">FR</button>
                 <button class="btn-tool"><i class="fas fa-moon"></i></button>
                 <button class="btn-tool"><i class="fas fa-wand-magic-sparkles"></i></button>
             </div>
@@ -37,46 +35,46 @@
         <section id="home">
             <div class="status-badge">
                 <span class="status-dot"></span>
-                Disponible
+                <span data-i18n="hero.status">Disponible</span>
             </div>
             
             <h1>Victor Simonet</h1>
         
             <div class="typing-wrapper">
                 <span class="prompt">></span> 
-                <span id="typing-text">Développeur Fullstack</span><span class="cursor">_</span>
+                <span id="typing-text"></span><span class="cursor">_</span>
             </div>
 
-            <p>
+            <p data-i18n="hero.desc">
                 Développement Fullstack, Administration Système & Ingénierie Embarquée.
             </p>
 
             <div class="cta-group">
                 <a href="#projects" class="btn btn-primary">
-                    <i class="fas fa-eye"></i> Voir mes projets
+                    <i class="fas fa-eye"></i> <span data-i18n="hero.cta">Voir mes projets</span>
                 </a>
                 
                 <a href="docs/CV_Victor_Simonet.pdf" target="_blank" class="btn btn-secondary">
-                    <i class="fas fa-file-arrow-down"></i> Télécharger CV
+                    <i class="fas fa-file-arrow-down"></i> <span data-i18n="hero.cv">Télécharger CV</span>
                 </a>
             </div>
         </section>
 
         <section id="about" class="section-padding">
-            <h2 class="section-title">01. À propos</h2>
+            <h2 class="section-title">01. <span data-i18n="about.title">À propos</span></h2>
             
             <div class="about-grid">
                 <div class="about-left">
-                    <p class="about-bio">
+                    <p class="about-bio" data-i18n="about.bio">
                         Passionné par l'architecture système et le développement web moderne. Mon objectif est de créer des outils robustes qui simplifient la vie des utilisateurs.
                     </p>
 
                     <div class="video-placeholder">
                         <i class="fas fa-play-circle"></i>
-                        <span>Présentation Vidéo</span>
+                        <span data-i18n="about.video_placeholder">Présentation Vidéo</span>
                     </div>
 
-                    <h3>Stack Technique</h3>
+                    <h3><span data-i18n="about.stack_title">Architecture Technique</span></h3>
                     <div class="skills-container">
                         <span class="skill-badge">Linux / Admin</span>
                         <span class="skill-badge">C / C++</span>
@@ -88,17 +86,17 @@
                 </div>
 
                 <div class="about-right">
-                    <h3>Parcours</h3>
+                    <h3><span data-i18n="about.timeline_title">Parcours</span></h3>
                     <div class="timeline">
                         <div class="timeline-item">
-                            <h4>BUT Informatique</h4>
-                            <span class="date">2024 - Présent</span>
-                            <p>Parcours administration, gestion et exploitation des données.</p>
+                            <h4 data-i18n="about.step1_title">BUT Informatique</h4>
+                            <span class="date" data-i18n="about.step1_date">2024 - Présent</span>
+                            <p data-i18n="about.step1_desc">Parcours administration, gestion et exploitation des données.</p>
                         </div>
                         <div class="timeline-item">
-                            <h4>Baccalauréat Technologique</h4>
+                            <h4 data-i18n="about.step2_title">Baccalauréat Technologique</h4>
                             <span class="date">2023</span>
-                            <p>Systèmes d'Information et Numérique.</p>
+                            <p data-i18n="about.step2_desc">Systèmes d'Information et Numérique.</p>
                         </div>
                     </div>
                 </div>
@@ -106,7 +104,7 @@
         </section>
 
         <section id="projects" class="section-padding">
-            <h2 class="section-title">02. Projets Sélectionnés</h2>
+            <h2 class="section-title">02. <span data-i18n="projects.title">Projets Sélectionnés</span></h2>
             
             <div id="github-projects" class="projects-grid">
                 <div class="project-card-placeholder">
@@ -115,17 +113,17 @@
             </div>
             
             <div class="center-btn">
-                <a href="https://github.com/simonet4" target="_blank" class="text-link">Voir tout sur GitHub -></a>
+                <a href="https://github.com/simonet4" target="_blank" class="text-link" data-i18n="projects.more">Voir tout sur GitHub -></a>
             </div>
         </section>
 
         <section id="contact" class="section-padding contact-section">
             <div class="contact-card">
-                <h2>Restons en contact</h2>
-                <p>Je suis actuellement ouvert aux opportunités.</p>
+                <h2 data-i18n="contact.title">Restons en contact</h2>
+                <p data-i18n="contact.text">Je suis actuellement ouvert aux opportunités.</p>
                 
                 <a href="mailto:contact@victorsimonet.me" class="btn btn-primary">
-                    <i class="fas fa-paper-plane"></i> Envoyer un Email
+                    <i class="fas fa-paper-plane"></i> <span data-i18n="contact.btn">Envoyer un Email</span>
                 </a>
 
                 <div class="social-links">
@@ -138,7 +136,7 @@
     </main>
 
     <footer>
-        <p>© 2025 - Conçu & Développé par Victor Simonet</p>
+        <p>© 2025 - <span data-i18n="footer.credit">Conçu & Développé par Victor Simonet</span></p>
     </footer>
 
     <script src="js/script.js"></script>

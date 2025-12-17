@@ -1,0 +1,27 @@
+# --- Fichiers Système ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Logs & Debug ---
+*.log
+npm-debug.log*
+
+# --- Editeurs de code ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Dépendances (Si jamais on utilise npm plus tard) ---
+node_modules/
+package-lock.json
+yarn.lock
+
+# --- Build (Si on compile des choses plus tard) ---
+dist/
+build/
+
+# --- Environnement (Clés API, secrets) ---
+.env
+.env.local
