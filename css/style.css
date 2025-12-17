@@ -245,6 +245,17 @@ html.dark .btn-primary {
 }
 .btn-tool:hover { color: var(--primary); }
 
+.btn-tool.active {
+    color: var(--primary);
+    transform: scale(1.1);
+    animation: rotate 0.5s ease-out;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 .text-xs { 
     font-size: 0.75rem; 
     font-weight: bold; 
