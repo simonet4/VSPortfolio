@@ -33,10 +33,24 @@
                 <button id="interaction-toggle" class="btn-tool" title="Mode Magique">
                     <i class="fas fa-wand-magic-sparkles"></i>
                 </button>
+                <button id="mobile-menu-btn" class="btn-tool mobile-only">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
     </nav>
-
+    <div id="mobile-menu">
+        <button id="close-menu-btn">
+            <i class="fas fa-times"></i>
+        </button>
+    
+        <nav class="mobile-nav-links">
+            <a href="#home">Accueil</a>
+            <a href="#about" data-i18n="nav.about">À propos</a>
+            <a href="#projects" data-i18n="nav.projects">Projets</a>
+            <a href="#contact" data-i18n="nav.contact">Contact</a>
+        </nav>
+    </div>  
     <main>
         <section id="home">
             <div class="status-badge">

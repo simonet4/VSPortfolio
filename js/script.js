@@ -41,7 +41,6 @@ if (langBtn) {
 // Typing Effect
 
 let words = translations['fr'].typing;
-
 let iWord = 0;
 let iLetter = 0;
 let writingspeed = 100;
@@ -111,4 +110,25 @@ if (themeBtn) {
     themeBtn.addEventListener('click', toggleTheme);
 }
 
+const menuBtn = document.getElementById('mobile-menu-btn');
+const closeBtn = document.getElementById('close-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : [];
+
+function toggleMenu() {
+    if (!mobileMenu) return;
+    mobileMenu.classList.toggle('active');
+    if (mobileMenu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = '';
+    }
+}
+
+if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
+if (closeBtn) closeBtn.addEventListener('click', toggleMenu);
+
+mobileLinks.forEach(link => {
+    link.addEventListener('click', toggleMenu);
+});
 initTheme();
