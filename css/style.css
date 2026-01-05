@@ -195,7 +195,7 @@ html.dark .btn-primary { color: #000; box-shadow: 0 0 15px rgba(102, 252, 241, 0
 
 .project-card {
     background-color: var(--bg-card); border: 1px solid var(--border-color);
-    border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; height: 80%;
+    border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; height: 100%;
     transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: var(--shadow);
 }
 .project-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
