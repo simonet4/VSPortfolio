@@ -23,7 +23,7 @@ This project focuses on performance (Vanilla JS), interactivity (HTML5 Canvas), 
 This project is built without heavy frameworks to ensure maximum loading speed.
 
 * **HTML5**: Semantic structure.
-* **CSS3**: CSS Variables (Custom Properties) for theming + Tailwind CSS (via CDN) for utilities.
+* **CSS3**: CSS Variables (Custom Properties) for theming and utilities.
 * **JavaScript (ES6+)**: Pure logic (Vanilla), no jQuery or npm dependencies.
 * **FontAwesome**: Vector icons.
 
