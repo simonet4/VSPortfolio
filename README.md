@@ -31,12 +31,13 @@ This project is built without heavy frameworks to ensure maximum loading speed.
 
 ```text
 .
-├── Docs/                # Documents (CV/Resume, Favicon)
-├── Styles/
-│   ├── style.css        # Global styles and Tailwind overrides
-│   ├── script.js        # Main logic (i18n, Github API, UI)
+├── docs/                # Documents (CV/Resume, Favicon)
+├── js/
 │   ├── background.js    # Particle physics engine (Canvas)
+│   ├── script.js        # Main logic (i18n, Github API, UI)
 │   └── translations.js  # Language dictionary (JSON Object)
+├── css/
+│   └── style.css        # Global styles
 ├── index.html           # Single entry point
 ├── LICENSE              # MIT License + Personal content exception
 └── README.md            # Documentation
