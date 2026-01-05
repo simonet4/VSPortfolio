@@ -81,46 +81,109 @@
         </section>
 
         <section id="about" class="section-padding">
-            <h2 class="section-title">01. <span data-i18n="about.title">À propos</span></h2>
-            
+    
             <div class="about-grid">
+                
                 <div class="about-left">
-                    <p class="about-bio" data-i18n="about.bio">
-                        Passionné par l'architecture système et le développement web moderne. Mon objectif est de créer des outils robustes qui simplifient la vie des utilisateurs.
+                    <h2 class="section-title">01. <span data-i18n="about.title">À propos</span></h2>
+                    
+                    <p class="bio-text" data-i18n="about.bio">
+                        Passionné par l'architecture système et le développement web moderne. 
+                        Mon objectif est de créer des outils robustes qui simplifient la vie des utilisateurs.
                     </p>
 
-                    <div class="video-placeholder">
-                        <i class="fas fa-play-circle"></i>
-                        <span data-i18n="about.video_placeholder">Présentation Vidéo</span>
+                    <div class="video-container">
+                        <div class="video-placeholder">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <span style="margin-top: 15px; font-weight: 600;">Présentation Vidéo</span>
+                            <span style="font-size: 0.8rem; opacity: 0.7; margin-top: 5px;">Cliquez pour lancer</span>
+                        </div>
                     </div>
 
-                    <h3><span data-i18n="about.stack_title">Architecture Technique</span></h3>
-                    <div class="skills-container">
-                        <span class="skill-badge">Linux / Admin</span>
-                        <span class="skill-badge">C / C++</span>
-                        <span class="skill-badge">Java</span>
-                        <span class="skill-badge">Oracle APEX</span>
-                        <span class="skill-badge">JS / HTML</span>
-                        <span class="skill-badge">Docker</span>
+                    <div class="bio-quote">
+                        <i class="fas fa-quote-left"></i>
+                        <span data-i18n="about.quote">Plus un ordinateur possède de RAM, plus vite il peut générer un message d'erreur.</span>
+                        <i class="fas fa-quote-right"></i>
+                        <div class="quote-author"><br>- Dave Barry</div>
                     </div>
                 </div>
 
                 <div class="about-right">
-                    <h3><span data-i18n="about.timeline_title">Parcours</span></h3>
+                    <h3 class="timeline-header">
+                        <i class="fas fa-history"></i> <span data-i18n="about.timeline_title">Parcours</span>
+                    </h3>
+                    
                     <div class="timeline">
                         <div class="timeline-item">
-                            <h4 data-i18n="about.step1_title">BUT Informatique</h4>
+                            <div class="timeline-dot"></div>
+                            <h4 data-i18n="about.step1_title">BUT Informatique (Paul Sabatier Toulouse)</h4>
                             <span class="date" data-i18n="about.step1_date">2024 - Présent</span>
                             <p data-i18n="about.step1_desc">Parcours administration, gestion et exploitation des données.</p>
                         </div>
+                        
                         <div class="timeline-item">
+                            <div class="timeline-dot"></div>
                             <h4 data-i18n="about.step2_title">Baccalauréat Technologique</h4>
                             <span class="date">2023</span>
                             <p data-i18n="about.step2_desc">Systèmes d'Information et Numérique.</p>
                         </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <h4 data-i18n="about.step3_title">Débuts en programmation</h4>
+                            <span class="date">2020</span>
+                            <p data-i18n="about.step3_desc">Apprentissage autodidacte C / Arduino et Web.</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div class="tech-section-wrapper">
+                <h3 class="arch-main-title">
+                    <i class="fas fa-cubes-stacked"></i> Architecture Technique
+                </h3>
+                
+                <div class="architecture-container">
+                    <div class="arch-block">
+                        <h3 class="arch-header text-cyan">SYSTÈMES & RÉSEAUX</h3>
+                        <div class="arch-badges">
+                            <div class="tech-btn"><i class="fab fa-linux"></i> Linux / Bash</div>
+                            <div class="tech-btn"><i class="fas fa-box-open"></i> VirtualBox</div>
+                            <div class="tech-btn"><i class="fas fa-microchip"></i> C / C++</div>
+                            <div class="tech-btn"><i class="fas fa-rocket"></i> ADA</div>
+                        </div>
+                    </div>
+                    <div class="arch-block">
+                        <h3 class="arch-header text-red">LOGICIEL & APP</h3>
+                        <div class="arch-badges">
+                            <div class="tech-btn"><i class="fab fa-java"></i> Java / JUnit</div>
+                            <div class="tech-btn"><i class="fab fa-python"></i> Python</div>
+                            <div class="tech-btn"><i class="fas fa-window-maximize"></i> WindowBuilder</div>
+                            <div class="tech-btn"><i class="fas fa-project-diagram"></i> Looping</div>
+                        </div>
+                    </div>
+                    <div class="arch-block">
+                        <h3 class="arch-header text-blue">WEB & DATA</h3>
+                        <div class="arch-badges">
+                            <div class="tech-btn"><i class="fas fa-database"></i> Oracle APEX</div>
+                            <div class="tech-btn"><i class="fas fa-server"></i> Oracle SQL / PLSQL</div>
+                            <div class="tech-btn"><i class="fab fa-php"></i> PHP / SQL</div>
+                            <div class="tech-btn"><i class="fab fa-js"></i> JS / HTML / CSS</div>
+                            <div class="tech-btn"><i class="fas fa-table"></i> Access</div>
+                        </div>
+                    </div>
+                    <div class="arch-block">
+                        <h3 class="arch-header text-purple">MÉTHODES & OUTILS</h3>
+                        <div class="arch-badges">
+                            <div class="tech-btn"><i class="fab fa-git-alt"></i> Git</div>
+                            <div class="tech-btn"><i class="fas fa-code"></i> Eclipse / VS Code</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <section id="projects" class="section-padding">
