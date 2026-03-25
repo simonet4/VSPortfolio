@@ -1,228 +1,309 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Victor Simonet | Portfolio</title>
+    <meta name="description" content="Victor Simonet — Développeur & Admin Système. BUT Informatique, IUT Paul Sabatier Toulouse. Projet Proximars (10★, CNES), infrastructure mail auto-hébergée. Disponible pour stage.">
+    <meta name="keywords" content="Victor Simonet, développeur, portfolio, fullstack, système, embarqué, BUT Informatique, Toulouse, stage">
+    <meta name="author" content="Victor Simonet">
+    <meta property="og:title" content="Victor Simonet — Portfolio Développeur">
+    <meta property="og:description" content="Développeur & Admin Système. Proximars (10★, CNES), mail server auto-hébergé, hackathon national. Disponible pour stage.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://victorsimonet.me">
+    <meta name="theme-color" content="#111827">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Victor Simonet",
+        "url": "https://victorsimonet.me",
+        "jobTitle": "Computer Science Student",
+        "email": "contact@victorsimonet.me",
+        "sameAs": [
+            "https://github.com/simonet4",
+            "https://www.linkedin.com/in/victorsimonet/"
+        ]
+    }
+    </script>
+
+    <title>Victor Simonet — Développeur & Admin Système</title>
     <link rel="icon" type="image/png" href="docs/Simonetoile.png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <noscript><style>body{opacity:1!important;}</style></noscript>
 </head>
 <body>
 
-    <canvas id="interactive-bg"></canvas>
+    <canvas id="interactive-bg" aria-hidden="true"></canvas>
 
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Navigation principale">
         <div class="nav-content">
-            <a href="#home" class="nav-logo">VS<span>.</span></a>
+            <a href="#home" class="nav-logo" aria-label="Accueil">VS<span>.</span></a>
             
-            <div class="nav-links">
-                <a href="#about" data-i18n="nav.about">À propos</a>
-                <a href="#projects" data-i18n="nav.projects">Projets</a>
-                <a href="#contact" data-i18n="nav.contact">Contact</a>
+            <div class="nav-links" role="menubar">
+                <a href="#about" role="menuitem" data-i18n="nav.about">À propos</a>
+                <a href="#projects" role="menuitem" data-i18n="nav.projects">Projets</a>
+                <a href="#contact" role="menuitem" data-i18n="nav.contact">Contact</a>
             </div>
 
             <div class="nav-tools">
-                <button id="lang-btn" class="btn-tool text-xs">FR</button>
-                <button id="theme-toggle" class="btn-tool" title="Changer de thème">
+                <button id="lang-btn" class="btn-tool text-xs" aria-label="Changer la langue">FR</button>
+                <button id="interaction-toggle" class="btn-tool" aria-label="Mode magique">
+                    <i class="fas fa-wand-magic-sparkles"></i>
+                </button>
+                <button id="theme-toggle" class="btn-tool" aria-label="Changer le thème">
                     <i class="fas fa-moon"></i> 
                     <i class="fas fa-sun"></i>  
                 </button>
-                
-                <button id="interaction-toggle" class="btn-tool" title="Mode Magique">
-                    <i class="fas fa-wand-magic-sparkles"></i>
-                </button>
-                <button id="mobile-menu-btn" class="btn-tool mobile-only">
+                <button id="mobile-menu-btn" class="btn-tool mobile-only" aria-label="Ouvrir le menu" aria-expanded="false">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
         </div>
     </nav>
-    <div id="mobile-menu">
-        <button id="close-menu-btn">
+
+    <div id="mobile-menu" role="dialog" aria-label="Menu mobile" aria-hidden="true">
+        <button id="close-menu-btn" aria-label="Fermer le menu">
             <i class="fas fa-times"></i>
         </button>
-    
         <nav class="mobile-nav-links">
             <a href="#home">Accueil</a>
             <a href="#about" data-i18n="nav.about">À propos</a>
             <a href="#projects" data-i18n="nav.projects">Projets</a>
             <a href="#contact" data-i18n="nav.contact">Contact</a>
         </nav>
-    </div>  
-    <main>
-        <section id="home">
-            <div class="status-badge">
-                <span class="status-dot"></span>
-                <span data-i18n="hero.status">Disponible</span>
+    </div>
+
+    <main id="main-content">
+
+        <section id="home" aria-label="Introduction">
+            <div class="hero-eyebrow">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span data-i18n="hero.status">Recherche de Stage — Disponible</span>
             </div>
             
             <h1>Victor Simonet</h1>
         
-            <div class="typing-wrapper">
-                <span class="prompt">></span> 
-                <span id="typing-text"></span><span class="cursor">_</span>
+            <div class="typing-wrapper" aria-live="polite">
+                <span class="prompt" aria-hidden="true">&gt;</span> 
+                <span id="typing-text"></span><span class="cursor" aria-hidden="true">_</span>
             </div>
 
-            <p data-i18n="hero.desc">
-                Développement Fullstack, Administration Système & Ingénierie Embarquée.
+            <p class="hero-desc" data-i18n="hero.desc">
+                Étudiant BUT Informatique à Toulouse. Je conçois et déploie des projets concrets : serre connectée avec le CNES, serveur mail en production, proxy FTP multi-client.
             </p>
+
+            <div class="hero-metrics" aria-label="Chiffres clés">
+                <div class="metric">
+                    <span class="metric-value">10★</span>
+                    <span class="metric-label" data-i18n="hero.m1">Proximars · CNES</span>
+                </div>
+                <div class="metric-sep" aria-hidden="true"></div>
+                <div class="metric">
+                    <span class="metric-value">6+</span>
+                    <span class="metric-label" data-i18n="hero.m2">Langages</span>
+                </div>
+            </div>
 
             <div class="cta-group">
                 <a href="#projects" class="btn btn-primary">
-                    <i class="fas fa-eye"></i> <span data-i18n="hero.cta">Voir mes projets</span>
+                    <i class="fas fa-code" aria-hidden="true"></i> <span data-i18n="hero.cta">Voir mes projets</span>
                 </a>
-                
-                <a href="docs/CV_Victor_Simonet.pdf" target="_blank" class="btn btn-secondary">
-                    <i class="fas fa-file-arrow-down"></i> <span data-i18n="hero.cv">Télécharger CV</span>
+                <a href="docs/CV_Victor_Simonet.pdf" target="_blank" class="btn btn-outline">
+                    <i class="fas fa-file-arrow-down" aria-hidden="true"></i> <span data-i18n="hero.cv">Télécharger CV</span>
+                </a>
+                <a href="docs/Lettre_Motivation_Victor_Simonet.pdf" target="_blank" class="btn btn-outline">
+                    <i class="fas fa-envelope-open-text" aria-hidden="true"></i> <span data-i18n="hero.letter">Télécharger lettre de motivation</span>
                 </a>
             </div>
         </section>
 
-        <section id="about" class="section-padding">
+        <section id="about" class="section-padding" aria-label="À propos">
+            <h2 class="section-label" data-i18n="about.label">À propos</h2>
     
-            <div class="about-grid">
-                
-                <div class="about-left">
-                    <h2 class="section-title">01. <span data-i18n="about.title">À propos</span></h2>
-                    
-                    <p class="bio-text" data-i18n="about.bio">
-                        Passionné par l'architecture système et le développement web moderne. 
-                        Mon objectif est de créer des outils robustes qui simplifient la vie des utilisateurs.
+            <div class="about-intro">
+                <div class="about-text reveal">
+                    <p class="bio-lead" data-i18n="about.bio">
+                        Étudiant en 2ème année de BUT Informatique (IUT Paul Sabatier, Toulouse), parcours AGED. Participation au projet Proximars (10 GitHub, partenariat CNES), hackathon Nuit de l'Informatique, infrastructure mail auto-hébergée en production. Autodidacte depuis 2020, je cherche un stage où je peux apporter une vraie contribution technique.
                     </p>
-
-                    <div class="video-container">
-                        <div class="video-placeholder">
-                            <div class="play-button">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <span style="margin-top: 15px; font-weight: 600;">Présentation Vidéo</span>
-                            <span style="font-size: 0.8rem; opacity: 0.7; margin-top: 5px;">Cliquez pour lancer</span>
-                        </div>
-                    </div>
-
-                    <div class="bio-quote">
-                        <i class="fas fa-quote-left"></i>
-                        <span data-i18n="about.quote">Plus un ordinateur possède de RAM, plus vite il peut générer un message d'erreur.</span>
-                        <i class="fas fa-quote-right"></i>
-                        <div class="quote-author"><br>- Dave Barry</div>
-                    </div>
                 </div>
 
-                <div class="about-right">
-                    <h3 class="timeline-header">
-                        <i class="fas fa-history"></i> <span data-i18n="about.timeline_title">Parcours</span>
-                    </h3>
-                    
+                <!-- <div class="about-video reveal">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/ktuTW-eHiIU" 
+                            title="Présentation vidéo" 
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen
+                            loading="lazy"></iframe>
+                    </div>
+                </div> -->
+            </div>
+
+            <div class="about-timeline-wrapper">
+                <div class="about-timeline reveal">
                     <div class="timeline">
                         <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <h4 data-i18n="about.step1_title">BUT Informatique (Paul Sabatier Toulouse)</h4>
-                            <span class="date" data-i18n="about.step1_date">2024 - Présent</span>
-                            <p data-i18n="about.step1_desc">Parcours administration, gestion et exploitation des données.</p>
+                            <div class="timeline-marker current" aria-hidden="true"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date" data-i18n="about.step1_date">2024 — Présent</span>
+                                <h3 data-i18n="about.step1_title">BUT Informatique — Paul Sabatier Toulouse</h3>
+                                <p data-i18n="about.step1_desc">Parcours AGED (administration, gestion et exploitation des données).</p>
+                            </div>
                         </div>
-                        
                         <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <h4 data-i18n="about.step2_title">Baccalauréat Technologique</h4>
-                            <span class="date">2023</span>
-                            <p data-i18n="about.step2_desc">Systèmes d'Information et Numérique.</p>
+                            <div class="timeline-marker" aria-hidden="true"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date">2023</span>
+                                <h3 data-i18n="about.step2_title">Baccalauréat Technologique STI2D</h3>
+                                <p data-i18n="about.step2_desc">Spécialité SIN (Systèmes d'Information et Numérique). Mention Bien.</p>
+                            </div>
                         </div>
-                        
                         <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <h4 data-i18n="about.step3_title">Débuts en programmation</h4>
-                            <span class="date">2020</span>
-                            <p data-i18n="about.step3_desc">Apprentissage autodidacte C / Arduino et Web.</p>
+                            <div class="timeline-marker" aria-hidden="true"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date">2020</span>
+                                <h3 data-i18n="about.step3_title">Débuts en programmation</h3>
+                                <p data-i18n="about.step3_desc">Apprentissage autodidacte : C, Arduino, développement Web.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="tech-section-wrapper">
-                <h3 class="arch-main-title">
-                    <i class="fas fa-cubes-stacked"></i> Architecture Technique
-                </h3>
-                
-                <div class="architecture-container">
-                    <div class="arch-block">
-                        <h3 class="arch-header text-cyan">SYSTÈMES & RÉSEAUX</h3>
-                        <div class="arch-badges">
-                            <div class="tech-btn"><i class="fab fa-linux"></i> Linux / Bash</div>
-                            <div class="tech-btn"><i class="fas fa-box-open"></i> VirtualBox</div>
-                            <div class="tech-btn"><i class="fas fa-microchip"></i> C / C++</div>
-                            <div class="tech-btn"><i class="fas fa-rocket"></i> ADA</div>
-                        </div>
-                    </div>
-                    <div class="arch-block">
-                        <h3 class="arch-header text-red">LOGICIEL & APP</h3>
-                        <div class="arch-badges">
-                            <div class="tech-btn"><i class="fab fa-java"></i> Java / JUnit</div>
-                            <div class="tech-btn"><i class="fab fa-python"></i> Python</div>
-                            <div class="tech-btn"><i class="fas fa-window-maximize"></i> WindowBuilder</div>
-                            <div class="tech-btn"><i class="fas fa-project-diagram"></i> Looping</div>
-                        </div>
-                    </div>
-                    <div class="arch-block">
-                        <h3 class="arch-header text-blue">WEB & DATA</h3>
-                        <div class="arch-badges">
-                            <div class="tech-btn"><i class="fas fa-database"></i> Oracle APEX</div>
-                            <div class="tech-btn"><i class="fas fa-server"></i> Oracle SQL / PLSQL</div>
-                            <div class="tech-btn"><i class="fab fa-php"></i> PHP / SQL</div>
-                            <div class="tech-btn"><i class="fab fa-js"></i> JS / HTML / CSS</div>
-                            <div class="tech-btn"><i class="fas fa-table"></i> Access</div>
-                        </div>
-                    </div>
-                    <div class="arch-block">
-                        <h3 class="arch-header text-purple">MÉTHODES & OUTILS</h3>
-                        <div class="arch-badges">
-                            <div class="tech-btn"><i class="fab fa-git-alt"></i> Git</div>
-                            <div class="tech-btn"><i class="fas fa-code"></i> Eclipse / VS Code</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </section>
 
-        <section id="projects" class="section-padding">
-            <h2 class="section-title">02. <span data-i18n="projects.title">Projets Sélectionnés</span></h2>
-            
+        <section id="experiences" class="section-padding" aria-label="Réalisations">
+            <h2 class="section-label" data-i18n="experiences.title">Parcours & Réalisations</h2>
+            <p class="section-intro" id="experiences-subtitle" data-i18n="experiences.subtitle">Projets académiques, compétitions et initiatives personnelles.</p>
+            <div id="experiences-grid" class="experiences-grid"></div>
+
+            <div class="tech-stack reveal">
+                <h3 class="subsection-title">
+                    <i class="fas fa-layer-group" aria-hidden="true"></i>
+                    <span data-i18n="about.stack_title">Stack technique</span>
+                </h3>
+                <div class="stack-grid">
+                    <div class="stack-group">
+                        <span class="stack-label">Systèmes & Réseaux</span>
+                        <div class="stack-tags">
+                            <span class="tag">Linux</span>
+                            <span class="tag">Bash</span>
+                            <span class="tag">C / C++</span>
+                            <span class="tag">Docker</span>
+                        </div>
+                    </div>
+                    <div class="stack-group">
+                        <span class="stack-label">Logiciel</span>
+                        <div class="stack-tags">
+                            <span class="tag">Java</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">JUnit</span>
+                            <span class="tag">ADA</span>
+                        </div>
+                    </div>
+                    <div class="stack-group">
+                        <span class="stack-label">Web & Data</span>
+                        <div class="stack-tags">
+                            <span class="tag">PHP / SQL</span>
+                            <span class="tag">Oracle APEX</span>
+                            <span class="tag">PLSQL</span>
+                            <span class="tag">JS / HTML / CSS</span>
+                        </div>
+                    </div>
+                    <div class="stack-group">
+                        <span class="stack-label">Outils</span>
+                        <div class="stack-tags">
+                            <span class="tag">Git</span>
+                            <span class="tag">VS Code</span>
+                            <span class="tag">Agile / Scrum</span>
+                            <span class="tag">CI/CD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="current-projects" class="section-padding" aria-label="Projets en cours">
+            <h2 class="section-label" data-i18n="current.title">Projets en cours</h2>
+            <p class="section-intro" data-i18n="current.subtitle">Ce sur quoi je travaille actuellement.</p>
+            <div class="current-projects-grid">
+                <article class="current-card reveal">
+                    <div class="current-card-icon">
+                        <i class="fa-solid fa-envelope-circle-check"></i>
+                    </div>
+                    <div class="current-card-body">
+                        <div class="current-card-header">
+                            <h3 data-i18n="current.mail_title">Serveur Mail Auto-Hébergé</h3>
+                            <span class="current-status status-prod">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span data-i18n="current.mail_status">En production</span>
+                            </span>
+                        </div>
+                        <p data-i18n="current.mail_desc">Infrastructure mail complète, containerisée avec Docker : Postfix, Dovecot, SPF/DKIM/DMARC, Let's Encrypt. Webmail Roundcube. Domaine victorsimonet.me.</p>
+                        <div class="current-tags">
+                            <span class="tag">Docker</span>
+                            <span class="tag">Postfix</span>
+                            <span class="tag">Dovecot</span>
+                            <span class="tag">Linux</span>
+                            <span class="tag">DNS</span>
+                            <span class="tag">SSL/TLS</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="current-card reveal">
+                    <div class="current-card-icon">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+                    <div class="current-card-body">
+                        <div class="current-card-header">
+                            <h3 data-i18n="current.vicrasti_title">Vicrasti</h3>
+                            <span class="current-status status-dev">
+                                <i class="fa-solid fa-code"></i>
+                                <span data-i18n="current.vicrasti_status">En développement</span>
+                            </span>
+                        </div>
+                        <p data-i18n="current.vicrasti_desc">Application Android développée en JavaScript. Interface intuitive, catégories, priorités et suivi de progression.</p>
+                        <div class="current-tags">
+                            <span class="tag">Android</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">UI/UX</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="projects" class="section-padding" aria-label="Projets">
+            <h2 class="section-label" data-i18n="projects.title">Projets GitHub</h2>
+            <div id="github-stats" class="github-stats-bar" aria-label="Statistiques GitHub"></div>
             <div id="github-projects" class="projects-grid">
                 <div class="project-card-placeholder">
-                    Chargement des projets... veuillez rafraîchir la page et verifier votre connexion internet si cela prend trop de temps.
+                    <div class="spinner" aria-label="Chargement"></div>
+                    <span>Chargement des projets</span>
                 </div>
             </div>
-            
-            <div class="center-btn">
-                <a href="https://github.com/simonet4" target="_blank" class="text-link" data-i18n="projects.more">Voir tout sur GitHub -></a>
+            <div class="center-link">
+                <a href="https://github.com/simonet4" target="_blank" rel="noopener noreferrer" class="text-link" data-i18n="projects.more">
+                    Voir tous les dépôts sur GitHub <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </a>
             </div>
         </section>
 
-        <section id="contact" class="section-padding contact-section">
-            <div class="contact-card">
-                <h2 data-i18n="contact.title">Restons en contact</h2>
-                <p data-i18n="contact.text">Je suis actuellement ouvert aux opportunités.</p>
-                
+        <section id="contact" class="section-padding" aria-label="Contact">
+            <div class="contact-card reveal">
+                <h2 data-i18n="contact.title">Discutons</h2>
+                <p data-i18n="contact.text">En recherche de stage, disponible immédiatement. Contactez-moi pour échanger sur vos besoins techniques.</p>
                 <a href="mailto:contact@victorsimonet.me" class="btn btn-primary">
-                    <i class="fas fa-paper-plane"></i> <span data-i18n="contact.btn">Envoyer un Email</span>
+                    <i class="fas fa-paper-plane" aria-hidden="true"></i> <span data-i18n="contact.btn">Envoyer un email</span>
                 </a>
-
-                <div class="social-links">
-                    <a href="https://github.com/simonet4" target="_blank" title="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/victorsimonet/" target="_blank" title="LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="mailto:victorcaue@hotmail.fr" title="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-
-                    <a href="https://discord.com/users/439480515423109121" target="_blank" title="Discord">
-                        <i class="fab fa-discord"></i>
-                    </a>
+                <div class="social-links" aria-label="Réseaux sociaux">
+                    <a href="https://github.com/simonet4" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+                    <a href="https://www.linkedin.com/in/victorsimonet/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                    <a href="mailto:contact@victorsimonet.me" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
                 </div>
             </div>
         </section>
@@ -230,11 +311,28 @@
     </main>
 
     <footer>
-        <p>© 2025 - <span data-i18n="footer.credit">Conçu & Développé par Victor Simonet</span></p>
+        <p> <span id="current-year">2025</span> — <span data-i18n="footer.credit">Conçu & développé par Victor Simonet</span></p>
     </footer>
+
     <script src="js/translations.js"></script>
     <script src="js/script.js"></script>
-    <script src="js/background.js"></script>
-
+    <script>
+        // Defer background animation — load after content is interactive
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(function() {
+                var s = document.createElement('script');
+                s.src = 'js/background.js';
+                document.body.appendChild(s);
+            });
+        } else {
+            window.addEventListener('load', function() {
+                setTimeout(function() {
+                    var s = document.createElement('script');
+                    s.src = 'js/background.js';
+                    document.body.appendChild(s);
+                }, 100);
+            });
+        }
+    </script>
 </body>
 </html>
