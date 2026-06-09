@@ -11,8 +11,8 @@ translations = {
             contact: "Contact"
         },
         hero: {
-            status: "Recherche de Stage — Disponible",
-            desc: "Étudiant BUT Informatique à Toulouse. Je participe et déploie des projets concrets : serre connectée avec le CNES, serveur mail en production, proxy FTP multi-client.",
+            status: "En recherche de stage · dispo maintenant",
+            desc: "Étudiant en BUT Informatique à Toulouse. Ce qui me fait vibrer, c'est de faire tourner des trucs pour de vrai : une serre connectée poussée jusqu'au CNES, mon propre serveur mail que j'héberge depuis des mois, un proxy FTP écrit en C. Dès que ça touche au système et au réseau, je suis preneur.",
             cta: "Voir mes projets",
             cv: "Télécharger CV",
             m1: "Proximars · CNES",
@@ -20,7 +20,7 @@ translations = {
         },
         about: {
             label: "À propos",
-            bio: "Étudiant en 2ème année de BUT Informatique (IUT Paul Sabatier, Toulouse), parcours AGED. Participation au projet Proximars (10★ GitHub, partenariat CNES), hackathon Nuit de l'Informatique, serveur mail auto-hébergé en production sur victorsimonet.me. Autodidacte depuis 2020, je cherche un stage où je peux apporter une vraie contribution technique.",
+            bio: "Je suis en 2ème année de BUT Informatique à l'IUT Paul Sabatier (Toulouse), parcours AGED. J'ai commencé à coder tout seul en 2020, par curiosité, et je n'ai jamais vraiment arrêté depuis. Entre la serre connectée Proximars qu'on a menée jusqu'au CNES (10★ sur GitHub), une nuit blanche au hackathon Nuit de l'Informatique et le serveur mail que je gère moi-même en production sur victorsimonet.com, ce qui me motive c'est de bricoler des choses qui marchent vraiment. Je cherche un stage où mettre les mains dans le cambouis et apprendre au sein d'une équipe.",
             stack_title: "Stack technique",
             step1_date: "2024 — Présent",
             step1_title: "BUT Informatique — Paul Sabatier, Toulouse",
@@ -58,7 +58,7 @@ translations = {
                     challenge: "Déployer une infrastructure mail complète et fonctionnelle sur un serveur Linux personnel, avec un domaine personnalisé, une sécurité conforme aux standards (SPF, DKIM, DMARC) et un webmail accessible.",
                     approach: "Installation et configuration de Postfix (MTA) et Dovecot (IMAP) sur Debian. Configuration DNS complète : enregistrements MX, SPF, DKIM et DMARC. Certificats Let's Encrypt pour le chiffrement TLS. Déploiement de Roundcube comme webmail avec filtres Sieve.",
                     results: [
-                        "Serveur en production sur victorsimonet.me",
+                        "Serveur en production sur victorsimonet.com",
                         "Score 10/10 sur mail-tester.com",
                         "Certificats SSL/TLS auto-renouvelés",
                         "Webmail Roundcube fonctionnel"
@@ -86,7 +86,7 @@ translations = {
         },
         experiences: {
             title: "Parcours & Réalisations",
-            subtitle: "Projets académiques, compétitions et initiatives personnelles.",
+            subtitle: "Mes projets de cours, mes compètes et ce que je bricole de mon côté.",
             items: [
                 {
                     icon: "fa-solid fa-network-wired",
@@ -140,31 +140,32 @@ translations = {
             updated: "Mis à jour le",
             demo: "Démo",
             loading: "Chargement des projets",
+            featured: "Coup de cœur",
             manual: []
         },
         current: {
             title: "Projets en cours",
-            subtitle: "Ce sur quoi je travaille actuellement.",
+            subtitle: "Ce qui m'occupe en ce moment.",
             mail_title: "Serveur Mail Auto-Hébergé",
             mail_status: "En production",
-            mail_desc: "Infrastructure mail complète, containerisée avec Docker : Postfix, Dovecot, SPF/DKIM/DMARC, Let's Encrypt. Webmail Roundcube. Domaine victorsimonet.me.",
+            mail_desc: "Infrastructure mail complète, containerisée avec Docker : Postfix, Dovecot, SPF/DKIM/DMARC, Let's Encrypt. Webmail Roundcube. Domaine victorsimonet.com.",
             vicrasti_title: "Vicrasti",
             vicrasti_status: "En développement",
             vicrasti_desc: "Application Android développée en JavaScript. Interface intuitive, catégories, priorités et suivi de progression."
         },
         contact: {
-            title: "Discutons",
-            text: "En recherche de stage, disponible immédiatement. Contactez-moi pour échanger sur vos besoins techniques.",
+            title: "On échange ?",
+            text: "Je cherche un stage et je suis dispo tout de suite. Une question, une idée de projet ou juste l'envie de parler tech ? Écrivez-moi, je réponds vite.",
             btn: "Envoyer un email"
         },
         footer: {
-            credit: "Conçu & développé par Victor Simonet"
+            credit: "Codé à la main par"
         },
         typing: [
-            "Développeur & Admin Système",
-            "Participant au projet Proximars (10★ · CNES)",
-            "Self-Hosting & Infrastructure",
-            "En recherche de Stage"
+            "Je code, j'héberge, j'administre",
+            "Contributeur sur Proximars (10★ · CNES)",
+            "Accro au self-hosting",
+            "En recherche d'un stage"
         ]
     },
     en: {
@@ -176,8 +177,8 @@ translations = {
             contact: "Contact"
         },
         hero: {
-            status: "Looking for Internship — Available",
-            desc: "CS student in Toulouse. I participate in and deploy real-world projects: a connected greenhouse with CNES, a production mail server, a multi-client FTP proxy.",
+            status: "Looking for an internship · available now",
+            desc: "CS student in Toulouse. What gets me going is building things that actually run: a connected greenhouse we took all the way to CNES, my own mail server I've been self-hosting for months, an FTP proxy written in C. If it touches systems and networks, I'm in.",
             cta: "View Projects",
             cv: "Download Resume",
             m1: "Proximars · CNES",
@@ -185,7 +186,7 @@ translations = {
         },
         about: {
             label: "About",
-            bio: "2nd-year Computer Science student at IUT Paul Sabatier (Toulouse), data administration track. Participated in the Proximars project (10★ on GitHub, CNES partnership), Nuit de l'Informatique hackathon, self-hosted mail server in production on victorsimonet.me. Self-taught since 2020, looking for an internship where I can bring real technical value.",
+            bio: "I'm a 2nd-year Computer Science student at IUT Paul Sabatier (Toulouse), data administration track. I started coding on my own back in 2020, out of curiosity, and never really stopped. Between the Proximars greenhouse we took all the way to CNES (10★ on GitHub), an all-nighter at the Nuit de l'Informatique hackathon, and the mail server I run myself in production on victorsimonet.com, what drives me is tinkering with things that genuinely work. I'm looking for an internship where I can get my hands dirty and learn alongside a team.",
             stack_title: "Tech Stack",
             step1_date: "2024 — Present",
             step1_title: "Computer Science Degree — Paul Sabatier, Toulouse",
@@ -223,7 +224,7 @@ translations = {
                     challenge: "Deploy a complete, functional mail infrastructure on a personal Linux server, with a custom domain, security compliant with standards (SPF, DKIM, DMARC) and an accessible webmail.",
                     approach: "Installed and configured Postfix (MTA) and Dovecot (IMAP) on Debian. Complete DNS setup: MX, SPF, DKIM and DMARC records. Let's Encrypt certificates for TLS encryption. Deployed Roundcube as webmail with Sieve filters.",
                     results: [
-                        "Server in production on victorsimonet.me",
+                        "Server in production on victorsimonet.com",
                         "10/10 score on mail-tester.com",
                         "Auto-renewed SSL/TLS certificates",
                         "Functional Roundcube webmail"
@@ -251,7 +252,7 @@ translations = {
         },
         experiences: {
             title: "Background & Achievements",
-            subtitle: "Academic projects, competitions and personal initiatives.",
+            subtitle: "My coursework projects, competitions, and the things I tinker with on my own.",
             items: [
                 {
                     icon: "fa-solid fa-network-wired",
@@ -305,31 +306,32 @@ translations = {
             updated: "Updated on",
             demo: "Demo",
             loading: "Loading projects",
+            featured: "Favorite",
             manual: []
         },
         current: {
             title: "Current Projects",
-            subtitle: "What I'm currently working on.",
+            subtitle: "What's keeping me busy right now.",
             mail_title: "Self-Hosted Mail Server",
             mail_status: "In production",
-            mail_desc: "Full mail infrastructure, containerized with Docker: Postfix, Dovecot, SPF/DKIM/DMARC, Let's Encrypt. Roundcube webmail. Custom domain victorsimonet.me.",
+            mail_desc: "Full mail infrastructure, containerized with Docker: Postfix, Dovecot, SPF/DKIM/DMARC, Let's Encrypt. Roundcube webmail. Custom domain victorsimonet.com.",
             vicrasti_title: "Vicrasti",
             vicrasti_status: "In development",
             vicrasti_desc: "Android application written in JavaScript. Intuitive interface, categories, priorities and progress tracking."
         },
         contact: {
-            title: "Let's Talk",
-            text: "Looking for an internship, available immediately. Get in touch to discuss your technical needs.",
+            title: "Let's chat",
+            text: "I'm after an internship and available right away. Got a question, a project idea, or just feel like talking tech? Drop me a line, I reply fast.",
             btn: "Send an Email"
         },
         footer: {
-            credit: "Designed & built by Victor Simonet"
+            credit: "Hand-coded by"
         },
         typing: [
-            "Developer & SysAdmin",
-            "Proximars Contributor (10★ · CNES)",
-            "Self-Hosting & Infrastructure",
-            "Looking for an Internship"
+            "I code, I self-host, I administer",
+            "Proximars contributor (10★ · CNES)",
+            "Hooked on self-hosting",
+            "Looking for an internship"
         ]
     },
     pt: {
@@ -341,8 +343,8 @@ translations = {
             contact: "Contato"
         },
         hero: {
-            status: "Buscando Estágio — Disponível",
-            desc: "Estudante de Informática em Toulouse. Participo e implanto projetos reais: estufa conectada com o CNES, servidor de email em produção, proxy FTP multi-cliente.",
+            status: "Buscando estágio · disponível agora",
+            desc: "Estudante de Informática em Toulouse. O que me empolga é fazer as coisas funcionarem de verdade: uma estufa conectada que levamos até o CNES, meu próprio servidor de email que hospedo há meses, um proxy FTP escrito em C. Se envolve sistemas e redes, eu topo.",
             cta: "Ver projetos",
             cv: "Baixar Currículo",
             m1: "Proximars · CNES",
@@ -350,7 +352,7 @@ translations = {
         },
         about: {
             label: "Sobre",
-            bio: "Estudante de 2º ano de Informática (IUT Paul Sabatier, Toulouse), especialização AGED. Participação no projeto Proximars (10★ GitHub, parceria CNES), hackathon Nuit de l'Informatique, servidor de email auto-hospedado em produção em victorsimonet.me. Autodidata desde 2020, busco um estágio com impacto técnico real.",
+            bio: "Sou estudante do 2º ano de Informática no IUT Paul Sabatier (Toulouse), especialização AGED. Comecei a programar sozinho em 2020, por curiosidade, e nunca mais parei de verdade. Entre a estufa conectada Proximars que levamos até o CNES (10★ no GitHub), uma noite em claro no hackathon Nuit de l'Informatique e o servidor de email que eu mesmo mantenho em produção em victorsimonet.com, o que me motiva é mexer em coisas que funcionam de verdade. Busco um estágio onde possa colocar a mão na massa e aprender junto a uma equipe.",
             stack_title: "Stack Técnica",
             step1_date: "2024 — Presente",
             step1_title: "Graduação em Informática — Paul Sabatier, Toulouse",
@@ -388,7 +390,7 @@ translations = {
                     challenge: "Implantar uma infraestrutura de email completa e funcional em um servidor Linux pessoal, com domínio personalizado, segurança conforme padrões (SPF, DKIM, DMARC) e webmail acessível.",
                     approach: "Instalação e configuração de Postfix (MTA) e Dovecot (IMAP) em Debian. Configuração DNS completa: registros MX, SPF, DKIM e DMARC. Certificados Let's Encrypt para criptografia TLS. Implantação do Roundcube como webmail com filtros Sieve.",
                     results: [
-                        "Servidor em produção em victorsimonet.me",
+                        "Servidor em produção em victorsimonet.com",
                         "Nota 10/10 no mail-tester.com",
                         "Certificados SSL/TLS auto-renovados",
                         "Webmail Roundcube funcional"
@@ -416,7 +418,7 @@ translations = {
         },
         experiences: {
             title: "Trajetória & Realizações",
-            subtitle: "Projetos acadêmicos, competições e iniciativas pessoais.",
+            subtitle: "Meus projetos de curso, competições e o que eu mexo por conta própria.",
             items: [
                 {
                     icon: "fa-solid fa-network-wired",
@@ -470,31 +472,32 @@ translations = {
             updated: "Atualizado em",
             demo: "Demo",
             loading: "Carregando projetos",
+            featured: "Favorito",
             manual: []
         },
         current: {
             title: "Projetos em Andamento",
-            subtitle: "No que estou trabalhando atualmente.",
+            subtitle: "No que estou mexendo agora.",
             mail_title: "Servidor de Email Auto-Hospedado",
             mail_status: "Em produção",
-            mail_desc: "Infraestrutura de email completa, conteinerizada com Docker: Postfix, Dovecot, SPF/DKIM/DMARC, Let's Encrypt. Webmail Roundcube. Domínio victorsimonet.me.",
+            mail_desc: "Infraestrutura de email completa, conteinerizada com Docker: Postfix, Dovecot, SPF/DKIM/DMARC, Let's Encrypt. Webmail Roundcube. Domínio victorsimonet.com.",
             vicrasti_title: "Vicrasti",
             vicrasti_status: "Em desenvolvimento",
             vicrasti_desc: "Aplicativo Android desenvolvido em JavaScript. Interface intuitiva, categorias, prioridades e acompanhamento de progresso."
         },
         contact: {
-            title: "Vamos Conversar",
-            text: "Buscando estágio, disponível imediatamente. Entre em contato para discutir suas necessidades técnicas.",
+            title: "Vamos conversar?",
+            text: "Estou buscando estágio e disponível desde já. Uma dúvida, uma ideia de projeto ou só vontade de falar sobre tech? Me escreve, respondo rápido.",
             btn: "Enviar Email"
         },
         footer: {
-            credit: "Projetado e desenvolvido por Victor Simonet"
+            credit: "Feito à mão por"
         },
         typing: [
-            "Desenvolvedor & SysAdmin",
-            "Participante do Proximars (10★ · CNES)",
-            "Self-Hosting & Infraestrutura",
-            "Buscando Estágio"
+            "Eu programo, hospedo e administro",
+            "Colaborador do Proximars (10★ · CNES)",
+            "Viciado em self-hosting",
+            "Buscando estágio"
         ]
     }
 };

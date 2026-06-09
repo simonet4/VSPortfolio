@@ -12,9 +12,9 @@
     --bg-card: #ffffff;
     --text: #1a1a2e;
     --text-secondary: #5a6477;
-    --accent: #323b4b;
-    --accent-hover: #252d3a;
-    --accent-subtle: rgba(50, 59, 75, 0.06);
+    --accent: #3a3f73;
+    --accent-hover: #2d3159;
+    --accent-subtle: rgba(58, 63, 115, 0.07);
     --border: #d5dce6;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
     --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
@@ -32,9 +32,9 @@ html.dark {
     --bg-card: #1a2030;
     --text: #f1f5f9;
     --text-secondary: #94a3b8;
-    --accent: #94a3b8;
-    --accent-hover: #b8c5d4;
-    --accent-subtle: rgba(148, 163, 184, 0.08);
+    --accent: #9aa6e0;
+    --accent-hover: #b6c0f0;
+    --accent-subtle: rgba(154, 166, 224, 0.12);
     --border: #2a3444;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
     --shadow-md: 0 4px 12px rgba(0,0,0,0.35);
@@ -309,13 +309,13 @@ html.dark .status-dot { background: #4ade80; }
 }
 .btn-primary {
     background: var(--accent); color: #fff;
-    box-shadow: 0 2px 8px rgba(50, 59, 75, 0.2);
+    box-shadow: 0 2px 8px rgba(58, 63, 115, 0.22);
 }
 html.dark .btn-primary { color: #0f1219; }
 .btn-primary:hover {
     background: var(--accent-hover);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(50, 59, 75, 0.25);
+    box-shadow: 0 4px 12px rgba(58, 63, 115, 0.28);
 }
 .btn-outline {
     background: transparent; color: var(--text);
@@ -862,6 +862,15 @@ footer {
 footer p {
     font-size: 0.8rem; color: var(--text-secondary);
     text-align: center;
+    display: inline-flex; align-items: baseline; gap: 0.4rem;
+    flex-wrap: wrap; justify-content: center;
+}
+.signature {
+    font-family: 'Caveat', cursive;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
 }
 
 /* =========================================

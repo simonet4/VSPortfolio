@@ -229,12 +229,28 @@ async function fetchProjects() {
                 ? `<div class="project-topics">${topics.map(t => `<span class="project-topic">${t}</span>`).join('')}</div>`
                 : '';
 
-            const demoLink = repo.homepage || '#';
-            const demoBtn = `<a href="${demoLink}" target="_blank" rel="noopener" class="btn btn-outline btn-sm"><i class="fas fa-external-link-alt"></i> ${t.demo}</a>`;
+            // Détection du lien de démo dans le README si homepage absent
+            let demoLink = repo.homepage && repo.homepage.trim() !== '' ? repo.homepage : null;
+            if (!demoLink) {
+                try {
+                    const readmeRes = await fetch(`https://api.github.com/repos/${githubUsername}/${repo.name}/readme`, {
+                        headers: { 'Accept': 'application/vnd.github.v3.raw' }
+                    });
+                    if (readmeRes.ok) {
+                        const readmeText = await readmeRes.text();
+                        // Cherche une ligne du type demo: https://...
+                        const demoMatch = readmeText.match(/^demo\s*:\s*(https?:\/\/\S+)/im);
+                        if (demoMatch) {
+                            demoLink = demoMatch[1];
+                        }
+                    }
+                } catch (e) {}
+            }
+            const demoBtn = demoLink ? `<a href="${demoLink}" target="_blank" rel="noopener" class="btn btn-outline btn-sm"><i class="fas fa-external-link-alt"></i> ${t.demo}</a>` : '';
 
             projectsContainer.innerHTML += `
                 <article class="project-card reveal${isFeatured ? ' featured' : ''}" style="position: relative;">
-                    ${isFeatured ? '<span class="featured-badge"> Featured</span>' : ''}
+                    ${isFeatured ? `<span class="featured-badge"><i class="fa-solid fa-star" aria-hidden="true"></i> ${t.featured}</span>` : ''}
                     ${repo.fork ? '<span class="fork-badge"><i class="fa-solid fa-code-fork"></i> Fork</span>' : ''}
                     <img src="https://opengraph.githubassets.com/1/${githubUsername}/${repo.name}"
                          alt="${repo.name} preview" class="project-img" loading="lazy">
