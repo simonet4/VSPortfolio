@@ -200,6 +200,13 @@ const githubUsername = 'simonet4';
 const projectsContainer = document.getElementById('github-projects');
 const featuredRepos = ['Proximars', 'Devier_Project', 'RobotSumo'];
 
+// Base de l'API. Laisser sur api.github.com, OU mettre l'URL d'un proxy
+// Cloudflare Worker (token GitHub = 5000 req/h + cache edge) pour ne jamais
+// être rate-limité. Ex : 'https://gh.victorsimonet.com'
+const GITHUB_API_BASE = 'https://api.github.com';
+// Fichier de secours statique (généré dans le repo) si l'API est indispo.
+const GITHUB_FALLBACK_JSON = 'docs/github-fallback.json';
+
 // Liens de démo par projet (clé = nom exact du dépôt GitHub).
 // Ajoute simplement une ligne ici pour faire apparaître un bouton "Démo".
 const demoLinks = {
@@ -230,14 +237,16 @@ function saveReposCache(repos) {
     try { localStorage.setItem(REPOS_CACHE_KEY, JSON.stringify({ ts: Date.now(), repos })); } catch (e) {}
 }
 
-// Acquisition (1 seul appel réseau, sinon cache) puis rendu.
+// Acquisition robuste : cache mémoire → cache frais → API (1 appel) →
+// cache périmé → fallback statique du repo → message. Les projets s'affichent
+// même si l'API GitHub est rate-limitée (403).
 async function fetchProjects() {
     let repos = cachedRepos || loadReposCache(false);
     if (repos) { cachedRepos = repos; renderProjects(repos); return; }
 
+    // 1) API GitHub (directe ou via proxy Worker) — un seul appel, `topics` inclus.
     try {
-        // Un unique appel : la liste des dépôts contient déjà `topics`.
-        const res = await fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=100`, {
+        const res = await fetch(`${GITHUB_API_BASE}/users/${githubUsername}/repos?sort=updated&per_page=100`, {
             headers: { 'Accept': 'application/vnd.github+json' }
         });
         if (!res.ok) throw new Error('GitHub API ' + res.status);
@@ -245,18 +254,32 @@ async function fetchProjects() {
         cachedRepos = repos;
         saveReposCache(repos);
         renderProjects(repos);
+        return;
     } catch (error) {
-        console.error('GitHub API Error:', error);
-        // Repli : cache périmé si dispo (évite une page vide en cas de rate-limit 403).
-        const stale = loadReposCache(true);
-        if (stale && stale.length) { cachedRepos = stale; renderProjects(stale); return; }
-        const t = translations[currentLang].projects;
-        projectsContainer.innerHTML = `
-            <div class="project-card-placeholder">
-                <span>${t.error || 'Projets temporairement indisponibles (limite GitHub atteinte).'}</span>
-                <a href="https://github.com/${githubUsername}" target="_blank" rel="noopener">Voir sur GitHub</a>
-            </div>`;
+        console.warn('API GitHub indisponible :', error.message);
     }
+
+    // 2) Cache périmé (mieux que rien).
+    const stale = loadReposCache(true);
+    if (stale && stale.length) { cachedRepos = stale; renderProjects(stale); return; }
+
+    // 3) Fallback statique versionné dans le repo.
+    try {
+        const res = await fetch(GITHUB_FALLBACK_JSON, { cache: 'no-cache' });
+        if (res.ok) {
+            const data = await res.json();
+            const list = Array.isArray(data) ? data : (data.repos || []);
+            if (list.length) { cachedRepos = list; saveReposCache(list); renderProjects(list); return; }
+        }
+    } catch (e) {}
+
+    // 4) Message propre.
+    const t = translations[currentLang].projects;
+    projectsContainer.innerHTML = `
+        <div class="project-card-placeholder">
+            <span>${t.error || 'Projets temporairement indisponibles (limite GitHub atteinte).'}</span>
+            <a href="https://github.com/${githubUsername}" target="_blank" rel="noopener">Voir sur GitHub</a>
+        </div>`;
 }
 
 function renderProjects(repos) {
