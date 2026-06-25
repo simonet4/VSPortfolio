@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Victor Simonet — Développeur & Admin Système. BUT Informatique, IUT Paul Sabatier Toulouse. Projet Proximars (10★, CNES), infrastructure mail auto-hébergée. Disponible pour stage.">
-    <meta name="keywords" content="Victor Simonet, développeur, portfolio, fullstack, système, embarqué, BUT Informatique, Toulouse, stage">
+    <meta name="description" content="Victor Simonet — Étudiant Data & IA. BUT Informatique, IUT Paul Sabatier Toulouse. Assistant de devis par IA (Mistral AI, RAG, n8n) et analyse de données en Python chez Gembaware. Projet Proximars (partenariat CNES). En stage, bientôt en alternance.">
+    <meta name="keywords" content="Victor Simonet, data, IA, machine learning, Python, RAG, Mistral AI, data analyst, portfolio, BUT Informatique, Toulouse, alternance, Gembaware">
     <meta name="author" content="Victor Simonet">
-    <meta property="og:title" content="Victor Simonet — Portfolio Développeur">
-    <meta property="og:description" content="Développeur & Admin Système. Proximars (10★, CNES), mail server auto-hébergé, hackathon national. Disponible pour stage.">
+    <meta property="og:title" content="Victor Simonet — Portfolio Data & IA">
+    <meta property="og:description" content="Étudiant orienté data & IA. Assistant de devis par IA (Mistral AI, RAG, n8n) et analyse de données en Python chez Gembaware. Projet Proximars (partenariat CNES).">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://victorsimonet.com">
     <meta name="theme-color" content="#111827">
@@ -18,7 +18,7 @@
         "@type": "Person",
         "name": "Victor Simonet",
         "url": "https://victorsimonet.com",
-        "jobTitle": "Computer Science Student",
+        "jobTitle": "Data & AI Student",
         "email": "contact@victorsimonet.com",
         "sameAs": [
             "https://github.com/simonet4",
@@ -27,7 +27,7 @@
     }
     </script>
 
-    <title>Victor Simonet — Développeur & Admin Système</title>
+    <title>Victor Simonet — Data & IA</title>
     <link rel="icon" type="image/png" href="docs/Simonetoile.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,10 +42,12 @@
 
     <nav class="navbar" role="navigation" aria-label="Navigation principale">
         <div class="nav-content">
-            <a href="#home" class="nav-logo" aria-label="Accueil">VS<span>.</span></a>
+            <a href="#home" class="nav-logo" aria-label="Accueil">VS<img src="docs/Simonetoile.png" class="nav-star" alt="" aria-hidden="true"></a>
             
             <div class="nav-links" role="menubar">
                 <a href="#about" role="menuitem" data-i18n="nav.about">À propos</a>
+                <a href="#experiences" role="menuitem" data-i18n="nav.work">Parcours</a>
+                <a href="#now" role="menuitem" data-i18n="nav.now">En ce moment</a>
                 <a href="#projects" role="menuitem" data-i18n="nav.projects">Projets</a>
                 <a href="#contact" role="menuitem" data-i18n="nav.contact">Contact</a>
             </div>
@@ -73,6 +75,8 @@
         <nav class="mobile-nav-links">
             <a href="#home">Accueil</a>
             <a href="#about" data-i18n="nav.about">À propos</a>
+            <a href="#experiences" data-i18n="nav.work">Parcours</a>
+            <a href="#now" data-i18n="nav.now">En ce moment</a>
             <a href="#projects" data-i18n="nav.projects">Projets</a>
             <a href="#contact" data-i18n="nav.contact">Contact</a>
         </nav>
@@ -83,7 +87,7 @@
         <section id="home" aria-label="Introduction">
             <div class="hero-eyebrow">
                 <span class="status-dot" aria-hidden="true"></span>
-                <span data-i18n="hero.status">En stage chez Gembaware</span>
+                <span data-i18n="hero.status">En stage chez Gembaware · bientôt en alternance</span>
             </div>
             
             <h1>Victor Simonet</h1>
@@ -94,19 +98,22 @@
             </div>
 
             <p class="hero-desc" data-i18n="hero.desc">
-                Étudiant BUT Informatique à Toulouse. Je conçois et déploie des projets concrets : serre connectée avec le CNES, serveur mail en production, proxy FTP multi-client.
+                Étudiant en BUT Informatique à Toulouse, branché data & IA appliquée. En ce moment je construis chez Gembaware un assistant de devis par IA (Mistral AI, RAG, n8n sur Odoo) et j'analyse des données de production en Python. Ce qui me fait vibrer : transformer des données et des documents bruts en quelque chose d'utile.
             </p>
 
-            <div class="hero-metrics" aria-label="Chiffres clés">
-                <div class="metric">
-                    <span class="metric-value">10★</span>
-                    <span class="metric-label" data-i18n="hero.m1">Proximars · CNES</span>
-                </div>
-                <div class="metric-sep" aria-hidden="true"></div>
-                <div class="metric">
-                    <span class="metric-value">6+</span>
-                    <span class="metric-label" data-i18n="hero.m2">Langages</span>
-                </div>
+            <div class="hero-highlights" aria-label="En bref">
+                <a href="#now" class="hl">
+                    <i class="fa-solid fa-brain" aria-hidden="true"></i>
+                    <span data-i18n="hero.h1">Sam, mon IA 100 % locale</span>
+                </a>
+                <a href="#experiences" class="hl">
+                    <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+                    <span data-i18n="hero.h2">Data &amp; IA en alternance</span>
+                </a>
+                <a href="#experiences" class="hl">
+                    <i class="fa-solid fa-satellite" aria-hidden="true"></i>
+                    <span data-i18n="hero.h3">Proximars &times; CNES</span>
+                </a>
             </div>
 
             <div class="cta-group">
@@ -120,6 +127,10 @@
                     <i class="fas fa-envelope-open-text" aria-hidden="true"></i> <span data-i18n="hero.letter">Télécharger lettre de motivation</span>
                 </a>
             </div>
+
+            <a href="#about" class="scroll-cue" aria-label="Défiler vers le contenu">
+                <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </a>
         </section>
 
         <section id="about" class="section-padding" aria-label="À propos">
@@ -128,7 +139,7 @@
             <div class="about-intro">
                 <div class="about-text reveal">
                     <p class="bio-lead" data-i18n="about.bio">
-                        Je suis en 2ème année de BUT Informatique à l'IUT Paul Sabatier (Toulouse), parcours AGED. J'ai commencé à coder tout seul en 2020, par curiosité, et je n'ai jamais vraiment arrêté depuis. Entre la serre connectée Proximars qu'on a menée jusqu'au CNES, une nuit blanche au hackathon Nuit de l'Informatique et le serveur mail que je gère moi-même en production, ce qui me motive c'est de bricoler des choses qui marchent vraiment. Je cherche des opportunités où mettre les mains dans le cambouis et apprendre au sein d'une équipe.
+                        Je termine ma 2ème année de BUT Informatique à l'IUT Paul Sabatier (Toulouse), parcours orienté gestion et exploitation des données, et j'attaque la 3ème à la rentrée. J'ai commencé à coder tout seul en 2020 et je me suis peu à peu tourné vers la data et l'IA. Aujourd'hui, en stage chez Gembaware (bientôt en alternance), je développe un assistant de devis par IA — Mistral AI, RAG sur des milliers de devis, orchestré avec n8n et branché à Odoo — et j'analyse des données de production en Python (pandas, matplotlib). À côté je bricole : la serre connectée Proximars menée jusqu'au CNES, un serveur mail auto-hébergé en production, une nuit blanche au hackathon Nuit de l'Informatique. Ce qui me motive : passer de la donnée brute à quelque chose d'utile.
                     </p>
                 </div>
 
@@ -149,6 +160,14 @@
                     <div class="timeline">
                         <div class="timeline-item">
                             <div class="timeline-marker current" aria-hidden="true"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date" data-i18n="about.job_date">2026 — Présent</span>
+                                <h3 data-i18n="about.job_title">Stage chez Gembaware</h3>
+                                <p data-i18n="about.job_desc">Développement au sein d'une vraie équipe. Je poursuis en alternance dès la rentrée 2026.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker" aria-hidden="true"></div>
                             <div class="timeline-content">
                                 <span class="timeline-date" data-i18n="about.step1_date">2024 — Présent</span>
                                 <h3 data-i18n="about.step1_title">BUT Informatique — Paul Sabatier Toulouse</h3>
@@ -174,52 +193,49 @@
                     </div>
                 </div>
             </div>
-        </section>
-
-        <section id="experiences" class="section-padding" aria-label="Réalisations">
-            <h2 class="section-label" data-i18n="experiences.title">Parcours & Réalisations</h2>
-            <p class="section-intro" id="experiences-subtitle" data-i18n="experiences.subtitle">Mes projets de cours, mes compètes et ce que je bricole de mon côté.</p>
-            <div id="experiences-grid" class="experiences-grid"></div>
 
             <div class="tech-stack reveal">
                 <h3 class="subsection-title">
                     <i class="fas fa-layer-group" aria-hidden="true"></i>
-                    <span data-i18n="about.stack_title">Stack technique</span>
+                    <span data-i18n="about.stack_title">Ma boîte à outils</span>
                 </h3>
                 <div class="stack-grid">
                     <div class="stack-group">
-                        <span class="stack-label">Systèmes & Réseaux</span>
+                        <span class="stack-label">Data & IA</span>
                         <div class="stack-tags">
-                            <span class="tag">Linux</span>
-                            <span class="tag">Bash</span>
-                            <span class="tag">C / C++</span>
-                            <span class="tag">Docker</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">Pandas</span>
+                            <span class="tag">Matplotlib</span>
+                            <span class="tag">Mistral AI</span>
+                            <span class="tag">RAG</span>
+                            <span class="tag">n8n</span>
                         </div>
                     </div>
                     <div class="stack-group">
-                        <span class="stack-label">Logiciel</span>
+                        <span class="stack-label">Bases de données</span>
+                        <div class="stack-tags">
+                            <span class="tag">SQL</span>
+                            <span class="tag">PL/SQL</span>
+                            <span class="tag">Oracle APEX</span>
+                            <span class="tag">Odoo / ERP</span>
+                        </div>
+                    </div>
+                    <div class="stack-group">
+                        <span class="stack-label">Dev & Back-end</span>
                         <div class="stack-tags">
                             <span class="tag">Java</span>
-                            <span class="tag">Python</span>
+                            <span class="tag">C / C++</span>
+                            <span class="tag">PHP</span>
                             <span class="tag">JUnit</span>
-                            <span class="tag">ADA</span>
                         </div>
                     </div>
                     <div class="stack-group">
-                        <span class="stack-label">Web & Data</span>
-                        <div class="stack-tags">
-                            <span class="tag">PHP / SQL</span>
-                            <span class="tag">Oracle APEX</span>
-                            <span class="tag">PLSQL</span>
-                            <span class="tag">JS / HTML / CSS</span>
-                        </div>
-                    </div>
-                    <div class="stack-group">
-                        <span class="stack-label">Outils</span>
+                        <span class="stack-label">Outils & Web</span>
                         <div class="stack-tags">
                             <span class="tag">Git</span>
-                            <span class="tag">VS Code</span>
-                            <span class="tag">Agile / Scrum</span>
+                            <span class="tag">Docker</span>
+                            <span class="tag">Linux</span>
+                            <span class="tag">JS / HTML / CSS</span>
                             <span class="tag">CI/CD</span>
                         </div>
                     </div>
@@ -227,53 +243,98 @@
             </div>
         </section>
 
-        <section id="current-projects" class="section-padding" aria-label="Projets en cours">
-            <h2 class="section-label" data-i18n="current.title">Projets en cours</h2>
-            <p class="section-intro" data-i18n="current.subtitle">Ce qui m'occupe en ce moment.</p>
-            <div class="current-projects-grid">
-                <article class="current-card reveal">
-                    <div class="current-card-icon">
-                        <i class="fa-solid fa-envelope-circle-check"></i>
+        <section id="experiences" class="section-padding" aria-label="Réalisations">
+            <h2 class="section-label" data-i18n="experiences.title">Parcours & Réalisations</h2>
+            <p class="section-intro" id="experiences-subtitle" data-i18n="experiences.subtitle">Mes projets de cours, mes compètes et ce que je bricole de mon côté.</p>
+            <div id="experiences-grid" class="experiences-grid"></div>
+        </section>
+
+        <section id="now" class="section-padding" aria-label="En ce moment">
+            <h2 class="section-label" data-i18n="now.title">En ce moment</h2>
+            <p class="section-intro" data-i18n="now.subtitle">Ce que je construis, et ce qui m'attend juste après.</p>
+
+            <div class="now-layout">
+                <div class="now-building">
+                    <h3 class="now-subhead">
+                        <i class="fa-solid fa-hammer" aria-hidden="true"></i>
+                        <span data-i18n="now.building">Je construis</span>
+                    </h3>
+                    <div class="current-projects-grid">
+                        <article class="current-card reveal">
+                            <div class="current-card-icon">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <div class="current-card-body">
+                                <div class="current-card-header">
+                                    <h3 data-i18n="current.sam_title">Sam — IA personnelle 100 % locale</h3>
+                                    <span class="current-status status-dev">
+                                        <i class="fa-solid fa-flask"></i>
+                                        <span data-i18n="current.sam_status">En création</span>
+                                    </span>
+                                </div>
+                                <p data-i18n="current.sam_desc">Mon assistant IA auto-hébergé, 100 % local : Gemma via Ollama sur GPU AMD (ROCm), interface Open WebUI, et une mémoire persistante maison — embeddings nomic-embed-text dans Qdrant, rappel sémantique (RAG) à chaque message. Aucune donnée ne quitte mes machines.</p>
+                                <div class="current-tags">
+                                    <span class="tag">Ollama</span>
+                                    <span class="tag">Gemma</span>
+                                    <span class="tag">RAG</span>
+                                    <span class="tag">Qdrant</span>
+                                    <span class="tag">Python</span>
+                                    <span class="tag">ROCm</span>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="current-card reveal">
+                            <div class="current-card-icon">
+                                <i class="fa-solid fa-envelope-circle-check"></i>
+                            </div>
+                            <div class="current-card-body">
+                                <div class="current-card-header">
+                                    <h3 data-i18n="current.mail_title">Serveur mail auto-hébergé</h3>
+                                    <span class="current-status status-prod">
+                                        <i class="fa-solid fa-circle-check"></i>
+                                        <span data-i18n="current.mail_status">En production</span>
+                                    </span>
+                                </div>
+                                <p data-i18n="current.mail_desc">Messagerie auto-hébergée sur Raspberry Pi (docker-mailserver) : TLS Let's Encrypt, relais SMTP Brevo, exposée via Cloudflare Tunnel + Caddy. Adresse contact@victorsimonet.com.</p>
+                                <div class="current-tags">
+                                    <span class="tag">Docker</span>
+                                    <span class="tag">Linux</span>
+                                    <span class="tag">DNS</span>
+                                    <span class="tag">TLS</span>
+                                    <span class="tag">Cloudflare</span>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="current-card reveal">
+                            <div class="current-card-icon">
+                                <i class="fa-solid fa-list-check"></i>
+                            </div>
+                            <div class="current-card-body">
+                                <div class="current-card-header">
+                                    <h3 data-i18n="current.vicrasti_title">Vicrasti</h3>
+                                    <span class="current-status status-dev">
+                                        <i class="fa-solid fa-code"></i>
+                                        <span data-i18n="current.vicrasti_status">En développement</span>
+                                    </span>
+                                </div>
+                                <p data-i18n="current.vicrasti_desc">Application Android développée en JavaScript. Interface intuitive, catégories, priorités et suivi de progression.</p>
+                                <div class="current-tags">
+                                    <span class="tag">Android</span>
+                                    <span class="tag">JavaScript</span>
+                                    <span class="tag">UI/UX</span>
+                                </div>
+                            </div>
+                        </article>
                     </div>
-                    <div class="current-card-body">
-                        <div class="current-card-header">
-                            <h3 data-i18n="current.mail_title">Serveur Mail Auto-Hébergé</h3>
-                            <span class="current-status status-prod">
-                                <i class="fa-solid fa-circle-check"></i>
-                                <span data-i18n="current.mail_status">En production</span>
-                            </span>
-                        </div>
-                        <p data-i18n="current.mail_desc">Infrastructure mail complète, containerisée avec Docker : Postfix, Dovecot, SPF/DKIM/DMARC, Let's Encrypt. Webmail Roundcube. Domaine victorsimonet.com.</p>
-                        <div class="current-tags">
-                            <span class="tag">Docker</span>
-                            <span class="tag">Postfix</span>
-                            <span class="tag">Dovecot</span>
-                            <span class="tag">Linux</span>
-                            <span class="tag">DNS</span>
-                            <span class="tag">SSL/TLS</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="current-card reveal">
-                    <div class="current-card-icon">
-                        <i class="fa-solid fa-list-check"></i>
-                    </div>
-                    <div class="current-card-body">
-                        <div class="current-card-header">
-                            <h3 data-i18n="current.vicrasti_title">Vicrasti</h3>
-                            <span class="current-status status-dev">
-                                <i class="fa-solid fa-code"></i>
-                                <span data-i18n="current.vicrasti_status">En développement</span>
-                            </span>
-                        </div>
-                        <p data-i18n="current.vicrasti_desc">Application Android développée en JavaScript. Interface intuitive, catégories, priorités et suivi de progression.</p>
-                        <div class="current-tags">
-                            <span class="tag">Android</span>
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">UI/UX</span>
-                        </div>
-                    </div>
-                </article>
+                </div>
+
+                <aside class="now-next">
+                    <h3 class="now-subhead">
+                        <i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i>
+                        <span data-i18n="now.next">Sur ma liste</span>
+                    </h3>
+                    <ul id="todo-list" class="todo-list" role="list"></ul>
+                </aside>
             </div>
         </section>
 
@@ -296,7 +357,7 @@
         <section id="contact" class="section-padding" aria-label="Contact">
             <div class="contact-card reveal">
                 <h2 data-i18n="contact.title">On échange ?</h2>
-                <p data-i18n="contact.text">Je cherche des opportunités. Une question, une idée de projet ou juste l'envie de parler tech ? Écrivez-moi, je réponds vite.</p>
+                <p data-i18n="contact.text">Je suis en stage chez Gembaware (bientôt en alternance), mais toujours partant pour parler tech, projets perso ou collaborations. Une question, une idée ? Écrivez-moi, je réponds vite.</p>
                 <a href="mailto:contact@victorsimonet.com" class="btn btn-primary">
                     <i class="fas fa-paper-plane" aria-hidden="true"></i> <span data-i18n="contact.btn">Envoyer un email</span>
                 </a>
@@ -311,7 +372,7 @@
     </main>
 
     <footer>
-        <p><span id="current-year">2025</span> · <span data-i18n="footer.credit">Codé par</span> <span class="signature">Victor Simonet</span></p>
+        <p><span id="current-year">2025</span> · <span data-i18n="footer.credit">Codé par</span> <span class="signature">Victor Simonet</span><span class="footer-sam"><i class="fa-solid fa-brain" aria-hidden="true"></i> <span data-i18n="footer.sam">épaulé par Sam, mon IA</span></span></p>
     </footer>
 
     <script src="js/translations.js"></script>

@@ -15,6 +15,9 @@
     --accent: #3a3f73;
     --accent-hover: #2d3159;
     --accent-subtle: rgba(58, 63, 115, 0.07);
+    --accent-2: #f4b400;
+    --accent-2-ink: #8a6500;
+    --accent-2-subtle: rgba(244, 180, 0, 0.16);
     --border: #d5dce6;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
     --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
@@ -35,6 +38,9 @@ html.dark {
     --accent: #9aa6e0;
     --accent-hover: #b6c0f0;
     --accent-subtle: rgba(154, 166, 224, 0.12);
+    --accent-2: #fbbf24;
+    --accent-2-ink: #fcd34d;
+    --accent-2-subtle: rgba(251, 191, 36, 0.16);
     --border: #2a3444;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
     --shadow-md: 0 4px 12px rgba(0,0,0,0.35);
@@ -96,7 +102,7 @@ button { font-family: inherit; cursor: pointer; }
    3. LAYOUT
    ========================================= */
 .section-padding {
-    padding: clamp(4rem, 8vh, 7rem) clamp(1.25rem, 5vw, 3rem);
+    padding: clamp(2.5rem, 5vh, 4.25rem) clamp(1.25rem, 5vw, 3rem);
     max-width: 960px;
     margin: 0 auto;
     width: 100%;
@@ -112,7 +118,7 @@ button { font-family: inherit; cursor: pointer; }
     content: '';
     position: absolute; bottom: 0; left: 0;
     width: 48px; height: 3px;
-    background: var(--accent);
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
     border-radius: 2px;
 }
 
@@ -155,7 +161,16 @@ button { font-family: inherit; cursor: pointer; }
     font-weight: 700; font-size: 1.15rem;
     color: var(--text); letter-spacing: -0.02em;
 }
-.nav-logo span { color: var(--accent); }
+.nav-logo span { color: var(--accent-2); }
+.nav-star {
+    height: 0.82em;
+    width: auto;
+    display: inline-block;
+    vertical-align: -0.04em;
+    margin-left: 3px;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.nav-logo:hover .nav-star { transform: rotate(72deg) scale(1.18); }
 .nav-links a {
     font-size: 0.875rem; color: var(--text-secondary);
     font-weight: 500; margin-left: 0.75rem;
@@ -230,6 +245,7 @@ button { font-family: inherit; cursor: pointer; }
    5. HERO
    ========================================= */
 #home {
+    position: relative;
     min-height: 100dvh;
     display: flex; flex-direction: column;
     justify-content: center; align-items: flex-start;
@@ -274,7 +290,52 @@ html.dark .status-dot { background: #4ade80; }
     line-height: 1.7;
 }
 
-/* Hero Metrics Strip */
+/* Hero Highlights — chips contextuels cliquables */
+.hero-highlights {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    margin: 0.25rem 0 2rem 0;
+}
+.hl {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.5rem 0.9rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.85rem; font-weight: 600;
+    color: var(--text);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+.hl i { color: var(--accent-2); font-size: 0.9rem; }
+.hl:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-2);
+    box-shadow: var(--shadow-md);
+    color: var(--accent);
+}
+
+/* Scroll cue */
+.scroll-cue {
+    position: absolute;
+    bottom: 1.75rem; left: 50%;
+    transform: translateX(-50%);
+    width: 38px; height: 38px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    color: var(--text-secondary);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-sm);
+    animation: cueBounce 2s ease-in-out infinite;
+}
+.scroll-cue:hover { color: var(--accent); border-color: var(--accent-2); }
+@keyframes cueBounce {
+    0%, 100% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, 6px); }
+}
+@media (prefers-reduced-motion: reduce) { .scroll-cue { animation: none; } }
+
+/* Hero Metrics Strip (legacy, unused) */
 .hero-metrics {
     display: flex; align-items: center; gap: 1.5rem;
     margin-bottom: 2rem;
@@ -340,8 +401,8 @@ html.dark .btn-primary { color: #0f1219; }
     margin-bottom: 0.5rem;
     min-height: 1.5em;
 }
-.prompt { color: var(--accent); margin-right: 0.4rem; }
-.cursor { color: var(--accent); animation: blink 1s step-end infinite; }
+.prompt { color: var(--accent-2); margin-right: 0.4rem; }
+.cursor { color: var(--accent-2); animation: blink 1s step-end infinite; }
 
 /* =========================================
    6. ABOUT
@@ -405,8 +466,8 @@ html.dark .btn-primary { color: #0f1219; }
     box-shadow: 0 0 0 2px var(--border);
 }
 .timeline-marker.current {
-    background: var(--accent);
-    box-shadow: 0 0 0 2px var(--accent), 0 0 0 5px var(--accent-subtle);
+    background: var(--accent-2);
+    box-shadow: 0 0 0 2px var(--accent-2), 0 0 0 5px var(--accent-2-subtle);
 }
 .timeline-date {
     font-family: var(--font-mono); font-size: 0.78rem;
@@ -421,23 +482,24 @@ html.dark .btn-primary { color: #0f1219; }
     margin: 0; line-height: 1.5;
 }
 
-/* Tech Stack */
-.tech-stack { margin-top: 0.5rem; }
+/* Tech Stack — integrated in About, borderless */
+.tech-stack { margin-top: 2.75rem; }
 .stack-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: 1.5rem 2rem;
 }
 .stack-group {
-    padding: 1rem 1.25rem;
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    padding: 0.15rem 0 0.15rem 0.9rem;
+    background: none;
+    border: none;
+    border-left: 2px solid var(--accent-2);
+    border-radius: 0;
 }
 .stack-label {
     display: block; font-size: 0.7rem; font-weight: 700;
     text-transform: uppercase; letter-spacing: 0.08em;
-    color: var(--accent); margin-bottom: 0.6rem;
+    color: var(--accent); margin-bottom: 0.65rem;
 }
 .stack-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .tag {
@@ -644,12 +706,14 @@ html.dark .tag { background: var(--bg); }
 
 .featured-badge {
     position: absolute; top: 10px; right: 10px;
-    background: var(--accent); color: #fff;
+    background: var(--accent-2); color: #3a2c00;
     font-size: 0.62rem; font-weight: 700;
     padding: 0.2rem 0.55rem; border-radius: 999px;
     text-transform: uppercase; letter-spacing: 0.04em; z-index: 2;
+    box-shadow: 0 2px 6px var(--accent-2-subtle);
 }
-html.dark .featured-badge { color: #0f172a; }
+.featured-badge i { margin-right: 0.15em; }
+html.dark .featured-badge { color: #3a2c00; }
 
 .fork-badge {
     position: absolute; top: 10px; left: 10px;
@@ -754,13 +818,42 @@ html.dark .featured-badge { color: #0f172a; }
 }
 
 /* =========================================
+   9a. "EN CE MOMENT" — LAYOUT FUSIONNÉ
+   ========================================= */
+.now-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.75rem;
+    margin-top: 1.5rem;
+}
+@media (min-width: 900px) {
+    .now-layout {
+        grid-template-columns: 1.5fr 1fr;
+        gap: 2.75rem;
+        align-items: start;
+    }
+}
+.now-subhead {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.95rem; font-weight: 700;
+    color: var(--text); margin-bottom: 1.1rem;
+}
+.now-subhead i { color: var(--accent-2); font-size: 0.9rem; }
+.now-note {
+    margin-top: 1.2rem;
+    font-size: 0.78rem; color: var(--text-secondary);
+    font-style: italic; line-height: 1.5;
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--border);
+}
+
+/* =========================================
    9b. CURRENT PROJECTS
    ========================================= */
 .current-projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    grid-template-columns: 1fr;
     gap: 1.25rem;
-    margin-top: 1.5rem;
 }
 .current-card {
     display: flex; gap: 1rem;
@@ -823,6 +916,49 @@ html.dark .status-dev {
 }
 
 /* =========================================
+   9c. NEXT UP / TO-DO (décalé)
+   ========================================= */
+.todo-list {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 0.3rem;
+}
+.todo-item {
+    display: flex; align-items: flex-start; gap: 0.7rem;
+    padding: 0.55rem 0.7rem;
+    border-radius: var(--radius);
+    cursor: default;
+    opacity: 0; transform: translateX(-12px);
+    transition: opacity 0.5s ease, transform 0.45s ease, background 0.2s ease;
+}
+.todo-item.active { opacity: 1; transform: none; }
+.todo-item:hover { background: var(--accent-2-subtle); }
+
+.todo-check {
+    flex-shrink: 0; margin-top: 0.1rem;
+    width: 21px; height: 21px;
+    border-radius: 7px;
+    border: 2px solid var(--accent-2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem; color: transparent;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+/* survol = aperçu "fait" (et fait = retiré) */
+.todo-item:hover .todo-check {
+    background: var(--accent-2); color: #3a2c00;
+    transform: rotate(-6deg);
+}
+.todo-text {
+    font-size: 0.92rem; color: var(--text); line-height: 1.45;
+    transition: color 0.2s ease;
+}
+.todo-item:hover .todo-text {
+    color: var(--text-secondary);
+    text-decoration: line-through;
+    text-decoration-color: var(--accent-2);
+    text-decoration-thickness: 2px;
+}
+
+/* =========================================
    10. CONTACT
    ========================================= */
 .contact-card {
@@ -872,6 +1008,15 @@ footer p {
     color: var(--accent);
     line-height: 1;
 }
+.footer-sam {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    opacity: 0.8;
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    margin-left: 0.15rem;
+}
+.footer-sam::before { content: "·"; margin-right: 0.3rem; opacity: 0.6; }
+.footer-sam i { color: var(--accent-2); font-size: 0.7rem; }
 
 /* =========================================
    12. ANIMATIONS

@@ -28,6 +28,7 @@ function updateLanguage() {
     isDeleting = false;
 
     renderExperiences();
+    renderRoadmap();
     fetchProjects();
 }
 
@@ -169,11 +170,41 @@ function renderExperiences() {
 }
 
 // ========================================
+// ROADMAP / TO-DO
+// ========================================
+function renderRoadmap() {
+    const list = document.getElementById('todo-list');
+    if (!list) return;
+
+    const data = translations[currentLang].roadmap;
+    if (!data || !data.items) return;
+
+    list.innerHTML = '';
+
+    data.items.forEach(text => {
+        const li = document.createElement('li');
+        li.className = 'todo-item';
+        li.innerHTML = `
+            <span class="todo-check" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+            <span class="todo-text">${text}</span>
+        `;
+        list.appendChild(li);
+        observer.observe(li);
+    });
+}
+
+// ========================================
 // GITHUB API
 // ========================================
 const githubUsername = 'simonet4';
 const projectsContainer = document.getElementById('github-projects');
 const featuredRepos = ['Proximars', 'Devier_Project', 'RobotSumo'];
+
+// Liens de démo par projet (clé = nom exact du dépôt GitHub).
+// Ajoute simplement une ligne ici pour faire apparaître un bouton "Démo".
+const demoLinks = {
+    'Proximars': 'https://wokwi.com/projects/448491380777419777'
+};
 
 const languageColors = {
     "JavaScript": "#f1e05a", "Python": "#3572A5", "Java": "#b07219",
@@ -229,8 +260,8 @@ async function fetchProjects() {
                 ? `<div class="project-topics">${topics.map(t => `<span class="project-topic">${t}</span>`).join('')}</div>`
                 : '';
 
-            // Détection du lien de démo dans le README si homepage absent
-            let demoLink = repo.homepage && repo.homepage.trim() !== '' ? repo.homepage : null;
+            // Priorité : map demoLinks > homepage du dépôt > lien "demo:" dans le README
+            let demoLink = demoLinks[repo.name] || (repo.homepage && repo.homepage.trim() !== '' ? repo.homepage : null);
             if (!demoLink) {
                 try {
                     const readmeRes = await fetch(`https://api.github.com/repos/${githubUsername}/${repo.name}/readme`, {
@@ -395,6 +426,7 @@ function animateCounter(el, target) {
 // ========================================
 initTheme();
 renderExperiences();
+renderRoadmap();
 fetchProjects();
 
 const yearSpan = document.getElementById('current-year');
