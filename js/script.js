@@ -214,72 +214,81 @@ const languageColors = {
 };
 
 let cachedRepos = null;
+const REPOS_CACHE_KEY = 'gh_repos_cache_v1';
+const REPOS_CACHE_TTL = 30 * 60 * 1000; // 30 min
 
-async function fetchProjects() {
+function loadReposCache(ignoreTTL) {
     try {
-        let repos = cachedRepos;
-        if (!repos) {
-            const res = await fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=100`);
-            if (!res.ok) throw new Error('GitHub API Error');
-            repos = await res.json();
-            cachedRepos = repos;
-        }
+        const raw = localStorage.getItem(REPOS_CACHE_KEY);
+        if (!raw) return null;
+        const { ts, repos } = JSON.parse(raw);
+        if (!ignoreTTL && Date.now() - ts > REPOS_CACHE_TTL) return null;
+        return Array.isArray(repos) ? repos : null;
+    } catch (e) { return null; }
+}
+function saveReposCache(repos) {
+    try { localStorage.setItem(REPOS_CACHE_KEY, JSON.stringify({ ts: Date.now(), repos })); } catch (e) {}
+}
 
-        const sorted = repos
-            .sort((a, b) => {
-                const af = featuredRepos.includes(a.name) ? 1 : 0;
-                const bf = featuredRepos.includes(b.name) ? 1 : 0;
-                if (bf !== af) return bf - af;
-                return b.stargazers_count - a.stargazers_count;
-            });
+// Acquisition (1 seul appel réseau, sinon cache) puis rendu.
+async function fetchProjects() {
+    let repos = cachedRepos || loadReposCache(false);
+    if (repos) { cachedRepos = repos; renderProjects(repos); return; }
 
-        projectsContainer.innerHTML = '';
+    try {
+        // Un unique appel : la liste des dépôts contient déjà `topics`.
+        const res = await fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=100`, {
+            headers: { 'Accept': 'application/vnd.github+json' }
+        });
+        if (!res.ok) throw new Error('GitHub API ' + res.status);
+        repos = await res.json();
+        cachedRepos = repos;
+        saveReposCache(repos);
+        renderProjects(repos);
+    } catch (error) {
+        console.error('GitHub API Error:', error);
+        // Repli : cache périmé si dispo (évite une page vide en cas de rate-limit 403).
+        const stale = loadReposCache(true);
+        if (stale && stale.length) { cachedRepos = stale; renderProjects(stale); return; }
         const t = translations[currentLang].projects;
+        projectsContainer.innerHTML = `
+            <div class="project-card-placeholder">
+                <span>${t.error || 'Projets temporairement indisponibles (limite GitHub atteinte).'}</span>
+                <a href="https://github.com/${githubUsername}" target="_blank" rel="noopener">Voir sur GitHub</a>
+            </div>`;
+    }
+}
 
-        for (const repo of sorted) {
-            let topics = [];
-            try {
-                const topicsRes = await fetch(`https://api.github.com/repos/${githubUsername}/${repo.name}/topics`, {
-                    headers: { 'Accept': 'application/vnd.github.mercy-preview+json' }
-                });
-                if (topicsRes.ok) {
-                    const data = await topicsRes.json();
-                    topics = data.names || [];
-                }
-            } catch (e) {}
+function renderProjects(repos) {
+    const sorted = [...repos].sort((a, b) => {
+        const af = featuredRepos.includes(a.name) ? 1 : 0;
+        const bf = featuredRepos.includes(b.name) ? 1 : 0;
+        if (bf !== af) return bf - af;
+        return b.stargazers_count - a.stargazers_count;
+    });
 
-            const langColor = languageColors[repo.language] || '#888';
-            const isFeatured = featuredRepos.includes(repo.name);
-            const description = repo.description || '';
-            const updated = new Date(repo.updated_at).toLocaleDateString(
-                currentLang === 'pt' ? 'pt-BR' : currentLang === 'en' ? 'en-US' : 'fr-FR',
-                { year: 'numeric', month: 'short', day: 'numeric' }
-            );
+    projectsContainer.innerHTML = '';
+    const t = translations[currentLang].projects;
 
-            const topicsHtml = topics.length
-                ? `<div class="project-topics">${topics.map(t => `<span class="project-topic">${t}</span>`).join('')}</div>`
-                : '';
+    for (const repo of sorted) {
+        const topics = repo.topics || [];
+        const langColor = languageColors[repo.language] || '#888';
+        const isFeatured = featuredRepos.includes(repo.name);
+        const description = repo.description || '';
+        const updated = new Date(repo.updated_at).toLocaleDateString(
+            currentLang === 'pt' ? 'pt-BR' : currentLang === 'en' ? 'en-US' : 'fr-FR',
+            { year: 'numeric', month: 'short', day: 'numeric' }
+        );
 
-            // Priorité : map demoLinks > homepage du dépôt > lien "demo:" dans le README
-            let demoLink = demoLinks[repo.name] || (repo.homepage && repo.homepage.trim() !== '' ? repo.homepage : null);
-            if (!demoLink) {
-                try {
-                    const readmeRes = await fetch(`https://api.github.com/repos/${githubUsername}/${repo.name}/readme`, {
-                        headers: { 'Accept': 'application/vnd.github.v3.raw' }
-                    });
-                    if (readmeRes.ok) {
-                        const readmeText = await readmeRes.text();
-                        // Cherche une ligne du type demo: https://...
-                        const demoMatch = readmeText.match(/^demo\s*:\s*(https?:\/\/\S+)/im);
-                        if (demoMatch) {
-                            demoLink = demoMatch[1];
-                        }
-                    }
-                } catch (e) {}
-            }
-            const demoBtn = demoLink ? `<a href="${demoLink}" target="_blank" rel="noopener" class="btn btn-outline btn-sm"><i class="fas fa-external-link-alt"></i> ${t.demo}</a>` : '';
+        const topicsHtml = topics.length
+            ? `<div class="project-topics">${topics.map(tp => `<span class="project-topic">${tp}</span>`).join('')}</div>`
+            : '';
 
-            projectsContainer.innerHTML += `
+        // Priorité : map demoLinks > champ "homepage" du dépôt GitHub.
+        const demoLink = demoLinks[repo.name] || (repo.homepage && repo.homepage.trim() !== '' ? repo.homepage : null);
+        const demoBtn = demoLink ? `<a href="${demoLink}" target="_blank" rel="noopener" class="btn btn-outline btn-sm"><i class="fas fa-external-link-alt"></i> ${t.demo}</a>` : '';
+
+        projectsContainer.innerHTML += `
                 <article class="project-card reveal${isFeatured ? ' featured' : ''}" style="position: relative;">
                     ${isFeatured ? `<span class="featured-badge"><i class="fa-solid fa-star" aria-hidden="true"></i> ${t.featured}</span>` : ''}
                     ${repo.fork ? '<span class="fork-badge"><i class="fa-solid fa-code-fork"></i> Fork</span>' : ''}
@@ -348,15 +357,6 @@ async function fetchProjects() {
 
         document.querySelectorAll('.project-card.reveal').forEach(el => observer.observe(el));
         renderGitHubStats(repos);
-
-    } catch (error) {
-        console.error('GitHub API Error:', error);
-        projectsContainer.innerHTML = `
-            <div class="project-card-placeholder">
-                <span>Impossible de charger les projets.</span>
-                <a href="https://github.com/${githubUsername}" target="_blank" rel="noopener">Voir sur GitHub</a>
-            </div>`;
-    }
 }
 
 // ========================================

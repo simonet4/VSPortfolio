@@ -173,6 +173,7 @@ translations = {
             demo: "Démo",
             loading: "Chargement des projets",
             featured: "Coup de cœur",
+            error: "Projets temporairement indisponibles (limite GitHub atteinte).",
             manual: []
         },
         current: {
@@ -391,6 +392,7 @@ translations = {
             demo: "Demo",
             loading: "Loading projects",
             featured: "Favorite",
+            error: "Projects temporarily unavailable (GitHub rate limit reached).",
             manual: []
         },
         current: {
@@ -609,6 +611,7 @@ translations = {
             demo: "Demo",
             loading: "Carregando projetos",
             featured: "Favorito",
+            error: "Projetos temporariamente indisponíveis (limite do GitHub atingido).",
             manual: []
         },
         current: {
