@@ -7,10 +7,22 @@ let particlesArray;
 let isMagicModeActive = false;
 let isMouseDown = false;
 let mousePosition = { x: -1000, y: -1000 };
+let rafId = null;
 
-function getThemeColor() {
-    return getComputedStyle(document.body).getPropertyValue('--accent').trim();
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+// La couleur ne change qu'au basculement de thème : la relire à chaque
+// particule et à chaque image coûtait ~6000 getComputedStyle par seconde,
+// chacun forçant un recalcul de styles. On la met en cache et on l'invalide
+// via l'attribut `class` de <html>, sans rien exiger de script.js.
+let themeColor = readThemeColor();
+
+function readThemeColor() {
+    return getComputedStyle(document.body).getPropertyValue('--accent').trim() || '#3a3f73';
 }
+
+new MutationObserver(() => { themeColor = readThemeColor(); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -28,16 +40,27 @@ window.addEventListener('mousemove', (e) => {
 });
 window.addEventListener('mousedown', () => { isMouseDown = true; });
 window.addEventListener('mouseup', () => { isMouseDown = false; });
+// Un redimensionnement émet des dizaines d'événements : on ne reconstruit
+// les particules qu'une fois le geste terminé.
+let resizeTimer;
 window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    initParticles();
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initParticles();
+        if (reduceMotion.matches) drawStaticFrame();
+    }, 150);
 });
 
 if (magicWandButton) {
     magicWandButton.addEventListener('click', () => {
         isMagicModeActive = !isMagicModeActive;
         magicWandButton.classList.toggle('active');
+        // Le mode magique est une interaction demandée : on anime même si le
+        // système réduit les animations, et on repasse au fixe en sortant.
+        if (isMagicModeActive) startAnimation();
+        else applyMotionPreference();
     });
 }
 
@@ -93,21 +116,36 @@ class Particle {
         if (this.y > canvas.height) this.y = 0;
     }
 
-    draw() {
+    // Mode magique : l'opacité dépend de la vitesse, donc un tracé par
+    // particule. Hors mode magique elles partagent la même opacité et sont
+    // tracées en un seul chemin (voir drawAll).
+    drawSolo() {
+        const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+        ctx.globalAlpha = Math.min(1, speed * 0.5 + 0.2);
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = getThemeColor();
-
-        if (isMagicModeActive) {
-            const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-            ctx.globalAlpha = Math.min(1, speed * 0.5 + 0.2);
-        } else {
-            ctx.globalAlpha = 0.4;
-        }
-
         ctx.fill();
-        ctx.globalAlpha = 1;
     }
+
+    addToPath() {
+        ctx.moveTo(this.x + this.size, this.y);
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    }
+}
+
+// Un seul beginPath/fill pour l'ensemble, au lieu de cent aller-retours.
+function drawAll() {
+    ctx.fillStyle = themeColor;
+    if (isMagicModeActive) {
+        for (const p of particlesArray) p.drawSolo();
+        ctx.globalAlpha = 1;
+        return;
+    }
+    ctx.globalAlpha = 0.4;
+    ctx.beginPath();
+    for (const p of particlesArray) p.addToPath();
+    ctx.fill();
+    ctx.globalAlpha = 1;
 }
 
 function initParticles() {
@@ -120,9 +158,46 @@ function initParticles() {
 
 function animateParticles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particlesArray.forEach(p => { p.update(); p.draw(); });
-    requestAnimationFrame(animateParticles);
+    for (const p of particlesArray) p.update();
+    drawAll();
+    rafId = requestAnimationFrame(animateParticles);
 }
 
+// Image fixe : le décor reste présent, sans mouvement.
+function drawStaticFrame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawAll();
+}
+
+function startAnimation() {
+    if (rafId !== null) return;
+    rafId = requestAnimationFrame(animateParticles);
+}
+
+function stopAnimation() {
+    if (rafId === null) return;
+    cancelAnimationFrame(rafId);
+    rafId = null;
+}
+
+// Respecte le réglage système « réduire les animations » — et réagit s'il
+// change en cours de route, sans rechargement.
+function applyMotionPreference() {
+    if (reduceMotion.matches) {
+        stopAnimation();
+        drawStaticFrame();
+    } else {
+        startAnimation();
+    }
+}
+
+reduceMotion.addEventListener
+    ? reduceMotion.addEventListener('change', applyMotionPreference)
+    : reduceMotion.addListener(applyMotionPreference); // Safari < 14
+
+// Le thème peut changer pendant que l'animation est à l'arrêt : on redessine.
+new MutationObserver(() => { if (reduceMotion.matches) drawStaticFrame(); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
 initParticles();
-animateParticles();
+applyMotionPreference();
