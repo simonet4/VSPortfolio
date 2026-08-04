@@ -22,13 +22,6 @@ yarn.lock
 dist/
 build/
 
-# --- Artefacts générés ---
-# Polices reconstruites depuis @fontsource/inter par tools/woff2ttf.js.
-# `npm run cv` les refait tout seul si elles manquent — inutile de versionner
-# 270 Ko de binaire déjà présent dans node_modules. Le README du dossier,
-# lui, reste suivi (licence OFL + provenance).
-tools/fonts/*.ttf
-
 # --- Environnement (Clés API, secrets) ---
 .env
 .env.local
