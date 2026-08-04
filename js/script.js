@@ -37,7 +37,6 @@ function applyLanguage() {
 
     renderExperienceFilters();
     renderExperiences();
-    renderRoadmap();
     renderStack();
     renderLangs();
     renderExtras();
@@ -326,30 +325,6 @@ function renderExtras() {
             <i class="${x.icon}" aria-hidden="true"></i>
             <span>${x.text}</span>
         </li>`).join('');
-}
-
-// ========================================
-// ROADMAP / TO-DO
-// ========================================
-function renderRoadmap() {
-    const list = document.getElementById('todo-list');
-    if (!list) return;
-
-    const data = translations[currentLang].roadmap;
-    if (!data || !data.items) return;
-
-    list.innerHTML = '';
-
-    data.items.forEach(text => {
-        const li = document.createElement('li');
-        li.className = 'todo-item';
-        li.innerHTML = `
-            <span class="todo-check" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
-            <span class="todo-text">${text}</span>
-        `;
-        list.appendChild(li);
-        observer.observe(li);
-    });
 }
 
 // ========================================

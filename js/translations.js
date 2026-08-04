@@ -19,18 +19,18 @@ translations = {
             contact: "Contact"
         },
         hero: {
-            status: "En alternance chez Gembaware · 3ᵉ année de BUT",
+            status: "DUT en poche · en alternance chez Gembaware, intégrateur Odoo",
             h1: "Sam, mon IA 100 % locale",
-            h2: "Alternant Data & IA",
+            h2: "Alternant développeur Odoo",
             h3: "Proximars présenté au CNES",
-            desc: "Étudiant en BUT Informatique à Toulouse, branché data & IA appliquée. En alternance chez Gembaware, je construis un assistant de devis par IA (Mistral AI, RAG sur Qdrant, n8n branché à Odoo), une application mobile Flutter et des analyses de performance en Python. Ce qui me fait vibrer : transformer des données et des documents bruts en quelque chose d'utile.",
+            desc: "Étudiant en BUT Informatique à Toulouse, DUT en poche. En alternance chez Gembaware, intégrateur Odoo, je développe des modules et des connecteurs Odoo en Python, une application mobile Flutter adossée à l'ERP, et j'y branche de l'IA appliquée (RAG sur Qdrant, Mistral AI). Ce qui me fait vibrer : transformer des données et des documents bruts en quelque chose d'utile.",
             cta: "Voir mes projets",
             cv: "Télécharger CV",
             letter: "Télécharger lettre de motivation"
         },
         about: {
             label: "À propos",
-            bio: "Je démarre ma 3ᵉ année de BUT Informatique à l'IUT Paul Sabatier (Toulouse), parcours AGED — administration, gestion et exploitation des données. Depuis avril 2026 je suis chez Gembaware, d'abord en stage puis en alternance jusqu'à la fin de mon diplôme : j'y ai construit un assistant de devis par IA (Mistral AI, RAG sur Qdrant, orchestration n8n sur Odoo), une application mobile Flutter complète, un connecteur ShippingBo et des audits de performance en Python. Avant ça : un bac STI2D spécialité SIN avec mention, deux projets primés (Olympiades Paul Sabatier, Nuit de l'Informatique) et une serre martienne présentée au CNES. À la maison, un Raspberry Pi héberge mon serveur mail et mes sites, et Sam — mon IA 100 % locale — tourne sur mon GPU. Ce qui me motive : passer de la donnée brute à quelque chose d'utile.",
+            bio: "J'ai obtenu mon DUT Informatique à l'IUT Paul Sabatier (Toulouse) et je poursuis en 3ᵉ année pour décrocher le BUT, parcours AGED — administration, gestion et exploitation des données. Depuis avril 2026 je suis chez Gembaware, intégrateur Odoo : d'abord en stage, puis en alternance jusqu'à la fin de mon diplôme. J'y développe des modules et des connecteurs Odoo en Python pour plusieurs clients — connecteur ShippingBo, étiquettes ZPL — une application mobile Flutter adossée à l'ERP, et j'y branche de l'IA appliquée : un assistant de devis en RAG sur Qdrant avec Mistral AI et n8n. Avant ça : un bac STI2D spécialité SIN avec mention, deux projets primés (Olympiades Paul Sabatier, Nuit de l'Informatique) et une serre martienne présentée au CNES. À la maison, un Raspberry Pi héberge mon serveur mail et mes sites, et Sam — mon IA 100 % locale — tourne sur mon GPU. Ce qui me motive : passer de la donnée brute à quelque chose d'utile.",
             stack_title: "Ma boîte à outils",
             stack: [
                 {
@@ -56,13 +56,13 @@ translations = {
             ],
             job2_date: "Juillet 2026 — Août 2027",
             job2_title: "Alternance chez Gembaware",
-            job2_desc: "Je poursuis en alternance jusqu'à la fin de mon BUT : IA appliquée, développement Odoo et mobile.",
+            job2_desc: "Développement Odoo pour plusieurs clients, application mobile Flutter et IA appliquée à l'ERP.",
             job_date: "Avril 2026 — Juillet 2026",
             job_title: "Stage chez Gembaware",
             job_desc: "Premier contact avec le métier au sein d'une vraie équipe : Odoo, API, IA et analyse de données.",
             step1_date: "2024 — 2027",
-            step1_title: "BUT Informatique — Paul Sabatier, Toulouse",
-            step1_desc: "Parcours AGED (administration, gestion et exploitation des données). 3ᵉ année en cours.",
+            step1_title: "3ᵉ année de BUT — Paul Sabatier, Toulouse",
+            step1_desc: "DUT Informatique obtenu en 2026 ; je poursuis en 3ᵉ année pour le BUT, parcours AGED (données).",
             step2_date: "2022 — 2024",
             step2_title: "Baccalauréat STI2D — Lycée Déodat de Séverac",
             step2_desc: "Spécialité SIN (Systèmes d'Information et Numérique). Obtenu avec mention.",
@@ -275,20 +275,7 @@ translations = {
         },
         now: {
             title: "En ce moment",
-            subtitle: "Ce que je construis, et ce qui m'attend juste après.",
-            building: "Je construis",
-            next: "Sur ma liste",
-            note: "Quand c'est fait, ça dégage de la liste — il ne reste que ce qui m'attend."
-        },
-        roadmap: {
-            items: [
-                "Passer le RAG du devis par IA en production chez Gembaware",
-                "Donner à Sam une mémoire long terme qui tient la route",
-                "Monter en machine learning : scikit-learn, puis deep learning",
-                "Finir Vicrasti et la publier sur le Play Store",
-                "Contribuer à un projet open source autour de la data",
-                "Décrocher ma 3ᵉ année de BUT haut la main"
-            ]
+            subtitle: "Mes chantiers du moment, en dehors de l'alternance."
         },
         contact: {
             title: "On échange ?",
@@ -300,9 +287,9 @@ translations = {
             sam: "épaulé par Sam, mon IA"
         },
         typing: [
-            "Data & IA appliquée",
-            "Alternant Data & IA @ Gembaware",
-            "J'analyse, je modélise, je déploie",
+            "Développeur Odoo @ Gembaware",
+            "Modules, connecteurs et API",
+            "De l'ERP à l'IA appliquée",
             "RAG, Odoo, Flutter et un Raspberry Pi"
         ]
     },
@@ -319,18 +306,18 @@ translations = {
             contact: "Contact"
         },
         hero: {
-            status: "Apprentice at Gembaware · final year of my CS degree",
+            status: "Two-year degree in hand · apprentice at Gembaware, an Odoo integrator",
             h1: "Sam, my 100% local AI",
-            h2: "Data & AI apprentice",
+            h2: "Odoo developer apprentice",
             h3: "Proximars presented at CNES",
-            desc: "CS student in Toulouse, into applied data & AI. On a work-study contract at Gembaware, I'm building an AI-powered quote assistant (Mistral AI, RAG on Qdrant, n8n wired into Odoo), a Flutter mobile app and performance analyses in Python. What gets me going: turning raw data and documents into something useful.",
+            desc: "CS student in Toulouse, two-year degree already in hand. On a work-study contract at Gembaware, an Odoo integrator, I build Odoo modules and connectors in Python, a Flutter mobile app on top of the ERP, and I wire applied AI into it (RAG on Qdrant, Mistral AI). What gets me going: turning raw data and documents into something useful.",
             cta: "View projects",
             cv: "Download resume",
             letter: "Download cover letter"
         },
         about: {
             label: "About",
-            bio: "I'm starting my final year of Computer Science at IUT Paul Sabatier (Toulouse), on the AGED track — data administration, management and exploitation. Since April 2026 I've been at Gembaware, first as an intern and now on a work-study contract until I graduate: I've built an AI-powered quote assistant (Mistral AI, RAG on Qdrant, n8n orchestration on Odoo), a complete Flutter mobile app, a ShippingBo connector and performance audits in Python. Before that: a STI2D baccalaureate majoring in Information Systems, with honours, two award-winning projects (Paul Sabatier Olympiads, Nuit de l'Informatique) and a Martian greenhouse presented at CNES. At home, a Raspberry Pi hosts my mail server and my websites, and Sam — my 100% local AI — runs on my GPU. What drives me: turning raw data into something useful.",
+            bio: "I earned my two-year DUT in Computer Science at IUT Paul Sabatier (Toulouse) and I'm now in the third year to complete the BUT, on the AGED track — data administration, management and exploitation. Since April 2026 I've been at Gembaware, an Odoo integrator: first as an intern, now on a work-study contract until I graduate. I build Odoo modules and connectors in Python for several clients — a ShippingBo connector, ZPL labels — a Flutter mobile app on top of the ERP, and I wire applied AI into it: a quote assistant using RAG on Qdrant with Mistral AI and n8n. Before that: a STI2D baccalaureate majoring in Information Systems, with honours, two award-winning projects (Paul Sabatier Olympiads, Nuit de l'Informatique) and a Martian greenhouse presented at CNES. At home, a Raspberry Pi hosts my mail server and my websites, and Sam — my 100% local AI — runs on my GPU. What drives me: turning raw data into something useful.",
             stack_title: "My toolbox",
             stack: [
                 {
@@ -356,13 +343,13 @@ translations = {
             ],
             job2_date: "July 2026 — August 2027",
             job2_title: "Work-study at Gembaware",
-            job2_desc: "Continuing on a work-study contract until I graduate: applied AI, Odoo and mobile development.",
+            job2_desc: "Odoo development for several clients, a Flutter mobile app and AI applied to the ERP.",
             job_date: "April 2026 — July 2026",
             job_title: "Internship at Gembaware",
             job_desc: "First taste of the job inside a real team: Odoo, APIs, AI and data analysis.",
             step1_date: "2024 — 2027",
-            step1_title: "Computer Science Degree — Paul Sabatier, Toulouse",
-            step1_desc: "AGED track (data administration, management and exploitation). Final year in progress.",
+            step1_title: "Final year (BUT) — Paul Sabatier, Toulouse",
+            step1_desc: "Two-year DUT obtained in 2026; now in the third year for the BUT, AGED (data) track.",
             step2_date: "2022 — 2024",
             step2_title: "STI2D Baccalaureate — Lycée Déodat de Séverac",
             step2_desc: "Majoring in Information Systems and Digital Technology (SIN). Passed with honours.",
@@ -575,20 +562,7 @@ translations = {
         },
         now: {
             title: "Right now",
-            subtitle: "What I'm building, and what's next on my list.",
-            building: "I'm building",
-            next: "On my list",
-            note: "Once it's done, it leaves the list — only what's ahead stays here."
-        },
-        roadmap: {
-            items: [
-                "Ship the AI quote assistant's RAG to production at Gembaware",
-                "Give Sam a long-term memory that actually holds up",
-                "Level up in machine learning: scikit-learn, then deep learning",
-                "Finish Vicrasti and ship it on the Play Store",
-                "Contribute to an open-source data project",
-                "Ace my final year of the CS degree"
-            ]
+            subtitle: "What I'm building at the moment, outside of work."
         },
         contact: {
             title: "Let's chat",
@@ -600,9 +574,9 @@ translations = {
             sam: "with a hand from Sam, my AI"
         },
         typing: [
-            "Applied data & AI",
-            "Data & AI apprentice @ Gembaware",
-            "I analyze, I model, I ship",
+            "Odoo developer @ Gembaware",
+            "Modules, connectors and APIs",
+            "From the ERP to applied AI",
             "RAG, Odoo, Flutter and a Raspberry Pi"
         ]
     },
@@ -619,18 +593,18 @@ translations = {
             contact: "Contato"
         },
         hero: {
-            status: "Em alternância na Gembaware · 3º ano de graduação",
+            status: "DUT concluído · em alternância na Gembaware, integradora Odoo",
             h1: "Sam, minha IA 100% local",
-            h2: "Aprendiz em Data & IA",
+            h2: "Aprendiz de desenvolvedor Odoo",
             h3: "Proximars apresentado no CNES",
-            desc: "Estudante de Informática em Toulouse, voltado para data & IA aplicada. Em alternância na Gembaware, construo um assistente de orçamentos com IA (Mistral AI, RAG no Qdrant, n8n integrado ao Odoo), um aplicativo mobile em Flutter e análises de desempenho em Python. O que me empolga: transformar dados e documentos brutos em algo útil.",
+            desc: "Estudante de Informática em Toulouse, com o DUT já concluído. Em alternância na Gembaware, integradora Odoo, desenvolvo módulos e conectores Odoo em Python, um aplicativo mobile Flutter sobre o ERP, e integro IA aplicada (RAG no Qdrant, Mistral AI). O que me empolga: transformar dados e documentos brutos em algo útil.",
             cta: "Ver projetos",
             cv: "Baixar currículo",
             letter: "Baixar carta de apresentação"
         },
         about: {
             label: "Sobre",
-            bio: "Estou começando o 3º ano de Informática no IUT Paul Sabatier (Toulouse), na trilha AGED — administração, gestão e exploração de dados. Desde abril de 2026 estou na Gembaware, primeiro como estagiário e agora em alternância até me formar: construí ali um assistente de orçamentos com IA (Mistral AI, RAG no Qdrant, orquestração n8n sobre Odoo), um aplicativo mobile completo em Flutter, um conector ShippingBo e auditorias de desempenho em Python. Antes disso: um bacharelado técnico STI2D com especialidade em Sistemas de Informação, com menção, dois projetos premiados (Olimpíadas Paul Sabatier, Nuit de l'Informatique) e uma estufa marciana apresentada no CNES. Em casa, um Raspberry Pi hospeda meu servidor de email e meus sites, e o Sam — minha IA 100% local — roda na minha GPU. O que me motiva: transformar dados brutos em algo útil.",
+            bio: "Concluí meu DUT em Informática no IUT Paul Sabatier (Toulouse) e sigo no 3º ano para obter o BUT, na trilha AGED — administração, gestão e exploração de dados. Desde abril de 2026 estou na Gembaware, integradora Odoo: primeiro como estagiário, agora em alternância até me formar. Desenvolvo módulos e conectores Odoo em Python para vários clientes — conector ShippingBo, etiquetas ZPL — um aplicativo mobile Flutter sobre o ERP, e integro IA aplicada: um assistente de orçamentos em RAG no Qdrant com Mistral AI e n8n. Antes disso: um bacharelado técnico STI2D com especialidade em Sistemas de Informação, com menção, dois projetos premiados (Olimpíadas Paul Sabatier, Nuit de l'Informatique) e uma estufa marciana apresentada no CNES. Em casa, um Raspberry Pi hospeda meu servidor de email e meus sites, e o Sam — minha IA 100% local — roda na minha GPU. O que me motiva: transformar dados brutos em algo útil.",
             stack_title: "Minha caixa de ferramentas",
             stack: [
                 {
@@ -656,13 +630,13 @@ translations = {
             ],
             job2_date: "Julho 2026 — Agosto 2027",
             job2_title: "Alternância na Gembaware",
-            job2_desc: "Sigo em alternância até o fim da graduação: IA aplicada, desenvolvimento Odoo e mobile.",
+            job2_desc: "Desenvolvimento Odoo para vários clientes, app mobile Flutter e IA aplicada ao ERP.",
             job_date: "Abril 2026 — Julho 2026",
             job_title: "Estágio na Gembaware",
             job_desc: "Primeiro contato com a profissão dentro de uma equipe de verdade: Odoo, APIs, IA e análise de dados.",
             step1_date: "2024 — 2027",
-            step1_title: "Graduação em Informática — Paul Sabatier, Toulouse",
-            step1_desc: "Trilha AGED (administração, gestão e exploração de dados). 3º ano em andamento.",
+            step1_title: "3º ano (BUT) — Paul Sabatier, Toulouse",
+            step1_desc: "DUT concluído em 2026; sigo no 3º ano para o BUT, trilha AGED (dados).",
             step2_date: "2022 — 2024",
             step2_title: "Bacharelado Tecnológico STI2D — Liceu Déodat de Séverac",
             step2_desc: "Especialidade SIN (Sistemas de Informação e Digital). Concluído com menção.",
@@ -875,20 +849,7 @@ translations = {
         },
         now: {
             title: "Agora mesmo",
-            subtitle: "O que estou construindo, e o que vem logo depois.",
-            building: "Estou construindo",
-            next: "Na minha lista",
-            note: "Quando termina, sai da lista — aqui fica só o que ainda vem."
-        },
-        roadmap: {
-            items: [
-                "Levar o RAG do assistente de orçamentos à produção na Gembaware",
-                "Dar ao Sam uma memória de longo prazo que se sustente",
-                "Evoluir em machine learning: scikit-learn, depois deep learning",
-                "Terminar o Vicrasti e publicá-lo na Play Store",
-                "Contribuir para um projeto open source de dados",
-                "Mandar bem no 3º ano da graduação"
-            ]
+            subtitle: "Meus projetos do momento, fora da alternância."
         },
         contact: {
             title: "Vamos conversar?",
@@ -900,9 +861,9 @@ translations = {
             sam: "com a ajuda do Sam, minha IA"
         },
         typing: [
-            "Data & IA aplicada",
-            "Aprendiz em Data & IA @ Gembaware",
-            "Eu analiso, modelo e implanto",
+            "Desenvolvedor Odoo @ Gembaware",
+            "Módulos, conectores e APIs",
+            "Do ERP à IA aplicada",
             "RAG, Odoo, Flutter e um Raspberry Pi"
         ]
     }

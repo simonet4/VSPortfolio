@@ -837,49 +837,25 @@ html.dark .featured-badge { color: #3a2c00; }
 }
 
 /* =========================================
-   9a. "EN CE MOMENT" — LAYOUT FUSIONNÉ
-   ========================================= */
-.now-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2.75rem;
-    margin-top: 1.5rem;
-}
-@media (min-width: 900px) {
-    .now-layout {
-        grid-template-columns: 1.5fr 1fr;
-        gap: 2.75rem;
-        align-items: start;
-    }
-}
-.now-subhead {
-    display: flex; align-items: center; gap: 0.5rem;
-    font-size: 0.95rem; font-weight: 700;
-    color: var(--text); margin-bottom: 1.1rem;
-}
-.now-subhead i { color: var(--accent-2); font-size: 0.9rem; }
-/* Aligné à ras du titre et des items de la liste (pas de retrait) */
-.now-note {
-    margin-top: 1.35rem;
-    font-size: 0.78rem; color: var(--text-secondary);
-    font-style: italic; line-height: 1.5;
-}
-
-/* =========================================
-   9b. CURRENT PROJECTS
+   9. "EN CE MOMENT" — PROJETS EN COURS
    ========================================= */
 .current-projects-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
     gap: 1.25rem;
 }
 .current-card {
-    display: flex; gap: 1rem;
+    display: flex; flex-direction: column; gap: 1rem;
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: 1.5rem;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+/* Icône et statut sur une même ligne, en tête de carte */
+.current-card-top {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 0.75rem;
 }
 .current-card:hover {
     transform: translateY(-3px);
@@ -897,14 +873,13 @@ html.dark .current-card:hover {
     font-size: 1.15rem;
     color: var(--accent);
 }
-.current-card-body { flex: 1; min-width: 0; }
-.current-card-header {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 0.75rem; margin-bottom: 0.5rem; flex-wrap: wrap;
+.current-card-body {
+    flex: 1; min-width: 0;
+    display: flex; flex-direction: column;
 }
-.current-card-header h3 {
+.current-card-body h3 {
     font-size: 1rem; font-weight: 700;
-    color: var(--text); margin: 0;
+    color: var(--text); margin: 0 0 0.5rem;
 }
 .current-status {
     display: inline-flex; align-items: center; gap: 0.3rem;
@@ -927,49 +902,12 @@ html.dark .status-dev {
 }
 .current-card-body > p {
     font-size: 0.85rem; color: var(--text-secondary);
-    line-height: 1.5; margin: 0 0 0.75rem;
+    line-height: 1.5; margin: 0 0 0.9rem;
 }
+/* Les tags collent au bas : les cartes gardent une base alignée */
 .current-tags {
     display: flex; flex-wrap: wrap; gap: 0.35rem;
-}
-
-/* =========================================
-   9c. NEXT UP / TO-DO
-   ========================================= */
-/* La marge négative compense le padding des items : le texte tombe à ras
-   du titre "Sur ma liste" et de la note, tout en gardant un fond de survol
-   qui déborde proprement. */
-.todo-list {
-    list-style: none; padding: 0;
-    margin: 0 -0.7rem;
-    display: flex; flex-direction: column; gap: 0.15rem;
-}
-.todo-item {
-    display: flex; align-items: flex-start; gap: 0.7rem;
-    padding: 0.5rem 0.7rem;
-    border-radius: var(--radius);
-    cursor: default;
-    opacity: 0; transform: translateY(8px);
-    transition: opacity 0.5s ease, transform 0.45s ease, background 0.2s ease;
-}
-.todo-item.active { opacity: 1; transform: none; }
-.todo-item:hover { background: var(--accent-2-subtle); }
-
-/* Case vide = à faire. Volontairement inerte : la liste n'est pas cliquable. */
-.todo-check {
-    flex-shrink: 0; margin-top: 0.15rem;
-    width: 18px; height: 18px;
-    border-radius: 6px;
-    border: 2px solid var(--accent-2);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.55rem; color: transparent;
-    transition: box-shadow 0.2s ease;
-}
-.todo-item:hover .todo-check {
-    box-shadow: 0 0 0 3px var(--accent-2-subtle);
-}
-.todo-text {
-    font-size: 0.9rem; color: var(--text); line-height: 1.5;
+    margin-top: auto;
 }
 
 /* =========================================
@@ -1048,7 +986,7 @@ footer p {
 
 /* Sans animation : le contenu doit rester visible, pas rester à opacity 0 */
 @media (prefers-reduced-motion: reduce) {
-    .reveal, .todo-item, .experience-card {
+    .reveal, .experience-card {
         opacity: 1 !important;
         transform: none !important;
         transition: none !important;
