@@ -564,11 +564,46 @@ html.dark .filter-chip.active { color: var(--bg); }
     opacity: 0.65; font-weight: 500;
 }
 
+/* "Tout voir" détaché du reste : c'est une sortie, pas une catégorie */
+.filter-chip[data-filter="all"] { margin-left: auto; }
+@media (max-width: 620px) {
+    .filter-chip[data-filter="all"] { margin-left: 0; }
+}
+
 .experiences-empty {
     grid-column: 1 / -1;
     font-size: 0.88rem; color: var(--text-secondary);
     padding: 1.5rem 0;
 }
+
+/* Rappel sous la sélection courte : le reste est à un clic */
+.experiences-more:empty { display: none; }
+.experiences-more {
+    display: flex; justify-content: center;
+    margin-top: 1.75rem;
+}
+.see-all-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.85rem; font-weight: 600;
+    color: var(--accent);
+    background: transparent;
+    border: 1px dashed var(--border);
+    border-radius: 999px;
+    transition: color var(--transition), border-color var(--transition),
+                background var(--transition);
+}
+.see-all-btn:hover {
+    color: var(--accent-hover);
+    border-color: var(--accent);
+    border-style: solid;
+    background: var(--accent-subtle);
+}
+.see-all-btn:focus-visible {
+    outline: 2px solid var(--accent-2);
+    outline-offset: 2px;
+}
+.see-all-btn i { font-size: 0.72rem; }
 
 /* =========================================
    8. EXPERIENCES
@@ -823,12 +858,11 @@ html.dark .featured-badge { color: #3a2c00; }
     color: var(--text); margin-bottom: 1.1rem;
 }
 .now-subhead i { color: var(--accent-2); font-size: 0.9rem; }
+/* Aligné à ras du titre et des items de la liste (pas de retrait) */
 .now-note {
-    margin-top: 1.2rem;
+    margin-top: 1.35rem;
     font-size: 0.78rem; color: var(--text-secondary);
     font-style: italic; line-height: 1.5;
-    padding-left: 0.75rem;
-    border-left: 2px solid var(--border);
 }
 
 /* =========================================
@@ -900,46 +934,42 @@ html.dark .status-dev {
 }
 
 /* =========================================
-   9c. NEXT UP / TO-DO (décalé)
+   9c. NEXT UP / TO-DO
    ========================================= */
+/* La marge négative compense le padding des items : le texte tombe à ras
+   du titre "Sur ma liste" et de la note, tout en gardant un fond de survol
+   qui déborde proprement. */
 .todo-list {
-    list-style: none; padding: 0; margin: 0;
-    display: flex; flex-direction: column; gap: 0.3rem;
+    list-style: none; padding: 0;
+    margin: 0 -0.7rem;
+    display: flex; flex-direction: column; gap: 0.15rem;
 }
 .todo-item {
     display: flex; align-items: flex-start; gap: 0.7rem;
-    padding: 0.55rem 0.7rem;
+    padding: 0.5rem 0.7rem;
     border-radius: var(--radius);
     cursor: default;
-    opacity: 0; transform: translateX(-12px);
+    opacity: 0; transform: translateY(8px);
     transition: opacity 0.5s ease, transform 0.45s ease, background 0.2s ease;
 }
 .todo-item.active { opacity: 1; transform: none; }
 .todo-item:hover { background: var(--accent-2-subtle); }
 
+/* Case vide = à faire. Volontairement inerte : la liste n'est pas cliquable. */
 .todo-check {
-    flex-shrink: 0; margin-top: 0.1rem;
-    width: 21px; height: 21px;
-    border-radius: 7px;
+    flex-shrink: 0; margin-top: 0.15rem;
+    width: 18px; height: 18px;
+    border-radius: 6px;
     border: 2px solid var(--accent-2);
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.6rem; color: transparent;
-    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    font-size: 0.55rem; color: transparent;
+    transition: box-shadow 0.2s ease;
 }
-/* survol = aperçu "fait" (et fait = retiré) */
 .todo-item:hover .todo-check {
-    background: var(--accent-2); color: #3a2c00;
-    transform: rotate(-6deg);
+    box-shadow: 0 0 0 3px var(--accent-2-subtle);
 }
 .todo-text {
-    font-size: 0.92rem; color: var(--text); line-height: 1.45;
-    transition: color 0.2s ease;
-}
-.todo-item:hover .todo-text {
-    color: var(--text-secondary);
-    text-decoration: line-through;
-    text-decoration-color: var(--accent-2);
-    text-decoration-thickness: 2px;
+    font-size: 0.9rem; color: var(--text); line-height: 1.5;
 }
 
 /* =========================================
@@ -1015,6 +1045,15 @@ footer p {
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
 .reveal.active { opacity: 1; transform: translateY(0); }
+
+/* Sans animation : le contenu doit rester visible, pas rester à opacity 0 */
+@media (prefers-reduced-motion: reduce) {
+    .reveal, .todo-item, .experience-card {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
 
 /* Theme toggle sun/moon */
 #theme-toggle .fa-sun { display: none; }

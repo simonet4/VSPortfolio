@@ -38,6 +38,7 @@ function applyLanguage() {
     renderExperienceFilters();
     renderExperiences();
     renderRoadmap();
+    renderStack();
     renderLangs();
     renderExtras();
     fetchProjects();
@@ -159,11 +160,14 @@ window.addEventListener('scroll', () => {
 // ========================================
 // EXPERIENCES + FILTRES
 // ========================================
-const FILTER_ORDER = ['all', 'pro', 'study', 'perso', 'award'];
-let activeFilter = 'all';
+// 'top' d'abord et par défaut : une page d'accueil courte pour qui survole,
+// le reste à un clic pour qui creuse. 'all' en dernier, comme une sortie.
+const FILTER_ORDER = ['top', 'pro', 'study', 'perso', 'award', 'all'];
+let activeFilter = 'top';
 
 function matchesFilter(exp, filter) {
     if (filter === 'all') return true;
+    if (filter === 'top') return Boolean(exp.featured);
     if (filter === 'award') return Boolean(exp.award);
     return exp.cat === filter;
 }
@@ -186,12 +190,32 @@ function renderExperienceFilters() {
     }).join('');
 
     bar.querySelectorAll('.filter-chip').forEach(btn => {
-        btn.addEventListener('click', () => {
-            activeFilter = btn.dataset.filter;
-            renderExperienceFilters();
-            renderExperiences();
-        });
+        btn.addEventListener('click', () => setFilter(btn.dataset.filter));
     });
+}
+
+function setFilter(filter) {
+    activeFilter = filter;
+    renderExperienceFilters();
+    renderExperiences();
+}
+
+// Sous la sélection courte, un rappel explicite qu'il y a tout le reste.
+function renderExperiencesMore() {
+    const box = document.getElementById('experiences-more');
+    if (!box) return;
+
+    const data = translations[currentLang].experiences;
+    const total = data.items.length;
+
+    if (activeFilter !== 'top') { box.innerHTML = ''; return; }
+
+    const label = (data.seeAll || '').replace('{n}', total);
+    box.innerHTML = `
+        <button type="button" class="see-all-btn">
+            ${label} <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+        </button>`;
+    box.querySelector('.see-all-btn').addEventListener('click', () => setFilter('all'));
 }
 
 function renderExperiences() {
@@ -206,6 +230,7 @@ function renderExperiences() {
 
     const items = data.items.filter(exp => matchesFilter(exp, activeFilter));
     grid.innerHTML = '';
+    renderExperiencesMore();
 
     if (!items.length) {
         grid.innerHTML = `<p class="experiences-empty">${data.empty || ''}</p>`;
@@ -251,6 +276,25 @@ function renderExperiences() {
             });
         });
     });
+}
+
+// ========================================
+// BOÎTE À OUTILS
+// ========================================
+function renderStack() {
+    const grid = document.getElementById('stack-grid');
+    if (!grid) return;
+
+    const stack = translations[currentLang].about?.stack;
+    if (!stack) return;
+
+    grid.innerHTML = stack.map(group => `
+        <div class="stack-group">
+            <span class="stack-label">${group.label}</span>
+            <div class="stack-tags">
+                ${group.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+        </div>`).join('');
 }
 
 // ========================================

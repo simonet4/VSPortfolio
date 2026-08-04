@@ -32,6 +32,28 @@ translations = {
             label: "À propos",
             bio: "Je démarre ma 3ᵉ année de BUT Informatique à l'IUT Paul Sabatier (Toulouse), parcours AGED — administration, gestion et exploitation des données. Depuis avril 2026 je suis chez Gembaware, d'abord en stage puis en alternance jusqu'à la fin de mon diplôme : j'y ai construit un assistant de devis par IA (Mistral AI, RAG sur Qdrant, orchestration n8n sur Odoo), une application mobile Flutter complète, un connecteur ShippingBo et des audits de performance en Python. Avant ça : un bac STI2D spécialité SIN avec mention, deux projets primés (Olympiades Paul Sabatier, Nuit de l'Informatique) et une serre martienne présentée au CNES. À la maison, un Raspberry Pi héberge mon serveur mail et mes sites, et Sam — mon IA 100 % locale — tourne sur mon GPU. Ce qui me motive : passer de la donnée brute à quelque chose d'utile.",
             stack_title: "Ma boîte à outils",
+            stack: [
+                {
+                    label: "Data & IA",
+                    tags: ["Python", "Pandas", "Matplotlib", "Power BI", "Knime", "RAG", "Qdrant", "Mistral AI", "Ollama", "n8n"]
+                },
+                {
+                    label: "Bases de données",
+                    tags: ["Oracle SQL", "PL/SQL", "Oracle APEX", "HeidiSQL", "Access", "Odoo / ERP"]
+                },
+                {
+                    label: "Langages",
+                    tags: ["Java", "C", "C++", "ADA", "PHP", "JavaScript", "HTML/CSS", "Bash"]
+                },
+                {
+                    label: "Applicatif & embarqué",
+                    tags: ["Flutter / Dart", "Android Studio", "Arduino", "ZPL", "WindowBuilder", "WinDev"]
+                },
+                {
+                    label: "Outils & Infra",
+                    tags: ["Git", "Docker", "Linux", "VirtualBox", "Postman", "Agile / Scrum", "VS Code", "Eclipse", "JUnit", "Blender / FreeCAD"]
+                }
+            ],
             job2_date: "Juillet 2026 — Août 2027",
             job2_title: "Alternance chez Gembaware",
             job2_desc: "Je poursuis en alternance jusqu'à la fin de mon BUT : IA appliquée, développement Odoo et mobile.",
@@ -64,19 +86,22 @@ translations = {
         },
         experiences: {
             title: "Parcours & Réalisations",
-            subtitle: "Mon alternance, mes projets de cours, mes compètes et ce que je bricole de mon côté.",
+            subtitle: "Mon alternance, mes projets de cours, mes compètes et ce que je bricole de mon côté. Voici l'essentiel — les filtres ouvrent le reste.",
             filters: {
-                all: "Tout",
+                top: "L'essentiel",
                 pro: "Professionnel",
                 study: "Études",
                 perso: "Perso",
-                award: "Distinctions"
+                award: "Distinctions",
+                all: "Tout voir"
             },
+            seeAll: "Voir les {n} réalisations",
             empty: "Aucun projet dans cette catégorie.",
             items: [
                 {
                     icon: "fa-solid fa-mobile-screen-button",
                     cat: "pro",
+                    featured: true,
                     date: "2026 — Gembaware",
                     title: "Application mobile Flutter × Odoo",
                     context: "Gembaware — Alternance",
@@ -86,6 +111,7 @@ translations = {
                 {
                     icon: "fa-solid fa-wand-magic-sparkles",
                     cat: "pro",
+                    featured: true,
                     date: "2026 — Gembaware",
                     title: "Assistant de devis par IA (RAG)",
                     context: "Gembaware — Alternance",
@@ -113,6 +139,7 @@ translations = {
                 {
                     icon: "fa-solid fa-wave-square",
                     cat: "study",
+                    featured: true,
                     date: "2025 — Nuit de l'Informatique",
                     title: "Devier — visualisation audio temps réel",
                     context: "Hackathon Paul Sabatier — Équipe de 10",
@@ -125,6 +152,7 @@ translations = {
                 {
                     icon: "fa-solid fa-magnifying-glass-chart",
                     cat: "study",
+                    featured: true,
                     date: "2025 — 2026",
                     title: "OpenFoodFacts — Nutri-Score estimé par IA",
                     context: "BUT Informatique — Projet SAE",
@@ -170,6 +198,7 @@ translations = {
                 {
                     icon: "fa-solid fa-satellite",
                     cat: "study",
+                    featured: true,
                     date: "2023 — 2024",
                     title: "Proximars — serre à environnement contrôlé",
                     context: "Terminale STI2D SIN — Équipe de 5",
@@ -182,6 +211,7 @@ translations = {
                 {
                     icon: "fa-solid fa-robot",
                     cat: "study",
+                    featured: true,
                     date: "2022 — 2023",
                     title: "Robot Sumo télécommandé",
                     context: "Première STI2D SIN — Équipe de 5",
@@ -252,8 +282,9 @@ translations = {
         },
         roadmap: {
             items: [
-                "Pousser le RAG du devis par IA jusqu'en production chez Gembaware",
-                "Monter en compétence en ML (scikit-learn, puis deep learning)",
+                "Passer le RAG du devis par IA en production chez Gembaware",
+                "Donner à Sam une mémoire long terme qui tient la route",
+                "Monter en machine learning : scikit-learn, puis deep learning",
                 "Finir Vicrasti et la publier sur le Play Store",
                 "Contribuer à un projet open source autour de la data",
                 "Décrocher ma 3ᵉ année de BUT haut la main"
@@ -301,6 +332,28 @@ translations = {
             label: "About",
             bio: "I'm starting my final year of Computer Science at IUT Paul Sabatier (Toulouse), on the AGED track — data administration, management and exploitation. Since April 2026 I've been at Gembaware, first as an intern and now on a work-study contract until I graduate: I've built an AI-powered quote assistant (Mistral AI, RAG on Qdrant, n8n orchestration on Odoo), a complete Flutter mobile app, a ShippingBo connector and performance audits in Python. Before that: a STI2D baccalaureate majoring in Information Systems, with honours, two award-winning projects (Paul Sabatier Olympiads, Nuit de l'Informatique) and a Martian greenhouse presented at CNES. At home, a Raspberry Pi hosts my mail server and my websites, and Sam — my 100% local AI — runs on my GPU. What drives me: turning raw data into something useful.",
             stack_title: "My toolbox",
+            stack: [
+                {
+                    label: "Data & AI",
+                    tags: ["Python", "Pandas", "Matplotlib", "Power BI", "Knime", "RAG", "Qdrant", "Mistral AI", "Ollama", "n8n"]
+                },
+                {
+                    label: "Databases",
+                    tags: ["Oracle SQL", "PL/SQL", "Oracle APEX", "HeidiSQL", "Access", "Odoo / ERP"]
+                },
+                {
+                    label: "Languages",
+                    tags: ["Java", "C", "C++", "ADA", "PHP", "JavaScript", "HTML/CSS", "Bash"]
+                },
+                {
+                    label: "Apps & embedded",
+                    tags: ["Flutter / Dart", "Android Studio", "Arduino", "ZPL", "WindowBuilder", "WinDev"]
+                },
+                {
+                    label: "Tools & infra",
+                    tags: ["Git", "Docker", "Linux", "VirtualBox", "Postman", "Agile / Scrum", "VS Code", "Eclipse", "JUnit", "Blender / FreeCAD"]
+                }
+            ],
             job2_date: "July 2026 — August 2027",
             job2_title: "Work-study at Gembaware",
             job2_desc: "Continuing on a work-study contract until I graduate: applied AI, Odoo and mobile development.",
@@ -333,19 +386,22 @@ translations = {
         },
         experiences: {
             title: "Background & Achievements",
-            subtitle: "My apprenticeship, my coursework, my competitions and the things I tinker with on my own.",
+            subtitle: "My apprenticeship, my coursework, my competitions and the things I tinker with on my own. Here are the highlights — the filters open up the rest.",
             filters: {
-                all: "All",
+                top: "Highlights",
                 pro: "Professional",
                 study: "Studies",
                 perso: "Personal",
-                award: "Awards"
+                award: "Awards",
+                all: "See all"
             },
+            seeAll: "See all {n} achievements",
             empty: "No project in this category.",
             items: [
                 {
                     icon: "fa-solid fa-mobile-screen-button",
                     cat: "pro",
+                    featured: true,
                     date: "2026 — Gembaware",
                     title: "Flutter × Odoo mobile app",
                     context: "Gembaware — Work-study",
@@ -355,6 +411,7 @@ translations = {
                 {
                     icon: "fa-solid fa-wand-magic-sparkles",
                     cat: "pro",
+                    featured: true,
                     date: "2026 — Gembaware",
                     title: "AI-powered quote assistant (RAG)",
                     context: "Gembaware — Work-study",
@@ -382,6 +439,7 @@ translations = {
                 {
                     icon: "fa-solid fa-wave-square",
                     cat: "study",
+                    featured: true,
                     date: "2025 — Nuit de l'Informatique",
                     title: "Devier — real-time audio visualisation",
                     context: "Paul Sabatier hackathon — Team of 10",
@@ -394,6 +452,7 @@ translations = {
                 {
                     icon: "fa-solid fa-magnifying-glass-chart",
                     cat: "study",
+                    featured: true,
                     date: "2025 — 2026",
                     title: "OpenFoodFacts — AI-estimated Nutri-Score",
                     context: "CS Degree — SAE project",
@@ -439,6 +498,7 @@ translations = {
                 {
                     icon: "fa-solid fa-satellite",
                     cat: "study",
+                    featured: true,
                     date: "2023 — 2024",
                     title: "Proximars — controlled-environment greenhouse",
                     context: "Final year STI2D SIN — Team of 5",
@@ -451,6 +511,7 @@ translations = {
                 {
                     icon: "fa-solid fa-robot",
                     cat: "study",
+                    featured: true,
                     date: "2022 — 2023",
                     title: "Remote-controlled sumo robot",
                     context: "Junior year STI2D SIN — Team of 5",
@@ -521,8 +582,9 @@ translations = {
         },
         roadmap: {
             items: [
-                "Take the AI quote assistant's RAG all the way to production at Gembaware",
-                "Level up in ML (scikit-learn, then deep learning)",
+                "Ship the AI quote assistant's RAG to production at Gembaware",
+                "Give Sam a long-term memory that actually holds up",
+                "Level up in machine learning: scikit-learn, then deep learning",
                 "Finish Vicrasti and ship it on the Play Store",
                 "Contribute to an open-source data project",
                 "Ace my final year of the CS degree"
@@ -570,6 +632,28 @@ translations = {
             label: "Sobre",
             bio: "Estou começando o 3º ano de Informática no IUT Paul Sabatier (Toulouse), na trilha AGED — administração, gestão e exploração de dados. Desde abril de 2026 estou na Gembaware, primeiro como estagiário e agora em alternância até me formar: construí ali um assistente de orçamentos com IA (Mistral AI, RAG no Qdrant, orquestração n8n sobre Odoo), um aplicativo mobile completo em Flutter, um conector ShippingBo e auditorias de desempenho em Python. Antes disso: um bacharelado técnico STI2D com especialidade em Sistemas de Informação, com menção, dois projetos premiados (Olimpíadas Paul Sabatier, Nuit de l'Informatique) e uma estufa marciana apresentada no CNES. Em casa, um Raspberry Pi hospeda meu servidor de email e meus sites, e o Sam — minha IA 100% local — roda na minha GPU. O que me motiva: transformar dados brutos em algo útil.",
             stack_title: "Minha caixa de ferramentas",
+            stack: [
+                {
+                    label: "Data & IA",
+                    tags: ["Python", "Pandas", "Matplotlib", "Power BI", "Knime", "RAG", "Qdrant", "Mistral AI", "Ollama", "n8n"]
+                },
+                {
+                    label: "Bancos de dados",
+                    tags: ["Oracle SQL", "PL/SQL", "Oracle APEX", "HeidiSQL", "Access", "Odoo / ERP"]
+                },
+                {
+                    label: "Linguagens",
+                    tags: ["Java", "C", "C++", "ADA", "PHP", "JavaScript", "HTML/CSS", "Bash"]
+                },
+                {
+                    label: "Apps & embarcados",
+                    tags: ["Flutter / Dart", "Android Studio", "Arduino", "ZPL", "WindowBuilder", "WinDev"]
+                },
+                {
+                    label: "Ferramentas & infra",
+                    tags: ["Git", "Docker", "Linux", "VirtualBox", "Postman", "Agile / Scrum", "VS Code", "Eclipse", "JUnit", "Blender / FreeCAD"]
+                }
+            ],
             job2_date: "Julho 2026 — Agosto 2027",
             job2_title: "Alternância na Gembaware",
             job2_desc: "Sigo em alternância até o fim da graduação: IA aplicada, desenvolvimento Odoo e mobile.",
@@ -602,19 +686,22 @@ translations = {
         },
         experiences: {
             title: "Trajetória & Realizações",
-            subtitle: "Minha alternância, meus projetos de curso, minhas competições e o que eu mexo por conta própria.",
+            subtitle: "Minha alternância, meus projetos de curso, minhas competições e o que eu mexo por conta própria. Aqui vai o essencial — os filtros abrem o resto.",
             filters: {
-                all: "Tudo",
+                top: "Destaques",
                 pro: "Profissional",
                 study: "Estudos",
                 perso: "Pessoal",
-                award: "Prêmios"
+                award: "Prêmios",
+                all: "Ver tudo"
             },
+            seeAll: "Ver as {n} realizações",
             empty: "Nenhum projeto nesta categoria.",
             items: [
                 {
                     icon: "fa-solid fa-mobile-screen-button",
                     cat: "pro",
+                    featured: true,
                     date: "2026 — Gembaware",
                     title: "Aplicativo mobile Flutter × Odoo",
                     context: "Gembaware — Alternância",
@@ -624,6 +711,7 @@ translations = {
                 {
                     icon: "fa-solid fa-wand-magic-sparkles",
                     cat: "pro",
+                    featured: true,
                     date: "2026 — Gembaware",
                     title: "Assistente de orçamentos com IA (RAG)",
                     context: "Gembaware — Alternância",
@@ -651,6 +739,7 @@ translations = {
                 {
                     icon: "fa-solid fa-wave-square",
                     cat: "study",
+                    featured: true,
                     date: "2025 — Nuit de l'Informatique",
                     title: "Devier — visualização de áudio em tempo real",
                     context: "Hackathon Paul Sabatier — Equipe de 10",
@@ -663,6 +752,7 @@ translations = {
                 {
                     icon: "fa-solid fa-magnifying-glass-chart",
                     cat: "study",
+                    featured: true,
                     date: "2025 — 2026",
                     title: "OpenFoodFacts — Nutri-Score estimado por IA",
                     context: "Graduação — Projeto SAE",
@@ -708,6 +798,7 @@ translations = {
                 {
                     icon: "fa-solid fa-satellite",
                     cat: "study",
+                    featured: true,
                     date: "2023 — 2024",
                     title: "Proximars — estufa de ambiente controlado",
                     context: "Último ano STI2D SIN — Equipe de 5",
@@ -720,6 +811,7 @@ translations = {
                 {
                     icon: "fa-solid fa-robot",
                     cat: "study",
+                    featured: true,
                     date: "2022 — 2023",
                     title: "Robô de sumô por controle remoto",
                     context: "1º ano STI2D SIN — Equipe de 5",
@@ -791,7 +883,8 @@ translations = {
         roadmap: {
             items: [
                 "Levar o RAG do assistente de orçamentos à produção na Gembaware",
-                "Evoluir em ML (scikit-learn, depois deep learning)",
+                "Dar ao Sam uma memória de longo prazo que se sustente",
+                "Evoluir em machine learning: scikit-learn, depois deep learning",
                 "Terminar o Vicrasti e publicá-lo na Play Store",
                 "Contribuir para um projeto open source de dados",
                 "Mandar bem no 3º ano da graduação"
