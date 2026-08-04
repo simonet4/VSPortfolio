@@ -1,38 +1,64 @@
-﻿// ========================================
+// ========================================
 // script.js — Portfolio Victor Simonet
 // ========================================
 
 // --- Configuration ---
 const languages = ['fr', 'en', 'pt'];
+const LANG_STORAGE_KEY = 'portfolio_lang';
 let langIndex = 0;
 let currentLang = 'fr';
 
 const langBtn = document.getElementById('lang-btn');
 
+// Échappement — les descriptions viennent de l'API GitHub, donc de l'extérieur.
+function esc(str) {
+    return String(str ?? '').replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+}
+
 // --- Language switching ---
-function updateLanguage() {
-    langIndex = (langIndex + 1) % languages.length;
-    currentLang = languages[langIndex];
-    langBtn.textContent = translations[currentLang].btn;
+function applyLanguage() {
+    const t = translations[currentLang];
+    langBtn.textContent = t.btn;
+    document.documentElement.lang = t.htmlLang || currentLang;
 
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const keys = el.getAttribute('data-i18n').split('.');
-        let value = translations[currentLang];
+        let value = t;
         keys.forEach(k => { if (value) value = value[k]; });
-        if (value) el.textContent = value;
+        if (typeof value === 'string') el.textContent = value;
     });
 
-    words = translations[currentLang].typing;
+    words = t.typing;
     iWord = 0;
     iLetter = 0;
     isDeleting = false;
 
+    renderExperienceFilters();
     renderExperiences();
     renderRoadmap();
+    renderLangs();
+    renderExtras();
     fetchProjects();
 }
 
-if (langBtn) langBtn.addEventListener('click', updateLanguage);
+function initLanguage() {
+    const saved = localStorage.getItem(LANG_STORAGE_KEY);
+    if (saved && languages.includes(saved)) {
+        langIndex = languages.indexOf(saved);
+        currentLang = saved;
+    }
+}
+
+function cycleLanguage() {
+    langIndex = (langIndex + 1) % languages.length;
+    currentLang = languages[langIndex];
+    try { localStorage.setItem(LANG_STORAGE_KEY, currentLang); } catch (e) {}
+    applyLanguage();
+}
+
+if (langBtn) langBtn.addEventListener('click', cycleLanguage);
 
 // --- Typing Effect ---
 let words = translations['fr'].typing;
@@ -99,6 +125,11 @@ if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
 if (closeBtn) closeBtn.addEventListener('click', toggleMenu);
 mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
+// Échap ferme le menu mobile
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu?.classList.contains('active')) toggleMenu();
+});
+
 // --- Scroll reveal ---
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -126,8 +157,43 @@ window.addEventListener('scroll', () => {
 });
 
 // ========================================
-// EXPERIENCES
+// EXPERIENCES + FILTRES
 // ========================================
+const FILTER_ORDER = ['all', 'pro', 'study', 'perso', 'award'];
+let activeFilter = 'all';
+
+function matchesFilter(exp, filter) {
+    if (filter === 'all') return true;
+    if (filter === 'award') return Boolean(exp.award);
+    return exp.cat === filter;
+}
+
+function renderExperienceFilters() {
+    const bar = document.getElementById('experiences-filters');
+    if (!bar) return;
+
+    const data = translations[currentLang].experiences;
+    if (!data || !data.items || !data.filters) return;
+
+    bar.innerHTML = FILTER_ORDER.map(key => {
+        const count = data.items.filter(exp => matchesFilter(exp, key)).length;
+        const isActive = key === activeFilter;
+        return `
+            <button type="button" class="filter-chip${isActive ? ' active' : ''}"
+                    data-filter="${key}" aria-pressed="${isActive}">
+                ${data.filters[key]}<span class="filter-count">${count}</span>
+            </button>`;
+    }).join('');
+
+    bar.querySelectorAll('.filter-chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+            activeFilter = btn.dataset.filter;
+            renderExperienceFilters();
+            renderExperiences();
+        });
+    });
+}
+
 function renderExperiences() {
     const grid = document.getElementById('experiences-grid');
     if (!grid) return;
@@ -138,24 +204,42 @@ function renderExperiences() {
     const subtitleEl = document.getElementById('experiences-subtitle');
     if (subtitleEl && data.subtitle) subtitleEl.textContent = data.subtitle;
 
+    const items = data.items.filter(exp => matchesFilter(exp, activeFilter));
     grid.innerHTML = '';
 
-    data.items.forEach((exp, i) => {
+    if (!items.length) {
+        grid.innerHTML = `<p class="experiences-empty">${data.empty || ''}</p>`;
+        return;
+    }
+
+    items.forEach((exp, i) => {
         const card = document.createElement('article');
-        card.className = 'experience-card';
+        card.className = 'experience-card' + (exp.award ? ' has-award' : '');
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';
-        card.style.transition = `opacity 0.5s ease ${i * 0.1}s, transform 0.5s ease ${i * 0.1}s`;
+        card.style.transition = `opacity 0.5s ease ${Math.min(i, 8) * 0.06}s, transform 0.5s ease ${Math.min(i, 8) * 0.06}s`;
+
+        const award = exp.award
+            ? `<p class="experience-award"><i class="fa-solid fa-trophy" aria-hidden="true"></i><span>${exp.award}</span></p>`
+            : '';
+
+        const link = exp.link
+            ? `<a class="experience-link" href="${exp.link}" target="_blank" rel="noopener noreferrer">
+                   ${exp.linkLabel || exp.link} <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+               </a>`
+            : '';
 
         card.innerHTML = `
-            <div class="experience-icon"><i class="${exp.icon}"></i></div>
+            <div class="experience-icon"><i class="${exp.icon}" aria-hidden="true"></i></div>
             <span class="experience-date">${exp.date}</span>
             <h3 class="experience-role">${exp.title}</h3>
             <span class="experience-company">${exp.context}</span>
+            ${award}
             <p class="experience-desc">${exp.desc}</p>
             <div class="experience-tags">
                 ${exp.tags.map(tag => `<span class="experience-tag">${tag}</span>`).join('')}
             </div>
+            ${link}
         `;
 
         grid.appendChild(card);
@@ -167,6 +251,37 @@ function renderExperiences() {
             });
         });
     });
+}
+
+// ========================================
+// LANGUES & HORS DU CODE
+// ========================================
+function renderLangs() {
+    const list = document.getElementById('langs-list');
+    if (!list) return;
+
+    const langs = translations[currentLang].about?.langs;
+    if (!langs) return;
+
+    list.innerHTML = langs.map(l => `
+        <li class="lang-item">
+            <span class="lang-name">${l.name}</span>
+            <span class="lang-level">${l.level}</span>
+        </li>`).join('');
+}
+
+function renderExtras() {
+    const list = document.getElementById('extras-list');
+    if (!list) return;
+
+    const extras = translations[currentLang].about?.extras;
+    if (!extras) return;
+
+    list.innerHTML = extras.map(x => `
+        <li class="extra-item">
+            <i class="${x.icon}" aria-hidden="true"></i>
+            <span>${x.text}</span>
+        </li>`).join('');
 }
 
 // ========================================
@@ -217,7 +332,7 @@ const languageColors = {
     "JavaScript": "#f1e05a", "Python": "#3572A5", "Java": "#b07219",
     "C++": "#f34b7d", "C": "#555555", "HTML": "#e34c26",
     "CSS": "#563d7c", "TypeScript": "#2b7489", "Shell": "#89e051",
-    "PHP": "#4F5D95", "PLSQL": "#dad8d8"
+    "PHP": "#4F5D95", "PLSQL": "#dad8d8", "Dart": "#00B4AB", "Ada": "#02f88c"
 };
 
 let cachedRepos = null;
@@ -277,12 +392,14 @@ async function fetchProjects() {
     const t = translations[currentLang].projects;
     projectsContainer.innerHTML = `
         <div class="project-card-placeholder">
-            <span>${t.error || 'Projets temporairement indisponibles (limite GitHub atteinte).'}</span>
-            <a href="https://github.com/${githubUsername}" target="_blank" rel="noopener">Voir sur GitHub</a>
+            <span>${t.error}</span>
+            <a href="https://github.com/${githubUsername}" target="_blank" rel="noopener noreferrer">${t.errorLink}</a>
         </div>`;
 }
 
 function renderProjects(repos) {
+    if (!projectsContainer) return;
+
     const sorted = [...repos].sort((a, b) => {
         const af = featuredRepos.includes(a.name) ? 1 : 0;
         const bf = featuredRepos.includes(b.name) ? 1 : 0;
@@ -290,96 +407,66 @@ function renderProjects(repos) {
         return b.stargazers_count - a.stargazers_count;
     });
 
-    projectsContainer.innerHTML = '';
     const t = translations[currentLang].projects;
+    const locale = translations[currentLang].locale || 'fr-FR';
 
-    for (const repo of sorted) {
+    // On assemble le HTML en une fois : `innerHTML +=` dans une boucle
+    // reparse tout le conteneur à chaque tour.
+    const cards = sorted.map(repo => {
         const topics = repo.topics || [];
         const langColor = languageColors[repo.language] || '#888';
         const isFeatured = featuredRepos.includes(repo.name);
-        const description = repo.description || '';
-        const updated = new Date(repo.updated_at).toLocaleDateString(
-            currentLang === 'pt' ? 'pt-BR' : currentLang === 'en' ? 'en-US' : 'fr-FR',
-            { year: 'numeric', month: 'short', day: 'numeric' }
-        );
+        const updated = new Date(repo.updated_at).toLocaleDateString(locale, {
+            year: 'numeric', month: 'short', day: 'numeric'
+        });
 
         const topicsHtml = topics.length
-            ? `<div class="project-topics">${topics.map(tp => `<span class="project-topic">${tp}</span>`).join('')}</div>`
+            ? `<div class="project-topics">${topics.map(tp => `<span class="project-topic">${esc(tp)}</span>`).join('')}</div>`
             : '';
 
         // Priorité : map demoLinks > champ "homepage" du dépôt GitHub.
         const demoLink = demoLinks[repo.name] || (repo.homepage && repo.homepage.trim() !== '' ? repo.homepage : null);
-        const demoBtn = demoLink ? `<a href="${demoLink}" target="_blank" rel="noopener" class="btn btn-outline btn-sm"><i class="fas fa-external-link-alt"></i> ${t.demo}</a>` : '';
+        const demoBtn = demoLink
+            ? `<a href="${esc(demoLink)}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm"><i class="fas fa-external-link-alt" aria-hidden="true"></i> ${t.demo}</a>`
+            : '';
 
-        projectsContainer.innerHTML += `
-                <article class="project-card reveal${isFeatured ? ' featured' : ''}" style="position: relative;">
-                    ${isFeatured ? `<span class="featured-badge"><i class="fa-solid fa-star" aria-hidden="true"></i> ${t.featured}</span>` : ''}
-                    ${repo.fork ? '<span class="fork-badge"><i class="fa-solid fa-code-fork"></i> Fork</span>' : ''}
-                    <img src="https://opengraph.githubassets.com/1/${githubUsername}/${repo.name}"
-                         alt="${repo.name} preview" class="project-img" loading="lazy">
-                    <div class="project-body">
-                        <div class="project-header">
-                            <h3 class="project-title">
-                                <a href="${repo.html_url}" target="_blank" rel="noopener">${repo.name}</a>
-                            </h3>
+        return `
+            <article class="project-card reveal${isFeatured ? ' featured' : ''}" style="position: relative;">
+                ${isFeatured ? `<span class="featured-badge"><i class="fa-solid fa-star" aria-hidden="true"></i> ${t.featured}</span>` : ''}
+                ${repo.fork ? '<span class="fork-badge"><i class="fa-solid fa-code-fork" aria-hidden="true"></i> Fork</span>' : ''}
+                <img src="https://opengraph.githubassets.com/1/${githubUsername}/${encodeURIComponent(repo.name)}"
+                     alt="${esc(repo.name)}" class="project-img" loading="lazy">
+                <div class="project-body">
+                    <div class="project-header">
+                        <h3 class="project-title">
+                            <a href="${esc(repo.html_url)}" target="_blank" rel="noopener noreferrer">${esc(repo.name)}</a>
+                        </h3>
+                    </div>
+                    <p class="project-desc">${esc(repo.description || '')}</p>
+                    ${topicsHtml}
+                    <div class="project-footer">
+                        <div class="project-stat">
+                            <span class="lang-dot" style="background-color: ${langColor};"></span>
+                            <span>${esc(repo.language || 'N/A')}</span>
                         </div>
-                        <p class="project-desc">${description}</p>
-                        ${topicsHtml}
-                        <div class="project-footer">
-                            <div class="project-stat">
-                                <span class="lang-dot" style="background-color: ${langColor};"></span>
-                                <span>${repo.language || 'N/A'}</span>
-                            </div>
-                            <div class="project-stat">
-                                <i class="fa-regular fa-star"></i> ${repo.stargazers_count}
-                            </div>
-                            <div class="project-stat">
-                                <i class="fa-solid fa-code-fork"></i> ${repo.forks_count}
-                            </div>
+                        <div class="project-stat">
+                            <i class="fa-regular fa-star" aria-hidden="true"></i> ${repo.stargazers_count}
                         </div>
-                        <div class="project-meta">
-                            <span class="project-updated"><i class="fa-regular fa-clock"></i> ${t.updated} ${updated}</span>
-                            ${demoBtn}
+                        <div class="project-stat">
+                            <i class="fa-solid fa-code-fork" aria-hidden="true"></i> ${repo.forks_count}
                         </div>
                     </div>
-                </article>
-            `;
-        }
-
-        // Manual projects (only real ones)
-        const manual = t.manual || [];
-        manual.forEach(proj => {
-            const manualTopics = proj.tags?.length
-                ? `<div class="project-topics">${proj.tags.map(t => `<span class="project-topic">${t}</span>`).join('')}</div>`
-                : '';
-
-            projectsContainer.innerHTML += `
-                <article class="project-card reveal">
-                    <div class="project-img-placeholder">
-                        <i class="${proj.icon}"></i>
+                    <div class="project-meta">
+                        <span class="project-updated"><i class="fa-regular fa-clock" aria-hidden="true"></i> ${t.updated} ${updated}</span>
+                        ${demoBtn}
                     </div>
-                    <div class="project-body">
-                        <div class="project-header">
-                            <h3 class="project-title">${proj.title}</h3>
-                        </div>
-                        <p class="project-desc">${proj.desc}</p>
-                        ${manualTopics}
-                        <div class="project-footer">
-                            <div class="project-stat">
-                                <i class="${proj.statusIcon || 'fa-solid fa-circle-check'}"></i>
-                                <span>${proj.status}</span>
-                            </div>
-                        </div>
-                        <div class="project-meta">
-                            <span class="project-updated"><i class="fa-regular fa-clock"></i> ${proj.date}</span>
-                        </div>
-                    </div>
-                </article>
-            `;
-        });
+                </div>
+            </article>`;
+    });
 
-        document.querySelectorAll('.project-card.reveal').forEach(el => observer.observe(el));
-        renderGitHubStats(repos);
+    projectsContainer.innerHTML = cards.join('');
+    projectsContainer.querySelectorAll('.project-card.reveal').forEach(el => observer.observe(el));
+    renderGitHubStats(repos);
 }
 
 // ========================================
@@ -448,9 +535,8 @@ function animateCounter(el, target) {
 // INIT
 // ========================================
 initTheme();
-renderExperiences();
-renderRoadmap();
-fetchProjects();
+initLanguage();
+applyLanguage();
 
 const yearSpan = document.getElementById('current-year');
 if (yearSpan) yearSpan.textContent = new Date().getFullYear();

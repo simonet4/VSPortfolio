@@ -93,7 +93,7 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 /* Z-index layering above canvas */
-.navbar, #mobile-menu, main, footer, .skip-link {
+.navbar, #mobile-menu, main, footer {
     position: relative;
     z-index: 1;
 }
@@ -335,31 +335,6 @@ html.dark .status-dot { background: #4ade80; }
 }
 @media (prefers-reduced-motion: reduce) { .scroll-cue { animation: none; } }
 
-/* Hero Metrics Strip (legacy, unused) */
-.hero-metrics {
-    display: flex; align-items: center; gap: 1.5rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-}
-.metric { text-align: center; }
-.metric-value {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: clamp(1.25rem, 3vw, 1.5rem);
-    font-weight: 700;
-    color: var(--accent);
-    line-height: 1;
-}
-.metric-label {
-    display: block; margin-top: 0.2rem;
-    font-size: 0.72rem; color: var(--text-secondary);
-    text-transform: uppercase; letter-spacing: 0.04em; font-weight: 500;
-}
-.metric-sep {
-    width: 1px; height: 32px;
-    background: var(--border);
-}
-
 /* CTA */
 .cta-group { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 .btn {
@@ -384,14 +359,6 @@ html.dark .btn-primary { color: #0f1219; }
 }
 .btn-outline:hover { background: var(--accent-subtle); border-color: var(--accent); color: var(--accent); }
 .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.78rem; }
-
-/* Icon-only button used in CTAs (compact) */
-.btn-icon {
-    padding: 0.6rem; gap: 0; width: auto; min-width: 44px; height: 44px;
-    display: inline-flex; align-items: center; justify-content: center;
-    border-radius: 10px;
-}
-.cta-group .btn-icon { width: auto; }
 
 /* Typing */
 .typing-wrapper {
@@ -511,104 +478,97 @@ html.dark .btn-primary { color: #0f1219; }
 html.dark .tag { background: var(--bg); }
 
 /* =========================================
-   7. CASE STUDIES
+   7. LANGUES & HORS DU CODE
    ========================================= */
-.cases-grid {
-    display: flex; flex-direction: column;
+.about-extras-grid {
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 2rem;
+    margin-top: 2.75rem;
+    padding-top: 2.25rem;
+    border-top: 1px solid var(--border);
+}
+@media (min-width: 760px) {
+    .about-extras-grid { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 2.5rem; }
 }
 
-.case-card {
+.langs-list, .extras-list {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 0.5rem;
+}
+
+.lang-item {
+    display: flex; align-items: baseline; gap: 0.65rem;
+    font-size: 0.88rem;
+}
+.lang-name { font-weight: 600; color: var(--text); white-space: nowrap; }
+/* Ligne pointillée qui relie la langue à son niveau */
+.lang-item::after {
+    content: '';
+    order: 1; flex: 1;
+    height: 0; margin-bottom: 0.22em;
+    border-bottom: 1px dotted var(--border);
+}
+.lang-level {
+    order: 2;
+    font-family: var(--font-mono); font-size: 0.76rem;
+    color: var(--accent); font-weight: 500; white-space: nowrap;
+}
+
+.extra-item {
+    display: flex; align-items: flex-start; gap: 0.7rem;
+    font-size: 0.88rem; color: var(--text-secondary);
+    line-height: 1.5;
+}
+.extra-item i {
+    flex-shrink: 0; margin-top: 0.22em;
+    width: 1.1rem; text-align: center;
+    color: var(--accent-2); font-size: 0.85rem;
+}
+
+/* =========================================
+   7b. FILTRES DES RÉALISATIONS
+   ========================================= */
+.filter-bar {
+    display: flex; flex-wrap: wrap; gap: 0.45rem;
+    margin: -1.25rem 0 1.75rem;
+}
+.filter-chip {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.34rem 0.8rem;
+    font-size: 0.8rem; font-weight: 500;
+    color: var(--text-secondary);
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    transition: box-shadow 0.3s, border-color 0.3s;
+    border-radius: 999px;
+    transition: color var(--transition), border-color var(--transition),
+                background var(--transition);
 }
-.case-card:hover {
-    box-shadow: var(--shadow-md);
+.filter-chip:hover {
+    color: var(--text);
     border-color: var(--accent);
 }
-
-.case-header {
-    padding: 1.75rem 2rem 1.25rem;
-    display: flex; flex-wrap: wrap;
-    justify-content: space-between; align-items: flex-start;
-    gap: 1rem;
+.filter-chip.active {
+    color: #fff;
+    background: var(--accent);
+    border-color: var(--accent);
+    font-weight: 600;
 }
-.case-header-left { flex: 1; min-width: 200px; }
-.case-number {
-    font-family: var(--font-mono); font-size: 0.72rem;
-    color: var(--accent); font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.06em;
-    margin-bottom: 0.35rem;
+html.dark .filter-chip.active { color: var(--bg); }
+.filter-chip:focus-visible {
+    outline: 2px solid var(--accent-2);
+    outline-offset: 2px;
 }
-.case-title {
-    font-size: clamp(1.1rem, 2.5vw, 1.35rem);
-    font-weight: 700;
-    margin: 0 0 0.25rem 0;
-}
-.case-subtitle {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-}
-.case-tags {
-    display: flex; flex-wrap: wrap; gap: 0.35rem;
-    align-self: flex-start; margin-top: 0.25rem;
-}
-.case-tag {
-    font-size: 0.68rem; padding: 0.2rem 0.55rem;
-    background: var(--accent-subtle);
-    color: var(--accent);
-    border-radius: 999px; font-weight: 600;
+.filter-count {
+    font-family: var(--font-mono); font-size: 0.68rem;
+    opacity: 0.65; font-weight: 500;
 }
 
-.case-body {
-    padding: 0 2rem 1.75rem;
-}
-.case-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
-    gap: 1.25rem;
-}
-.case-block h4 {
-    font-size: 0.72rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.06em;
-    color: var(--accent); margin-bottom: 0.4rem;
-}
-.case-block p {
+.experiences-empty {
+    grid-column: 1 / -1;
     font-size: 0.88rem; color: var(--text-secondary);
-    line-height: 1.6; margin: 0;
+    padding: 1.5rem 0;
 }
-.case-block ul {
-    list-style: none; padding: 0; margin: 0;
-}
-.case-block ul li {
-    font-size: 0.85rem; color: var(--text-secondary);
-    padding: 0.15rem 0; padding-left: 1rem;
-    position: relative;
-}
-.case-block ul li::before {
-    content: '\2022'; position: absolute; left: 0;
-    color: var(--accent); font-weight: 600;
-}
-
-.case-footer {
-    padding: 1rem 2rem;
-    border-top: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 0.75rem;
-}
-.case-link {
-    font-size: 0.82rem; font-weight: 600;
-    display: inline-flex; align-items: center; gap: 0.35rem;
-}
-.case-result {
-    font-size: 0.82rem; color: var(--text-secondary);
-    display: inline-flex; align-items: center; gap: 0.35rem;
-}
-.case-result i { color: var(--accent); }
 
 /* =========================================
    8. EXPERIENCES
@@ -627,6 +587,7 @@ html.dark .tag { background: var(--bg); }
     box-shadow: var(--shadow-sm);
     transition: box-shadow 0.3s, border-color 0.3s;
     position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
 }
 .experience-card::before {
     content: '';
@@ -641,6 +602,12 @@ html.dark .tag { background: var(--bg); }
     border-color: var(--accent);
 }
 .experience-card:hover::before { opacity: 1; }
+
+/* Une distinction : liseré doré au lieu du liseré accent */
+.experience-card.has-award::before {
+    background: var(--accent-2);
+    opacity: 0.85;
+}
 
 .experience-icon {
     width: 36px; height: 36px;
@@ -667,6 +634,20 @@ html.dark .tag { background: var(--bg); }
     font-size: 0.82rem; color: var(--text-secondary);
     line-height: 1.6; margin: 0 0 0.75rem 0;
 }
+.experience-award {
+    display: flex; align-items: flex-start; gap: 0.45rem;
+    font-size: 0.76rem; font-weight: 600;
+    line-height: 1.4;
+    color: var(--accent-2-ink);
+    background: var(--accent-2-subtle);
+    border-radius: 6px;
+    padding: 0.4rem 0.6rem;
+    margin: 0 0 0.7rem 0;
+}
+.experience-award i { margin-top: 0.15em; flex-shrink: 0; }
+
+.experience-desc { flex: 1; }
+
 .experience-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
 .experience-tag {
     font-size: 0.65rem; padding: 0.15rem 0.5rem;
@@ -674,6 +655,17 @@ html.dark .tag { background: var(--bg); }
     background: var(--accent-subtle);
     color: var(--accent); font-weight: 600;
 }
+
+.experience-link {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    align-self: flex-start;
+    margin-top: 0.85rem;
+    font-size: 0.78rem; font-weight: 600;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--transition), color var(--transition);
+}
+.experience-link i { font-size: 0.68rem; }
+.experience-link:hover { border-bottom-color: var(--accent-hover); }
 
 /* =========================================
    9. PROJECT CARDS
@@ -731,14 +723,6 @@ html.dark .featured-badge { color: #3a2c00; }
     border-bottom: 1px solid var(--border);
     background: var(--bg-alt);
 }
-.project-img-placeholder {
-    width: 100%; height: 160px;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--bg-alt);
-    border-bottom: 1px solid var(--border);
-    font-size: 2.5rem; color: var(--accent); opacity: 0.4;
-}
-
 .project-body { padding: 1.15rem; display: flex; flex-direction: column; flex-grow: 1; }
 .project-header { margin-bottom: 0.4rem; }
 .project-title {
@@ -1056,14 +1040,9 @@ html.dark #theme-toggle .fa-sun { display: inline-block; }
     .cta-group { flex-direction: column; }
     .cta-group .btn { width: 100%; justify-content: center; }
 
-    .hero-metrics { gap: 1rem; }
-    .metric-sep { height: 24px; }
-
     .about-intro { gap: 1.5rem; }
 
-    .case-header { padding: 1.25rem 1.25rem 1rem; }
-    .case-body { padding: 0 1.25rem 1.25rem; }
-    .case-footer { padding: 0.75rem 1.25rem; }
+    .about-extras-grid { margin-top: 2rem; padding-top: 1.75rem; gap: 1.75rem; }
 
     .experiences-grid { grid-template-columns: 1fr; }
     .projects-grid { grid-template-columns: 1fr; }
@@ -1085,14 +1064,8 @@ html.dark #theme-toggle .fa-sun { display: inline-block; }
     .btn-tool { font-size: 0.85rem; }
     .text-xs { font-size: 0.62rem; padding: 1px 3px; }
 
-    .hero-metrics { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
-    .metric-sep { display: none; }
-    .metric { display: flex; align-items: baseline; gap: 0.5rem; }
-    .metric-value { font-size: 1.2rem; }
-    .metric-label { font-size: 0.68rem; }
-
-    .case-header { flex-direction: column; }
-    .case-grid { grid-template-columns: 1fr; }
+    .filter-bar { gap: 0.35rem; }
+    .filter-chip { font-size: 0.74rem; padding: 0.3rem 0.65rem; }
 
     .experience-card { padding: 1rem 1rem 1rem 1.25rem; }
     .experience-role { font-size: 0.88rem; }
