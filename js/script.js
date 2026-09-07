@@ -341,11 +341,6 @@ const GITHUB_API_BASE = 'https://api.github.com';
 // Fichier de secours statique (généré dans le repo) si l'API est indispo.
 const GITHUB_FALLBACK_JSON = 'docs/github-fallback.json';
 
-// Liens de démo par projet (clé = nom exact du dépôt GitHub).
-// Ajoute simplement une ligne ici pour faire apparaître un bouton "Démo".
-const demoLinks = {
-    'Proximars': 'https://wokwi.com/projects/448491380777419777'
-};
 
 const languageColors = {
     "JavaScript": "#f1e05a", "Python": "#3572A5", "Java": "#b07219",
@@ -443,10 +438,9 @@ function renderProjects(repos) {
             ? `<div class="project-topics">${topics.map(tp => `<span class="project-topic">${esc(tp)}</span>`).join('')}</div>`
             : '';
 
-        // Priorité : map demoLinks > champ "homepage" du dépôt GitHub.
-        const demoLink = demoLinks[repo.name] || (repo.homepage && repo.homepage.trim() !== '' ? repo.homepage : null);
-        const demoBtn = demoLink
-            ? `<a href="${esc(demoLink)}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm"><i class="fas fa-external-link-alt" aria-hidden="true"></i> ${t.demo}</a>`
+        const demo = repo.homepage && repo.homepage.trim();
+        const demoBtn = demo
+            ? `<a href="${esc(demo)}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm"><i class="fas fa-external-link-alt" aria-hidden="true"></i> ${t.demo}</a>`
             : '';
 
         return `

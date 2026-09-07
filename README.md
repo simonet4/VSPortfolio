@@ -1,29 +1,29 @@
-# 👨‍💻 Portfolio — Victor Simonet
+# Portfolio — Victor Simonet
 
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fvictorsimonet.com&label=victorsimonet.com)](https://victorsimonet.com)
 ![Project Status](https://img.shields.io/badge/status-active-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT_Modified-blue)
 
-**🌐 En ligne :** [victorsimonet.com](https://victorsimonet.com)
+** En ligne :** [victorsimonet.com](https://victorsimonet.com)
 
 Portfolio personnel d'un alternant **développeur Odoo** orienté **data & IA**.
 Site statique, sans framework ni étape de compilation : on clone, on ouvre
 `index.html`.
 
-## ✨ Fonctionnalités
+## Fonctionnalités
 
-* **🌍 Trilingue (i18n)** — français, anglais, portugais, sans rechargement.
+* ** Trilingue (i18n)** — français, anglais, portugais, sans rechargement.
   La langue choisie est mémorisée et `<html lang>` suit.
-* **🎨 Thème clair / sombre** — détection système, bascule manuelle, persistance.
-* **🗂️ Réalisations filtrables** — la page ouvre sur une sélection courte
+* ** Thème clair / sombre** — détection système, bascule manuelle, persistance.
+* ** Réalisations filtrables** — la page ouvre sur une sélection courte
   (« L'essentiel »), les filtres dépliant l'ensemble par catégorie ou distinction.
-* **🐙 Projets GitHub** — récupérés via l'API, avec une chaîne de repli robuste :
+* ** Projets GitHub** — récupérés via l'API, avec une chaîne de repli robuste :
   cache local → cache périmé → instantané statique → message clair.
-* **✨ Fond interactif** — particules en Canvas 2D, respectant
+* ** Fond interactif** — particules en Canvas 2D, respectant
   `prefers-reduced-motion`.
-* **📱 Responsive** — pensé mobile d'abord.
+* ** Responsive** — pensé mobile d'abord.
 
-## 🛠️ Stack
+## Stack
 
 Aucun framework, aucune dépendance npm : le site tourne tel quel.
 
@@ -32,7 +32,7 @@ Aucun framework, aucune dépendance npm : le site tourne tel quel.
 * **JavaScript (ES6+)** — vanilla, aucune bibliothèque
 * **Font Awesome** + **Google Fonts** — via CDN
 
-## 📂 Structure
+## Structure
 
 ```text
 .
@@ -57,7 +57,7 @@ Aucun framework, aucune dépendance npm : le site tourne tel quel.
 └── README.md
 ```
 
-## 📝 Modifier le contenu
+## Modifier le contenu
 
 Presque tout le texte vit dans [`js/translations.js`](js/translations.js), en
 trois langues. Les blocs `experiences.items` acceptent :
@@ -72,7 +72,7 @@ trois langues. Les blocs `experiences.items` acceptent :
 Le texte de repli écrit en dur dans `index.html` doit rester aligné sur la
 version française : il s'affiche avant l'exécution du JavaScript.
 
-## 🐙 Repli de l'API GitHub
+## Repli de l'API GitHub
 
 L'API publique est limitée à 60 requêtes/heure par IP. `js/script.js` tente
 dans l'ordre : cache mémoire → cache local frais → API → cache périmé →
@@ -89,7 +89,7 @@ curl -s "https://api.github.com/users/simonet4/repos?sort=updated&per_page=100" 
 Pour supprimer la limite, déployez le Worker de [`worker/`](worker/) et pointez
 `GITHUB_API_BASE` dans `js/script.js` vers son URL.
 
-## 📄 Licence
+## Licence
 
 Code sous [MIT](LICENSE). Le contenu personnel — textes, photo, CV, lettre de
 motivation — n'est pas réutilisable.
