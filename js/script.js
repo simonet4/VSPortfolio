@@ -447,7 +447,8 @@ function renderProjects(repos) {
             <article class="project-card reveal${isFeatured ? ' featured' : ''}" style="position: relative;">
                 ${isFeatured ? `<span class="featured-badge"><i class="fa-solid fa-star" aria-hidden="true"></i> ${t.featured}</span>` : ''}
                 ${repo.fork ? '<span class="fork-badge"><i class="fa-solid fa-code-fork" aria-hidden="true"></i> Fork</span>' : ''}
-                <img src="https://opengraph.githubassets.com/1/${githubUsername}/${encodeURIComponent(repo.name)}"
+                <img src="https://raw.githubusercontent.com/${githubUsername}/${encodeURIComponent(repo.name)}/HEAD/docs/cards/card.png"
+                     onerror="this.onerror=null;this.src='https://opengraph.githubassets.com/1/${githubUsername}/${encodeURIComponent(repo.name)}'"
                      alt="${esc(repo.name)}" class="project-img" loading="lazy">
                 <div class="project-body">
                     <div class="project-header">
