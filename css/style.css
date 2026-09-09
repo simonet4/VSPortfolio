@@ -752,9 +752,12 @@ html.dark .featured-badge { color: #3a2c00; }
 }
 .fork-badge i { margin-right: 0.2em; }
 
+/* Les deux sources d'image sont en 2:1 — vos cartes (1280x640) comme celles
+   générées par GitHub (1200x600). On impose donc le rapport plutôt qu'une
+   hauteur fixe, sinon le bas du visuel est rogné. */
 .project-img {
-    width: 100%; height: 160px;
-    object-fit: cover; object-position: top;
+    width: 100%; aspect-ratio: 2 / 1;
+    object-fit: cover; object-position: center;
     border-bottom: 1px solid var(--border);
     background: var(--bg-alt);
 }
