@@ -72,6 +72,17 @@ trois langues. Les blocs `experiences.items` acceptent :
 Le texte de repli écrit en dur dans `index.html` doit rester aligné sur la
 version française : il s'affiche avant l'exécution du JavaScript.
 
+## Cartes projet : lien et image
+
+**Bouton « Démo »** — apparaît dès que le champ *Website* du dépôt GitHub est
+rempli (Settings → General). Vide, pas de bouton. Rien à coder.
+
+**Image de la carte** — c'est la *Social preview* du dépôt (Settings → General).
+L'API REST publique ne l'expose pas : seul GraphQL le fait, via
+`openGraphImageUrl`, et GraphQL exige un token. Le Worker s'en charge et ajoute
+`social_image` à chaque dépôt. **Sans le Worker déployé, le site retombe sur la
+carte générée par GitHub et votre Social preview n'apparaît pas.**
+
 ## Repli de l'API GitHub
 
 L'API publique est limitée à 60 requêtes/heure par IP. `js/script.js` tente

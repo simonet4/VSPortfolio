@@ -411,6 +411,13 @@ async function fetchProjects() {
         </div>`;
 }
 
+// La « Social preview » du dépôt, si le proxy Worker a pu la résoudre
+// (l'API REST publique ne l'expose pas). Sinon, la carte générée par GitHub.
+function socialImage(repo) {
+    return repo.social_image
+        || `https://opengraph.githubassets.com/1/${githubUsername}/${encodeURIComponent(repo.name)}`;
+}
+
 function renderProjects(repos) {
     if (!projectsContainer) return;
 
@@ -447,7 +454,7 @@ function renderProjects(repos) {
             <article class="project-card reveal${isFeatured ? ' featured' : ''}" style="position: relative;">
                 ${isFeatured ? `<span class="featured-badge"><i class="fa-solid fa-star" aria-hidden="true"></i> ${t.featured}</span>` : ''}
                 ${repo.fork ? '<span class="fork-badge"><i class="fa-solid fa-code-fork" aria-hidden="true"></i> Fork</span>' : ''}
-                <img src="https://opengraph.githubassets.com/1/${githubUsername}/${encodeURIComponent(repo.name)}"
+                <img src="${esc(socialImage(repo))}"
                      alt="${esc(repo.name)}" class="project-img" loading="lazy">
                 <div class="project-body">
                     <div class="project-header">
