@@ -334,13 +334,12 @@ const githubUsername = 'simonet4';
 const projectsContainer = document.getElementById('github-projects');
 const featuredRepos = ['Proximars', 'Devier_Project', 'RobotSumo'];
 
-// Base de l'API. Laisser sur api.github.com, OU mettre l'URL d'un proxy
-// Cloudflare Worker (token GitHub = 5000 req/h + cache edge) pour ne jamais
-// être rate-limité. Ex : 'https://gh.victorsimonet.com'
-const GITHUB_API_BASE = 'https://api.github.com';
-// Fichier de secours statique (généré dans le repo) si l'API est indispo.
-const GITHUB_FALLBACK_JSON = 'docs/github-fallback.json';
-
+// Les projets viennent d'un instantané régénéré chaque jour par une GitHub
+// Action (.github/workflows/refresh-github-data.yml). Deux raisons :
+//   - aucune limite de débit : le fichier est servi par le site lui-même ;
+//   - il porte l'URL de la « Social preview » de chaque dépôt, que l'API REST
+//     publique n'expose pas (seul GraphQL le fait, et GraphQL exige un token).
+const GITHUB_DATA = 'docs/github-data.json';
 
 const languageColors = {
     "JavaScript": "#f1e05a", "Python": "#3572A5", "Java": "#b07219",
@@ -349,70 +348,31 @@ const languageColors = {
     "PHP": "#4F5D95", "PLSQL": "#dad8d8", "Dart": "#00B4AB", "Ada": "#02f88c"
 };
 
+// Mémorisé : fetchProjects() est rappelé à chaque changement de langue.
 let cachedRepos = null;
-const REPOS_CACHE_KEY = 'gh_repos_cache_v1';
-const REPOS_CACHE_TTL = 30 * 60 * 1000; // 30 min
 
-function loadReposCache(ignoreTTL) {
-    try {
-        const raw = localStorage.getItem(REPOS_CACHE_KEY);
-        if (!raw) return null;
-        const { ts, repos } = JSON.parse(raw);
-        if (!ignoreTTL && Date.now() - ts > REPOS_CACHE_TTL) return null;
-        return Array.isArray(repos) ? repos : null;
-    } catch (e) { return null; }
-}
-function saveReposCache(repos) {
-    try { localStorage.setItem(REPOS_CACHE_KEY, JSON.stringify({ ts: Date.now(), repos })); } catch (e) {}
-}
-
-// Acquisition robuste : cache mémoire → cache frais → API (1 appel) →
-// cache périmé → fallback statique du repo → message. Les projets s'affichent
-// même si l'API GitHub est rate-limitée (403).
 async function fetchProjects() {
-    let repos = cachedRepos || loadReposCache(false);
-    if (repos) { cachedRepos = repos; renderProjects(repos); return; }
-
-    // 1) API GitHub (directe ou via proxy Worker) — un seul appel, `topics` inclus.
+    if (cachedRepos) { renderProjects(cachedRepos); return; }
     try {
-        const res = await fetch(`${GITHUB_API_BASE}/users/${githubUsername}/repos?sort=updated&per_page=100`, {
-            headers: { 'Accept': 'application/vnd.github+json' }
-        });
-        if (!res.ok) throw new Error('GitHub API ' + res.status);
-        repos = await res.json();
+        const res = await fetch(GITHUB_DATA, { cache: 'no-cache' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const { repos } = await res.json();
+        if (!Array.isArray(repos) || !repos.length) throw new Error('instantané vide');
         cachedRepos = repos;
-        saveReposCache(repos);
         renderProjects(repos);
-        return;
-    } catch (error) {
-        console.warn('API GitHub indisponible :', error.message);
+    } catch (e) {
+        console.warn('Instantané des dépôts illisible :', e.message);
+        const t = translations[currentLang].projects;
+        projectsContainer.innerHTML = `
+            <div class="project-card-placeholder">
+                <span>${t.error}</span>
+                <a href="https://github.com/${githubUsername}" target="_blank" rel="noopener noreferrer">${t.errorLink}</a>
+            </div>`;
     }
-
-    // 2) Cache périmé (mieux que rien).
-    const stale = loadReposCache(true);
-    if (stale && stale.length) { cachedRepos = stale; renderProjects(stale); return; }
-
-    // 3) Fallback statique versionné dans le repo.
-    try {
-        const res = await fetch(GITHUB_FALLBACK_JSON, { cache: 'no-cache' });
-        if (res.ok) {
-            const data = await res.json();
-            const list = Array.isArray(data) ? data : (data.repos || []);
-            if (list.length) { cachedRepos = list; saveReposCache(list); renderProjects(list); return; }
-        }
-    } catch (e) {}
-
-    // 4) Message propre.
-    const t = translations[currentLang].projects;
-    projectsContainer.innerHTML = `
-        <div class="project-card-placeholder">
-            <span>${t.error}</span>
-            <a href="https://github.com/${githubUsername}" target="_blank" rel="noopener noreferrer">${t.errorLink}</a>
-        </div>`;
 }
 
-// La « Social preview » du dépôt, si le proxy Worker a pu la résoudre
-// (l'API REST publique ne l'expose pas). Sinon, la carte générée par GitHub.
+// La « Social preview » du dépôt quand elle existe, sinon la carte que GitHub
+// génère automatiquement.
 function socialImage(repo) {
     return repo.social_image
         || `https://opengraph.githubassets.com/1/${githubUsername}/${encodeURIComponent(repo.name)}`;

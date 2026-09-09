@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-04T14:44:28.536Z",
-  "source": "https://api.github.com/users/simonet4/repos",
+  "generated_at": "2026-09-09T08:26:53.798Z",
+  "source": "GitHub GraphQL API",
   "repos": [
     {
       "name": "VSPortfolio",
@@ -9,34 +9,10 @@
       "language": "JavaScript",
       "stargazers_count": 1,
       "forks_count": 0,
-      "updated_at": "2026-08-04T14:31:49Z",
+      "updated_at": "2026-09-09T08:19:38Z",
       "topics": [],
       "fork": false,
-      "homepage": null
-    },
-    {
-      "name": "R401API",
-      "description": null,
-      "html_url": "https://github.com/simonet4/R401API",
-      "language": "PHP",
-      "stargazers_count": 1,
-      "forks_count": 0,
-      "updated_at": "2026-04-30T15:35:48Z",
-      "topics": [],
-      "fork": false,
-      "homepage": null
-    },
-    {
-      "name": "Devier_Project",
-      "description": "Ceci est le repository officiel de l'équipe Devier participant a la nuit de l'informatique de l'Université de Toulouse (anciennement IUT Paul Sabatier)",
-      "html_url": "https://github.com/simonet4/Devier_Project",
-      "language": "HTML",
-      "stargazers_count": 9,
-      "forks_count": 0,
-      "updated_at": "2026-02-03T12:38:46Z",
-      "topics": [],
-      "fork": false,
-      "homepage": null
+      "homepage": "http://victorsimonet.com/"
     },
     {
       "name": "RobotSumo",
@@ -45,7 +21,7 @@
       "language": "C++",
       "stargazers_count": 1,
       "forks_count": 0,
-      "updated_at": "2025-12-04T09:34:57Z",
+      "updated_at": "2026-09-07T12:15:49Z",
       "topics": [
         "arduino",
         "bluetoothcontrol",
@@ -56,7 +32,7 @@
         "sumo"
       ],
       "fork": false,
-      "homepage": "https://victorsimonet.me/"
+      "homepage": null
     },
     {
       "name": "Proximars",
@@ -65,7 +41,7 @@
       "language": "C++",
       "stargazers_count": 10,
       "forks_count": 1,
-      "updated_at": "2025-12-04T09:33:44Z",
+      "updated_at": "2026-09-07T12:13:30Z",
       "topics": [
         "application",
         "cnes",
@@ -77,7 +53,20 @@
         "simonet4"
       ],
       "fork": false,
-      "homepage": "https://victorsimonet.me/"
+      "homepage": "https://wokwi.com/projects/448491380777419777"
+    },
+    {
+      "name": "Devier_Project",
+      "description": "Ceci est le repository officiel de l'équipe Devier participant a la nuit de l'informatique de l'Université de Toulouse (anciennement IUT Paul Sabatier)",
+      "html_url": "https://github.com/simonet4/Devier_Project",
+      "language": "HTML",
+      "stargazers_count": 9,
+      "forks_count": 0,
+      "updated_at": "2026-09-07T12:10:09Z",
+      "topics": [],
+      "fork": false,
+      "homepage": "https://lycee-lovelace-nird.alwaysdata.net/",
+      "social_image": "https://repository-images.githubusercontent.com/1100395102/1ee4e9ae-bf5f-42b9-bdb7-075667cb387e"
     },
     {
       "name": "TomatoSeedShop",

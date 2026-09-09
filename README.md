@@ -41,16 +41,14 @@ Aucun framework, aucune dépendance npm : le site tourne tel quel.
 ├── docs/
 │   ├── CV_Victor_Simonet.pdf
 │   ├── Lettre_Motivation_Victor_Simonet.pdf
-│   ├── github-fallback.json   # Instantané des dépôts (repli hors-ligne)
+│   ├── github-data.json       # Instantané des dépôts (régénéré par CI)
 │   ├── photo.png
 │   └── Simonetoile.png        # Favicon
 ├── js/
 │   ├── background.js          # Particules Canvas
 │   ├── script.js              # i18n, filtres, API GitHub, UI
 │   └── translations.js        # Contenu des 3 langues
-├── worker/
-│   ├── github-proxy.js        # Cloudflare Worker : proxy API GitHub
-│   └── README.md              # Déploiement du Worker
+├── .github/workflows/            # Rafraîchissement quotidien de l'instantané
 ├── index.html                 # Point d'entrée unique
 ├── CNAME                      # Domaine personnalisé
 ├── LICENSE                    # MIT + exception sur le contenu personnel
@@ -75,30 +73,29 @@ version française : il s'affiche avant l'exécution du JavaScript.
 ## Cartes projet : lien et image
 
 **Bouton « Démo »** — apparaît dès que le champ *Website* du dépôt GitHub est
-rempli (Settings → General). Vide, pas de bouton. Rien à coder.
+rempli (Settings → General). Vide, pas de bouton.
 
 **Image de la carte** — c'est la *Social preview* du dépôt (Settings → General).
-L'API REST publique ne l'expose pas : seul GraphQL le fait, via
-`openGraphImageUrl`, et GraphQL exige un token. Le Worker s'en charge et ajoute
-`social_image` à chaque dépôt. **Sans le Worker déployé, le site retombe sur la
-carte générée par GitHub et votre Social preview n'apparaît pas.**
+Sans image téléversée, GitHub génère une carte automatique.
 
-## Repli de l'API GitHub
+Dans les deux cas, rien à modifier dans le code.
 
-L'API publique est limitée à 60 requêtes/heure par IP. `js/script.js` tente
-dans l'ordre : cache mémoire → cache local frais → API → cache périmé →
-`docs/github-fallback.json` → message d'erreur.
+## Données GitHub
 
-Pour rafraîchir l'instantané statique :
+Le site ne contacte plus l'API GitHub depuis le navigateur. Il lit
+`docs/github-data.json`, un instantané régénéré chaque jour par
+[une GitHub Action](.github/workflows/refresh-github-data.yml).
 
-```bash
-curl -s "https://api.github.com/users/simonet4/repos?sort=updated&per_page=100" \
-  | node -e "let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{const r=JSON.parse(d);console.log(JSON.stringify({generated_at:new Date().toISOString(),repos:r.map(x=>({name:x.name,description:x.description,html_url:x.html_url,language:x.language,stargazers_count:x.stargazers_count,forks_count:x.forks_count,updated_at:x.updated_at,topics:x.topics||[],fork:!!x.fork,homepage:x.homepage||null}))},null,2))}" \
-  > docs/github-fallback.json
-```
+Deux raisons à ce choix :
 
-Pour supprimer la limite, déployez le Worker de [`worker/`](worker/) et pointez
-`GITHUB_API_BASE` dans `js/script.js` vers son URL.
+* **Pas de limite de débit.** L'API publique plafonne à 60 requêtes/heure et par
+  IP : sur un réseau partagé, la section projets finissait vide.
+* **La Social preview.** Son URL n'existe que dans l'API GraphQL, via
+  `openGraphImageUrl`, et GraphQL exige un token. L'Action en dispose
+  gratuitement ; une page publique, non.
+
+Pour rafraîchir sans attendre : onglet **Actions** → *Rafraîchir les données
+GitHub* → **Run workflow**.
 
 ## Licence
 

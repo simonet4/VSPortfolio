@@ -1,0 +1,88 @@
+# Régénère docs/github-data.json — l'instantané des dépôts affiché par le
+# portfolio. Le site ne contacte plus l'API GitHub depuis le navigateur : plus
+# de limite de 60 requêtes/heure, et on récupère l'URL de la « Social preview »
+# de chaque dépôt, que l'API REST publique n'expose pas. Seul GraphQL la donne,
+# via openGraphImageUrl, et GraphQL exige un token : cette Action en fournit un.
+name: Rafraîchir les données GitHub
+
+on:
+  schedule:
+    - cron: '17 4 * * *'        # chaque nuit vers 04h17 UTC
+  workflow_dispatch:            # bouton « Run workflow » dans l'onglet Actions
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-github-data
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Interroger GraphQL
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LOGIN: simonet4
+        run: |
+          gh api graphql -f login="$LOGIN" -f query='
+            query($login:String!){ user(login:$login){
+              repositories(first:100, privacy:PUBLIC, orderBy:{field:UPDATED_AT, direction:DESC}){
+                nodes{
+                  name description url homepageUrl updatedAt isFork
+                  stargazerCount forkCount
+                  primaryLanguage{ name }
+                  repositoryTopics(first:20){ nodes{ topic{ name } } }
+                  openGraphImageUrl usesCustomOpenGraphImage
+                }
+              }
+            } }' > gql.json
+
+      - name: Écrire l'instantané
+        run: |
+          node -e '
+            const fs = require("fs");
+            const src = JSON.parse(fs.readFileSync("gql.json", "utf8"));
+            const nodes = src?.data?.user?.repositories?.nodes;
+            if (!Array.isArray(nodes) || !nodes.length) {
+              throw new Error("GraphQL : aucun depot renvoye " + JSON.stringify(src).slice(0, 400));
+            }
+            const repos = nodes.map(n => ({
+              name: n.name,
+              description: n.description,
+              html_url: n.url,
+              language: n.primaryLanguage ? n.primaryLanguage.name : null,
+              stargazers_count: n.stargazerCount,
+              forks_count: n.forkCount,
+              updated_at: n.updatedAt,
+              topics: n.repositoryTopics.nodes.map(t => t.topic.name),
+              fork: n.isFork,
+              homepage: n.homepageUrl || null,
+              // renseignee seulement si une Social preview a ete televersee ;
+              // sinon le site reconstruit lui-meme la carte generee par GitHub
+              ...(n.usesCustomOpenGraphImage ? { social_image: n.openGraphImageUrl } : {})
+            }));
+            fs.writeFileSync("docs/github-data.json", JSON.stringify({
+              generated_at: new Date().toISOString(),
+              source: "GitHub GraphQL API",
+              repos
+            }, null, 2) + "\n");
+            const perso = repos.filter(r => r.social_image).length;
+            console.log(repos.length + " depots, dont " + perso + " avec Social preview personnalisee");
+          '
+          rm gql.json
+
+      - name: Committer si le contenu a changé
+        run: |
+          if git diff --quiet -- docs/github-data.json; then
+            echo "Aucun changement."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/github-data.json
+          git commit -m "chore: rafraichit l'instantane des depots GitHub"
+          git push
