@@ -373,9 +373,18 @@ async function fetchProjects() {
 
 // La « Social preview » du dépôt quand elle existe, sinon la carte que GitHub
 // génère automatiquement.
+//
+// Remplacer une Social preview ne change PAS son URL : GitHub réutilise le même
+// identifiant, seuls les octets derrière changent. L'URL n'a donc besoin d'être
+// connue qu'une fois — mais sans précaution le navigateur garderait l'ancienne
+// image indéfiniment. On suffixe avec la date du jour : au plus tard le
+// lendemain, chaque visiteur reçoit la version à jour, sans rien à maintenir.
 function socialImage(repo) {
-    return repo.social_image
-        || `https://opengraph.githubassets.com/1/${githubUsername}/${encodeURIComponent(repo.name)}`;
+    if (!repo.social_image) {
+        return `https://opengraph.githubassets.com/1/${githubUsername}/${encodeURIComponent(repo.name)}`;
+    }
+    const jour = new Date().toISOString().slice(0, 10);
+    return repo.social_image + (repo.social_image.includes('?') ? '&' : '?') + 'v=' + jour;
 }
 
 function renderProjects(repos) {

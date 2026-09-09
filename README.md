@@ -41,14 +41,13 @@ Aucun framework, aucune dépendance npm : le site tourne tel quel.
 ├── docs/
 │   ├── CV_Victor_Simonet.pdf
 │   ├── Lettre_Motivation_Victor_Simonet.pdf
-│   ├── github-data.json       # Instantané des dépôts (régénéré par CI)
+│   ├── github-data.json       # Données des dépôts affichées par le site
 │   ├── photo.png
 │   └── Simonetoile.png        # Favicon
 ├── js/
 │   ├── background.js          # Particules Canvas
 │   ├── script.js              # i18n, filtres, API GitHub, UI
 │   └── translations.js        # Contenu des 3 langues
-├── .github/workflows/            # Rafraîchissement quotidien de l'instantané
 ├── index.html                 # Point d'entrée unique
 ├── CNAME                      # Domaine personnalisé
 ├── LICENSE                    # MIT + exception sur le contenu personnel
@@ -82,20 +81,11 @@ Dans les deux cas, rien à modifier dans le code.
 
 ## Données GitHub
 
-Le site ne contacte plus l'API GitHub depuis le navigateur. Il lit
-`docs/github-data.json`, un instantané régénéré chaque jour par
-[une GitHub Action](.github/workflows/refresh-github-data.yml).
-
-Deux raisons à ce choix :
+Le site lit `docs/github-data.json` plutôt que d'appeler l'API GitHub depuis le
+navigateur. Deux raisons :
 
 * **Pas de limite de débit.** L'API publique plafonne à 60 requêtes/heure et par
   IP : sur un réseau partagé, la section projets finissait vide.
-* **La Social preview.** Son URL n'existe que dans l'API GraphQL, via
-  `openGraphImageUrl`, et GraphQL exige un token. L'Action en dispose
-  gratuitement ; une page publique, non.
-
-Pour rafraîchir sans attendre : onglet **Actions** → *Rafraîchir les données
-GitHub* → **Run workflow**.
 
 ## Licence
 
