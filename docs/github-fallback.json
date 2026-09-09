@@ -1,0 +1,95 @@
+{
+  "generated_at": "2026-08-04T14:44:28.536Z",
+  "source": "https://api.github.com/users/simonet4/repos",
+  "repos": [
+    {
+      "name": "VSPortfolio",
+      "description": "Portfolio de Victor Simonet",
+      "html_url": "https://github.com/simonet4/VSPortfolio",
+      "language": "JavaScript",
+      "stargazers_count": 1,
+      "forks_count": 0,
+      "updated_at": "2026-08-04T14:31:49Z",
+      "topics": [],
+      "fork": false,
+      "homepage": null
+    },
+    {
+      "name": "R401API",
+      "description": null,
+      "html_url": "https://github.com/simonet4/R401API",
+      "language": "PHP",
+      "stargazers_count": 1,
+      "forks_count": 0,
+      "updated_at": "2026-04-30T15:35:48Z",
+      "topics": [],
+      "fork": false,
+      "homepage": null
+    },
+    {
+      "name": "Devier_Project",
+      "description": "Ceci est le repository officiel de l'équipe Devier participant a la nuit de l'informatique de l'Université de Toulouse (anciennement IUT Paul Sabatier)",
+      "html_url": "https://github.com/simonet4/Devier_Project",
+      "language": "HTML",
+      "stargazers_count": 9,
+      "forks_count": 0,
+      "updated_at": "2026-02-03T12:38:46Z",
+      "topics": [],
+      "fork": false,
+      "homepage": null
+    },
+    {
+      "name": "RobotSumo",
+      "description": "This project is the realization of a Multi-Mode Mobile Robot based on the Arduino UNO platform, designed for optimal high-speed line following. It combines two distinct control modes to offer maximum flexibility.",
+      "html_url": "https://github.com/simonet4/RobotSumo",
+      "language": "C++",
+      "stargazers_count": 1,
+      "forks_count": 0,
+      "updated_at": "2025-12-04T09:34:57Z",
+      "topics": [
+        "arduino",
+        "bluetoothcontrol",
+        "joystick",
+        "linefollower",
+        "robot",
+        "simonet4",
+        "sumo"
+      ],
+      "fork": false,
+      "homepage": "https://victorsimonet.me/"
+    },
+    {
+      "name": "Proximars",
+      "description": "Arduino embedded system for a controlled atmosphere greenhouse with .aia phone application",
+      "html_url": "https://github.com/simonet4/Proximars",
+      "language": "C++",
+      "stargazers_count": 10,
+      "forks_count": 1,
+      "updated_at": "2025-12-04T09:33:44Z",
+      "topics": [
+        "application",
+        "cnes",
+        "controlled-at",
+        "embedded-systems",
+        "greenhou",
+        "plants",
+        "proximars",
+        "simonet4"
+      ],
+      "fork": false,
+      "homepage": "https://victorsimonet.me/"
+    },
+    {
+      "name": "TomatoSeedShop",
+      "description": "Java app to buy some tomato seeds",
+      "html_url": "https://github.com/simonet4/TomatoSeedShop",
+      "language": "Java",
+      "stargazers_count": 1,
+      "forks_count": 0,
+      "updated_at": "2025-11-27T19:27:19Z",
+      "topics": [],
+      "fork": true,
+      "homepage": null
+    }
+  ]
+}
