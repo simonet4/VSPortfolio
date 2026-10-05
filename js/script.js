@@ -43,12 +43,28 @@ function applyLanguage() {
     fetchProjects();
 }
 
-function initLanguage() {
-    const saved = localStorage.getItem(LANG_STORAGE_KEY);
-    if (saved && languages.includes(saved)) {
-        langIndex = languages.indexOf(saved);
-        currentLang = saved;
+// Première visite : on suit la langue du navigateur, pas le pays. C'est plus
+// juste — un lusophone peut être au Brésil comme au Portugal, un francophone
+// en Belgique ou au Québec — et ça n'exige ni géolocalisation, ni service
+// tiers, ni requête réseau. Tout ce qui n'est ni fr ni pt tombe en anglais.
+// Un choix manuel est mémorisé et prime sur la détection.
+function detectLanguage() {
+    const tags = navigator.languages && navigator.languages.length
+        ? navigator.languages
+        : [navigator.language || ''];
+    for (const tag of tags) {
+        const base = String(tag).toLowerCase().split('-')[0];
+        if (languages.includes(base)) return base;
     }
+    return 'en';
+}
+
+function initLanguage() {
+    let saved = null;
+    try { saved = localStorage.getItem(LANG_STORAGE_KEY); } catch (e) {}
+    const lang = saved && languages.includes(saved) ? saved : detectLanguage();
+    langIndex = languages.indexOf(lang);
+    currentLang = lang;
 }
 
 function cycleLanguage() {
@@ -238,7 +254,7 @@ function renderExperiences() {
 
     items.forEach((exp, i) => {
         const card = document.createElement('article');
-        card.className = 'experience-card' + (exp.award ? ' has-award' : '');
+        card.className = 'experience-card';
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';
         card.style.transition = `opacity 0.5s ease ${Math.min(i, 8) * 0.06}s, transform 0.5s ease ${Math.min(i, 8) * 0.06}s`;
@@ -247,13 +263,44 @@ function renderExperiences() {
             ? `<p class="experience-award"><i class="fa-solid fa-trophy" aria-hidden="true"></i><span>${exp.award}</span></p>`
             : '';
 
-        const link = exp.link
-            ? `<a class="experience-link" href="${exp.link}" target="_blank" rel="noopener noreferrer">
-                   ${exp.linkLabel || exp.link} <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
-               </a>`
+        // Chiffres GitHub de la fiche, quand un dépôt lui correspond : ils
+        // remplacent la carte séparée qui répétait le même projet.
+        const depot = exp.repo ? githubParDepot.get(exp.repo) : null;
+        const meta = depot ? `
+            <div class="experience-meta">
+                <span><span class="lang-dot" style="background-color: ${languageColors[depot.language] || '#888'};"></span>${esc(depot.language || '—')}</span>
+                <span><i class="fa-regular fa-star" aria-hidden="true"></i> ${depot.stargazers_count}</span>
+                <span><i class="fa-regular fa-clock" aria-hidden="true"></i> ${new Date(depot.updated_at).toLocaleDateString(translations[currentLang].locale || 'fr-FR', { year: 'numeric', month: 'short' })}</span>
+            </div>` : '';
+
+        // Deux liens possibles en pied de fiche : la demo ou la video du
+        // projet, et le code sur GitHub quand un depot lui correspond. Ce
+        // second lien relie la realisation a sa carte dans « Projets GitHub »,
+        // au lieu que les deux sections se repetent sans se parler.
+        const liens = [];
+        if (exp.link) {
+            liens.push(`<a class="experience-link lien-principal" href="${exp.link}" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> ${exp.linkLabel || exp.link}
+            </a>`);
+        }
+        if (exp.repo) {
+            const t = translations[currentLang].experiences;
+            liens.push(`<a class="experience-link${liens.length ? '' : ' lien-principal'}" href="https://github.com/${githubUsername}/${encodeURIComponent(exp.repo)}" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-github" aria-hidden="true"></i> ${t.codeLabel || 'Code'}
+            </a>`);
+        }
+        const link = liens.length ? `<div class="experience-links">${liens.join('')}</div>` : '';
+
+        // Une réalisation adossée à un dépôt affiche son visuel : c'est ce qui
+        // la relie visiblement au code, et évite de la répéter plus bas.
+        const visuel = exp.repo
+            ? `<img class="experience-img" loading="lazy" alt=""
+                    src="https://raw.githubusercontent.com/${githubUsername}/${encodeURIComponent(exp.repo)}/HEAD/docs/cards/card.png"
+                    onerror="this.closest('.experience-card').classList.add('sans-visuel');this.remove()">`
             : '';
 
         card.innerHTML = `
+            ${visuel}
             <div class="experience-icon"><i class="${exp.icon}" aria-hidden="true"></i></div>
             <span class="experience-date">${exp.date}</span>
             <h3 class="experience-role">${exp.title}</h3>
@@ -263,6 +310,7 @@ function renderExperiences() {
             <div class="experience-tags">
                 ${exp.tags.map(tag => `<span class="experience-tag">${tag}</span>`).join('')}
             </div>
+            ${meta}
             ${link}
         `;
 
@@ -277,23 +325,52 @@ function renderExperiences() {
     });
 }
 
-// ========================================
-// BOÎTE À OUTILS
-// ========================================
+// Logos Font Awesome des technos qui en ont un. Les autres s'affichent sans
+// icone : mieux vaut aucun pictogramme qu'un symbole generique repete.
+const TAG_LOGOS = {
+    'Python': 'fa-brands fa-python',
+    'Java': 'fa-brands fa-java',
+    'PHP': 'fa-brands fa-php',
+    'JavaScript': 'fa-brands fa-js',
+    'HTML/CSS': 'fa-brands fa-html5',
+    'Docker': 'fa-brands fa-docker',
+    'Linux': 'fa-brands fa-linux',
+    'Git': 'fa-brands fa-git-alt',
+    'Android Studio': 'fa-brands fa-android',
+    'Bash': 'fa-solid fa-terminal',
+    'Arduino': 'fa-solid fa-microchip',
+    'Oracle SQL': 'fa-solid fa-database',
+    'PL/SQL': 'fa-solid fa-database',
+    'Blender / FreeCAD': 'fa-solid fa-cube'
+};
+
 function renderStack() {
-    const grid = document.getElementById('stack-grid');
-    if (!grid) return;
+    const piste = document.getElementById('stack-grid');
+    if (!piste) return;
 
     const stack = translations[currentLang].about?.stack;
     if (!stack) return;
 
-    grid.innerHTML = stack.map(group => `
-        <div class="stack-group">
-            <span class="stack-label">${group.label}</span>
-            <div class="stack-tags">
-                ${group.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+    const cases = stack.map(groupe => {
+        const tags = groupe.tags.map(tag => {
+            const logo = TAG_LOGOS[tag];
+            return `<span class="tag">${logo ? `<i class="${logo}" aria-hidden="true"></i>` : ''}${tag}</span>`;
+        }).join('');
+        return `
+        <div class="stack-card">
+            <div class="stack-head">
+                <span class="stack-icon"><i class="${groupe.icon}" aria-hidden="true"></i></span>
+                <span class="stack-label">${groupe.label}</span>
             </div>
-        </div>`).join('');
+            <div class="stack-tags">${tags}</div>
+        </div>`;
+    }).join('');
+
+    // Le contenu est écrit deux fois : la piste translate de -50 %, donc la
+    // seconde copie arrive là où la première démarrait et la boucle ne se voit
+    // pas. Le doublon est aria-hidden pour ne pas être lu deux fois.
+    piste.innerHTML = `<div class="stack-run">${cases}</div>` +
+                      `<div class="stack-run" aria-hidden="true">${cases}</div>`;
 }
 
 // ========================================
@@ -371,7 +448,7 @@ function saveReposCache(repos) {
 // même si l'API GitHub est rate-limitée (403).
 async function fetchProjects() {
     let repos = cachedRepos || loadReposCache(false);
-    if (repos) { cachedRepos = repos; renderProjects(repos); return; }
+    if (repos) { cachedRepos = repos; appliquerDonneesGitHub(repos); return; }
 
     // 1) API GitHub (directe ou via proxy Worker) — un seul appel, `topics` inclus.
     try {
@@ -382,7 +459,7 @@ async function fetchProjects() {
         repos = await res.json();
         cachedRepos = repos;
         saveReposCache(repos);
-        renderProjects(repos);
+        appliquerDonneesGitHub(repos);
         return;
     } catch (error) {
         console.warn('API GitHub indisponible :', error.message);
@@ -390,7 +467,7 @@ async function fetchProjects() {
 
     // 2) Cache périmé (mieux que rien).
     const stale = loadReposCache(true);
-    if (stale && stale.length) { cachedRepos = stale; renderProjects(stale); return; }
+    if (stale && stale.length) { cachedRepos = stale; appliquerDonneesGitHub(stale); return; }
 
     // 3) Fallback statique versionné dans le repo.
     try {
@@ -398,7 +475,7 @@ async function fetchProjects() {
         if (res.ok) {
             const data = await res.json();
             const list = Array.isArray(data) ? data : (data.repos || []);
-            if (list.length) { cachedRepos = list; saveReposCache(list); renderProjects(list); return; }
+            if (list.length) { cachedRepos = list; saveReposCache(list); appliquerDonneesGitHub(list); return; }
         }
     } catch (e) {}
 
@@ -411,75 +488,14 @@ async function fetchProjects() {
         </div>`;
 }
 
-function renderProjects(repos) {
-    if (!projectsContainer) return;
+// Données GitHub vivantes (langage, étoiles, date) indexées par dépôt. Elles
+// viennent enrichir les fiches de « Parcours & Réalisations » : une seule
+// section porte désormais le récit ET la preuve.
+let githubParDepot = new Map();
 
-    const sorted = [...repos].sort((a, b) => {
-        const af = featuredRepos.includes(a.name) ? 1 : 0;
-        const bf = featuredRepos.includes(b.name) ? 1 : 0;
-        if (bf !== af) return bf - af;
-        return b.stargazers_count - a.stargazers_count;
-    });
-
-    const t = translations[currentLang].projects;
-    const locale = translations[currentLang].locale || 'fr-FR';
-
-    // On assemble le HTML en une fois : `innerHTML +=` dans une boucle
-    // reparse tout le conteneur à chaque tour.
-    const cards = sorted.map(repo => {
-        const topics = repo.topics || [];
-        const langColor = languageColors[repo.language] || '#888';
-        const isFeatured = featuredRepos.includes(repo.name);
-        const updated = new Date(repo.updated_at).toLocaleDateString(locale, {
-            year: 'numeric', month: 'short', day: 'numeric'
-        });
-
-        const topicsHtml = topics.length
-            ? `<div class="project-topics">${topics.map(tp => `<span class="project-topic">${esc(tp)}</span>`).join('')}</div>`
-            : '';
-
-        const demo = repo.homepage && repo.homepage.trim();
-        const demoBtn = demo
-            ? `<a href="${esc(demo)}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm"><i class="fas fa-external-link-alt" aria-hidden="true"></i> ${t.demo}</a>`
-            : '';
-
-        return `
-            <article class="project-card reveal${isFeatured ? ' featured' : ''}" style="position: relative;">
-                ${isFeatured ? `<span class="featured-badge"><i class="fa-solid fa-star" aria-hidden="true"></i> ${t.featured}</span>` : ''}
-                ${repo.fork ? '<span class="fork-badge"><i class="fa-solid fa-code-fork" aria-hidden="true"></i> Fork</span>' : ''}
-                <img src="https://raw.githubusercontent.com/${githubUsername}/${encodeURIComponent(repo.name)}/HEAD/docs/cards/card.png"
-                     onerror="this.onerror=null;this.src='https://opengraph.githubassets.com/1/${githubUsername}/${encodeURIComponent(repo.name)}'"
-                     alt="${esc(repo.name)}" class="project-img" loading="lazy">
-                <div class="project-body">
-                    <div class="project-header">
-                        <h3 class="project-title">
-                            <a href="${esc(repo.html_url)}" target="_blank" rel="noopener noreferrer">${esc(repo.name)}</a>
-                        </h3>
-                    </div>
-                    <p class="project-desc">${esc(repo.description || '')}</p>
-                    ${topicsHtml}
-                    <div class="project-footer">
-                        <div class="project-stat">
-                            <span class="lang-dot" style="background-color: ${langColor};"></span>
-                            <span>${esc(repo.language || 'N/A')}</span>
-                        </div>
-                        <div class="project-stat">
-                            <i class="fa-regular fa-star" aria-hidden="true"></i> ${repo.stargazers_count}
-                        </div>
-                        <div class="project-stat">
-                            <i class="fa-solid fa-code-fork" aria-hidden="true"></i> ${repo.forks_count}
-                        </div>
-                    </div>
-                    <div class="project-meta">
-                        <span class="project-updated"><i class="fa-regular fa-clock" aria-hidden="true"></i> ${t.updated} ${updated}</span>
-                        ${demoBtn}
-                    </div>
-                </div>
-            </article>`;
-    });
-
-    projectsContainer.innerHTML = cards.join('');
-    projectsContainer.querySelectorAll('.project-card.reveal').forEach(el => observer.observe(el));
+function appliquerDonneesGitHub(repos) {
+    githubParDepot = new Map(repos.map(r => [r.name, r]));
+    renderExperiences();
     renderGitHubStats(repos);
 }
 

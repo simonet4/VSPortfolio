@@ -19,7 +19,6 @@ translations = {
             contact: "Contact"
         },
         hero: {
-            status: "DUT en poche · en alternance chez Gembaware, intégrateur Odoo",
             h1: "Sam, mon IA 100 % locale",
             h2: "Alternant développeur Odoo",
             h3: "Proximars présenté au CNES",
@@ -35,22 +34,27 @@ translations = {
             stack: [
                 {
                     label: "Data & IA",
+                    icon: "fa-solid fa-chart-line",
                     tags: ["Python", "Pandas", "Matplotlib", "Power BI", "Knime", "RAG", "Qdrant", "Mistral AI", "Ollama", "n8n"]
                 },
                 {
                     label: "Bases de données",
+                    icon: "fa-solid fa-database",
                     tags: ["Oracle SQL", "PL/SQL", "Oracle APEX", "HeidiSQL", "Access", "Odoo / ERP"]
                 },
                 {
                     label: "Langages",
+                    icon: "fa-solid fa-code",
                     tags: ["Java", "C", "C++", "ADA", "PHP", "JavaScript", "HTML/CSS", "Bash"]
                 },
                 {
                     label: "Applicatif & embarqué",
+                    icon: "fa-solid fa-mobile-screen-button",
                     tags: ["Flutter / Dart", "Android Studio", "Arduino", "ZPL", "WindowBuilder", "WinDev"]
                 },
                 {
                     label: "Outils & Infra",
+                    icon: "fa-solid fa-screwdriver-wrench",
                     tags: ["Git", "Docker", "Linux", "VirtualBox", "Postman", "Agile / Scrum", "VS Code", "Eclipse", "JUnit", "Blender / FreeCAD"]
                 }
             ],
@@ -97,6 +101,7 @@ translations = {
             },
             seeAll: "Voir les {n} réalisations",
             empty: "Aucun projet dans cette catégorie.",
+            codeLabel: "Code",
             items: [
                 {
                     icon: "fa-solid fa-mobile-screen-button",
@@ -138,6 +143,7 @@ translations = {
                 },
                 {
                     icon: "fa-solid fa-wave-square",
+                    repo: "Devier_Project",
                     cat: "study",
                     featured: true,
                     date: "2025 — Nuit de l'Informatique",
@@ -188,6 +194,7 @@ translations = {
                 },
                 {
                     icon: "fa-solid fa-laptop-code",
+                    repo: "TomatoSeedShop",
                     cat: "study",
                     date: "2024 — 2025",
                     title: "Applications de gestion — Java & WinDev",
@@ -197,6 +204,7 @@ translations = {
                 },
                 {
                     icon: "fa-solid fa-satellite",
+                    repo: "Proximars",
                     cat: "study",
                     featured: true,
                     date: "2023 — 2024",
@@ -210,6 +218,7 @@ translations = {
                 },
                 {
                     icon: "fa-solid fa-robot",
+                    repo: "RobotSumo",
                     cat: "study",
                     featured: true,
                     date: "2022 — 2023",
@@ -218,6 +227,16 @@ translations = {
                     award: "Prix de la télécommunication — Olympiades Paul Sabatier 2022",
                     desc: "Robot Arduino piloté à distance, capable aussi de suivre une ligne grâce à ses capteurs. Seul sur la partie informatique et électricité de l'équipe, j'ai conçu la télécommande : une application mobile avec joystick et boutons, reliée au robot sans fil.",
                     tags: ["Arduino", "C/C++", "App mobile", "Capteurs", "Électronique"]
+                },
+                {
+                    icon: "fa-solid fa-id-card",
+                    cat: "perso",
+                    repo: "VSPortfolio",
+                    date: "2025 — Présent",
+                    title: "Ce portfolio",
+                    context: "Projet personnel",
+                    desc: "Site statique sans framework : trilingue sans rechargement, thème clair/sombre, réalisations filtrables et fond animé en Canvas. Publié sur mon propre nom de domaine.",
+                    tags: ["JavaScript", "HTML/CSS", "i18n", "Canvas"]
                 },
                 {
                     icon: "fa-solid fa-server",
@@ -253,12 +272,7 @@ translations = {
             languages: "Langages"
         },
         projects: {
-            title: "Projets GitHub",
             more: "Voir tous les dépôts sur GitHub",
-            updated: "Mis à jour le",
-            demo: "Démo",
-            loading: "Chargement des projets",
-            featured: "Coup de cœur",
             error: "Projets temporairement indisponibles (limite GitHub atteinte).",
             errorLink: "Voir sur GitHub"
         },
@@ -306,7 +320,6 @@ translations = {
             contact: "Contact"
         },
         hero: {
-            status: "Two-year degree in hand · apprentice at Gembaware, an Odoo integrator",
             h1: "Sam, my 100% local AI",
             h2: "Odoo developer apprentice",
             h3: "Proximars presented at CNES",
@@ -322,22 +335,27 @@ translations = {
             stack: [
                 {
                     label: "Data & AI",
+                    icon: "fa-solid fa-chart-line",
                     tags: ["Python", "Pandas", "Matplotlib", "Power BI", "Knime", "RAG", "Qdrant", "Mistral AI", "Ollama", "n8n"]
                 },
                 {
                     label: "Databases",
+                    icon: "fa-solid fa-database",
                     tags: ["Oracle SQL", "PL/SQL", "Oracle APEX", "HeidiSQL", "Access", "Odoo / ERP"]
                 },
                 {
                     label: "Languages",
+                    icon: "fa-solid fa-code",
                     tags: ["Java", "C", "C++", "ADA", "PHP", "JavaScript", "HTML/CSS", "Bash"]
                 },
                 {
                     label: "Apps & embedded",
+                    icon: "fa-solid fa-mobile-screen-button",
                     tags: ["Flutter / Dart", "Android Studio", "Arduino", "ZPL", "WindowBuilder", "WinDev"]
                 },
                 {
                     label: "Tools & infra",
+                    icon: "fa-solid fa-screwdriver-wrench",
                     tags: ["Git", "Docker", "Linux", "VirtualBox", "Postman", "Agile / Scrum", "VS Code", "Eclipse", "JUnit", "Blender / FreeCAD"]
                 }
             ],
@@ -384,6 +402,7 @@ translations = {
             },
             seeAll: "See all {n} achievements",
             empty: "No project in this category.",
+            codeLabel: "Code",
             items: [
                 {
                     icon: "fa-solid fa-mobile-screen-button",
@@ -425,6 +444,7 @@ translations = {
                 },
                 {
                     icon: "fa-solid fa-wave-square",
+                    repo: "Devier_Project",
                     cat: "study",
                     featured: true,
                     date: "2025 — Nuit de l'Informatique",
@@ -475,6 +495,7 @@ translations = {
                 },
                 {
                     icon: "fa-solid fa-laptop-code",
+                    repo: "TomatoSeedShop",
                     cat: "study",
                     date: "2024 — 2025",
                     title: "Management apps — Java & WinDev",
@@ -484,6 +505,7 @@ translations = {
                 },
                 {
                     icon: "fa-solid fa-satellite",
+                    repo: "Proximars",
                     cat: "study",
                     featured: true,
                     date: "2023 — 2024",
@@ -497,6 +519,7 @@ translations = {
                 },
                 {
                     icon: "fa-solid fa-robot",
+                    repo: "RobotSumo",
                     cat: "study",
                     featured: true,
                     date: "2022 — 2023",
@@ -505,6 +528,16 @@ translations = {
                     award: "Telecommunication prize — Paul Sabatier Olympiads 2022",
                     desc: "An Arduino robot driven remotely, and able to follow a line thanks to its sensors. Alone on the software and electronics side of the team, I designed the controller: a mobile app with a joystick and buttons, linked to the robot wirelessly.",
                     tags: ["Arduino", "C/C++", "Mobile app", "Sensors", "Electronics"]
+                },
+                {
+                    icon: "fa-solid fa-id-card",
+                    cat: "perso",
+                    repo: "VSPortfolio",
+                    date: "2025 — Present",
+                    title: "This portfolio",
+                    context: "Personal project",
+                    desc: "A static site with no framework: trilingual without reloading, light/dark theme, filterable work and an animated Canvas background. Published on my own domain.",
+                    tags: ["JavaScript", "HTML/CSS", "i18n", "Canvas"]
                 },
                 {
                     icon: "fa-solid fa-server",
@@ -540,12 +573,7 @@ translations = {
             languages: "Languages"
         },
         projects: {
-            title: "GitHub Projects",
             more: "See all repositories on GitHub",
-            updated: "Updated on",
-            demo: "Demo",
-            loading: "Loading projects",
-            featured: "Favorite",
             error: "Projects temporarily unavailable (GitHub rate limit reached).",
             errorLink: "View on GitHub"
         },
@@ -593,7 +621,6 @@ translations = {
             contact: "Contato"
         },
         hero: {
-            status: "DUT concluído · em alternância na Gembaware, integradora Odoo",
             h1: "Sam, minha IA 100% local",
             h2: "Aprendiz de desenvolvedor Odoo",
             h3: "Proximars apresentado no CNES",
@@ -609,22 +636,27 @@ translations = {
             stack: [
                 {
                     label: "Data & IA",
+                    icon: "fa-solid fa-chart-line",
                     tags: ["Python", "Pandas", "Matplotlib", "Power BI", "Knime", "RAG", "Qdrant", "Mistral AI", "Ollama", "n8n"]
                 },
                 {
                     label: "Bancos de dados",
+                    icon: "fa-solid fa-database",
                     tags: ["Oracle SQL", "PL/SQL", "Oracle APEX", "HeidiSQL", "Access", "Odoo / ERP"]
                 },
                 {
                     label: "Linguagens",
+                    icon: "fa-solid fa-code",
                     tags: ["Java", "C", "C++", "ADA", "PHP", "JavaScript", "HTML/CSS", "Bash"]
                 },
                 {
                     label: "Apps & embarcados",
+                    icon: "fa-solid fa-mobile-screen-button",
                     tags: ["Flutter / Dart", "Android Studio", "Arduino", "ZPL", "WindowBuilder", "WinDev"]
                 },
                 {
                     label: "Ferramentas & infra",
+                    icon: "fa-solid fa-screwdriver-wrench",
                     tags: ["Git", "Docker", "Linux", "VirtualBox", "Postman", "Agile / Scrum", "VS Code", "Eclipse", "JUnit", "Blender / FreeCAD"]
                 }
             ],
@@ -671,6 +703,7 @@ translations = {
             },
             seeAll: "Ver as {n} realizações",
             empty: "Nenhum projeto nesta categoria.",
+            codeLabel: "Código",
             items: [
                 {
                     icon: "fa-solid fa-mobile-screen-button",
@@ -712,6 +745,7 @@ translations = {
                 },
                 {
                     icon: "fa-solid fa-wave-square",
+                    repo: "Devier_Project",
                     cat: "study",
                     featured: true,
                     date: "2025 — Nuit de l'Informatique",
@@ -762,6 +796,7 @@ translations = {
                 },
                 {
                     icon: "fa-solid fa-laptop-code",
+                    repo: "TomatoSeedShop",
                     cat: "study",
                     date: "2024 — 2025",
                     title: "Aplicações de gestão — Java & WinDev",
@@ -771,6 +806,7 @@ translations = {
                 },
                 {
                     icon: "fa-solid fa-satellite",
+                    repo: "Proximars",
                     cat: "study",
                     featured: true,
                     date: "2023 — 2024",
@@ -784,6 +820,7 @@ translations = {
                 },
                 {
                     icon: "fa-solid fa-robot",
+                    repo: "RobotSumo",
                     cat: "study",
                     featured: true,
                     date: "2022 — 2023",
@@ -792,6 +829,16 @@ translations = {
                     award: "Prêmio de telecomunicação — Olimpíadas Paul Sabatier 2022",
                     desc: "Robô Arduino pilotado à distância e capaz de seguir uma linha graças aos seus sensores. Sozinho na parte de software e eletrônica da equipe, projetei o controle: um aplicativo mobile com joystick e botões, ligado ao robô sem fio.",
                     tags: ["Arduino", "C/C++", "App mobile", "Sensores", "Eletrônica"]
+                },
+                {
+                    icon: "fa-solid fa-id-card",
+                    cat: "perso",
+                    repo: "VSPortfolio",
+                    date: "2025 — Presente",
+                    title: "Este portfólio",
+                    context: "Projeto pessoal",
+                    desc: "Site estático sem framework: trilíngue sem recarregar, tema claro/escuro, realizações filtráveis e fundo animado em Canvas. Publicado no meu próprio domínio.",
+                    tags: ["JavaScript", "HTML/CSS", "i18n", "Canvas"]
                 },
                 {
                     icon: "fa-solid fa-server",
@@ -827,12 +874,7 @@ translations = {
             languages: "Linguagens"
         },
         projects: {
-            title: "Projetos GitHub",
             more: "Ver todos os repositórios no GitHub",
-            updated: "Atualizado em",
-            demo: "Demo",
-            loading: "Carregando projetos",
-            featured: "Favorito",
             error: "Projetos temporariamente indisponíveis (limite do GitHub atingido).",
             errorLink: "Ver no GitHub"
         },

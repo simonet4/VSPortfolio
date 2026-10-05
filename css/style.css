@@ -253,6 +253,44 @@ button { font-family: inherit; cursor: pointer; }
     max-width: 960px; margin: 0 auto;
     width: 100%;
 }
+.hero-identity {
+    display: flex; align-items: center;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    width: 100%;
+    margin-bottom: 0.15rem;
+}
+.hero-photo {
+    /* calée à droite, dans le vide laissé par le nom */
+    margin-left: auto;
+    width: clamp(104px, 17vw, 196px);
+    aspect-ratio: 1; height: auto;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover; object-position: top;
+    border: 3px solid var(--bg-card);
+    box-shadow: var(--shadow-md);
+    /* grandit vers la gauche : au survol elle ne sort pas de la page */
+    transform-origin: right center;
+    transition: transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1),
+                box-shadow 0.35s ease, border-color 0.35s ease;
+    cursor: zoom-in;
+}
+/* :active couvre l'appui tactile, :focus-visible la navigation clavier */
+.hero-photo:hover,
+.hero-photo:active,
+.hero-photo:focus-visible {
+    transform: scale(1.22);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent);
+    outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-photo { transition: none; }
+    .hero-photo:hover, .hero-photo:active, .hero-photo:focus-visible { transform: none; }
+}
+.hero-naming { min-width: 0; }
+
 #home h1 {
     font-size: clamp(2.5rem, 7vw, 4rem);
     font-weight: 700;
@@ -260,32 +298,11 @@ button { font-family: inherit; cursor: pointer; }
     margin: 0; line-height: 1.05;
 }
 
-.hero-eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 14px;
-    background: rgba(34, 197, 94, 0.08);
-    color: #16a34a;
-    border: 1px solid rgba(34, 197, 94, 0.15);
-    border-radius: 999px;
-    font-size: 0.8rem; font-weight: 600;
-    margin-bottom: 1.5rem;
-}
-html.dark .hero-eyebrow {
-    background: rgba(34, 197, 94, 0.1);
-    color: #4ade80;
-    border-color: rgba(34, 197, 94, 0.2);
-}
-.status-dot {
-    width: 7px; height: 7px;
-    background: #16a34a; border-radius: 50%;
-    animation: pulse 2s ease-in-out infinite;
-}
-html.dark .status-dot { background: #4ade80; }
 
 .hero-desc {
     font-size: clamp(1rem, 2.5vw, 1.15rem);
     color: var(--text-secondary);
-    margin: 1rem 0 1.5rem 0;
+    margin: 0.35rem 0 1.5rem 0;
     max-width: 560px;
     line-height: 1.7;
 }
@@ -358,14 +375,13 @@ html.dark .btn-primary { color: #0f1219; }
     border: 1px solid var(--border);
 }
 .btn-outline:hover { background: var(--accent-subtle); border-color: var(--accent); color: var(--accent); }
-.btn-sm { padding: 0.4rem 0.8rem; font-size: 0.78rem; }
 
 /* Typing */
 .typing-wrapper {
     font-family: var(--font-mono);
     font-size: clamp(0.9rem, 2.5vw, 1.15rem);
     color: var(--text-secondary);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     min-height: 1.5em;
 }
 .prompt { color: var(--accent-2); margin-right: 0.4rem; }
@@ -451,30 +467,88 @@ html.dark .btn-primary { color: #0f1219; }
 
 /* Tech Stack — integrated in About, borderless */
 .tech-stack { margin-top: 2.75rem; }
-.stack-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-    gap: 1.5rem 2rem;
+/* Boîte à outils : les cases défilent en continu, de droite à gauche, à la
+   manière des réclames d'autrefois. La piste contient deux copies et
+   translate de -50 %, si bien que la boucle est invisible. */
+.stack-marquee {
+    overflow: hidden;
+    padding: 0.5rem 0;
+    /* fondu large aux deux bords : les cases entrent et sortent sans coupure */
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
 }
-.stack-group {
-    padding: 0.15rem 0 0.15rem 0.9rem;
-    background: none;
-    border: none;
-    border-left: 2px solid var(--accent-2);
-    border-radius: 0;
+.stack-track {
+    display: flex;
+    width: max-content;
+    animation: stack-defile 75s linear infinite;
+    will-change: transform;
 }
+.stack-run { display: flex; gap: 1.1rem; padding-right: 1.1rem; }
+.stack-card { width: 310px; flex-shrink: 0; }
+
+/* Au survol on fige, pour laisser lire une case. */
+.stack-marquee:hover .stack-track,
+.stack-marquee:focus-within .stack-track { animation-play-state: paused; }
+
+@keyframes stack-defile {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+/* Animations réduites : plus de défilement, le bandeau se parcourt à la main
+   et le doublon disparaît pour ne pas dérouter. */
+@media (prefers-reduced-motion: reduce) {
+    .stack-track { animation: none; }
+    .stack-marquee { overflow-x: auto; scrollbar-width: none; -webkit-mask-image: none; mask-image: none; }
+    .stack-marquee::-webkit-scrollbar { display: none; }
+    .stack-run[aria-hidden="true"] { display: none; }
+}
+
+.stack-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    display: flex; flex-direction: column;
+    transition: border-color var(--transition), box-shadow var(--transition),
+                transform 0.25s ease;
+}
+.stack-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.stack-head {
+    display: flex; align-items: center; gap: 0.7rem;
+    margin-bottom: 0.95rem;
+}
+.stack-icon {
+    flex-shrink: 0;
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 11px;
+    background: var(--accent-subtle);
+    color: var(--accent);
+    font-size: 1.05rem;
+}
+
 .stack-label {
-    display: block; font-size: 0.7rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    color: var(--accent); margin-bottom: 0.65rem;
+    font-size: 0.82rem; font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--text);
 }
 .stack-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .tag {
-    font-size: 0.78rem; padding: 0.25rem 0.6rem;
+    display: inline-flex; align-items: center; gap: 0.38rem;
+    font-size: 0.78rem; padding: 0.3rem 0.65rem;
     background: var(--bg); border: 1px solid var(--border);
-    border-radius: 6px; color: var(--text-secondary);
+    border-radius: 7px; color: var(--text-secondary);
     font-weight: 500; transition: all var(--transition);
 }
+/* Logo de la techno quand Font Awesome en fournit un ; sinon pastille seule. */
+.tag i { font-size: 0.86rem; color: var(--accent); opacity: 0.9; }
+.stack-card:hover .tag { border-color: var(--accent-subtle); }
 html.dark .tag { background: var(--bg); }
 
 /* =========================================
@@ -618,31 +692,38 @@ html.dark .filter-chip.active { color: var(--bg); }
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+    padding: 1.25rem;
     box-shadow: var(--shadow-sm);
     transition: box-shadow 0.3s, border-color 0.3s;
     position: relative; overflow: hidden;
     display: flex; flex-direction: column;
 }
-.experience-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0;
-    width: 3px; height: 100%;
-    background: var(--accent);
-    border-radius: 3px 0 0 3px;
-    opacity: 0.5;
-}
 .experience-card:hover {
     box-shadow: var(--shadow-md);
     border-color: var(--accent);
 }
-.experience-card:hover::before { opacity: 1; }
 
-/* Une distinction : liseré doré au lieu du liseré accent */
-.experience-card.has-award::before {
-    background: var(--accent-2);
-    opacity: 0.85;
+/* Carte cliquable d'un bout à l'autre : le lien principal s'étire en
+   superposition. On garde un vrai <a> — clic milieu, menu contextuel et
+   navigation clavier continuent de fonctionner. Les autres liens repassent
+   au-dessus. */
+.experience-card:has(.lien-principal).lien-principal::after {
+    content: ''; position: absolute; inset: 0; z-index: 1;
 }
+.experience-links { position: relative; z-index: 2; }
+.experience-card:hover .lien-principal
+/* Visuel du dépôt en tête de fiche : il relie la réalisation à son code.
+   Les marges négatives le font saigner jusqu'aux bords de la carte. */
+.experience-img {
+    width: calc(100% + 2.5rem);
+    max-width: none;
+    margin: -1.25rem -1.25rem 1rem;
+    aspect-ratio: 2 / 1;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-alt);
+}
+
 
 .experience-icon {
     width: 36px; height: 36px;
@@ -691,125 +772,41 @@ html.dark .filter-chip.active { color: var(--bg); }
     color: var(--accent); font-weight: 600;
 }
 
-.experience-link {
-    display: inline-flex; align-items: center; gap: 0.35rem;
-    align-self: flex-start;
+/* Pied de fiche : la démo et le code, côte à côte. */
+/* Chiffres GitHub de la fiche : langage, étoiles, dernière activité. */
+.experience-meta {
+    display: flex; flex-wrap: wrap; gap: 0.25rem 1rem;
     margin-top: 0.85rem;
+    font-size: 0.72rem; color: var(--text-secondary);
+    font-family: var(--font-mono);
+}
+.experience-meta span { display: inline-flex; align-items: center; gap: 0.35rem; }
+
+.experience-links {
+    display: flex; flex-wrap: wrap; gap: 0.35rem 1rem;
+    margin-top: 0.85rem;
+}
+.experience-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
     font-size: 0.78rem; font-weight: 600;
     border-bottom: 1px solid transparent;
     transition: border-color var(--transition), color var(--transition);
 }
-.experience-link i { font-size: 0.68rem; }
+.experience-link i { font-size: 0.8rem; }
 .experience-link:hover { border-bottom-color: var(--accent-hover); }
 
-/* =========================================
-   9. PROJECT CARDS
-   ========================================= */
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-    gap: 1.25rem;
-    margin-bottom: 1.5rem;
-}
 
-.project-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    display: flex; flex-direction: column;
-    box-shadow: var(--shadow-sm);
-    overflow: hidden;
-    transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
-}
-.project-card:hover {
-    box-shadow: var(--shadow-md);
-    border-color: var(--accent);
-    transform: translateY(-2px);
-}
 
-.project-card.featured {
-    border-color: var(--accent);
-}
 
-.featured-badge {
-    position: absolute; top: 10px; right: 10px;
-    background: var(--accent-2); color: #3a2c00;
-    font-size: 0.62rem; font-weight: 700;
-    padding: 0.2rem 0.55rem; border-radius: 999px;
-    text-transform: uppercase; letter-spacing: 0.04em; z-index: 2;
-    box-shadow: 0 2px 6px var(--accent-2-subtle);
-}
-.featured-badge i { margin-right: 0.15em; }
-html.dark .featured-badge { color: #3a2c00; }
 
-.fork-badge {
-    position: absolute; top: 10px; left: 10px;
-    background: var(--bg-alt); color: var(--text-muted);
-    font-size: 0.6rem; font-weight: 600;
-    padding: 0.2rem 0.5rem; border-radius: 999px;
-    border: 1px solid var(--border);
-    text-transform: uppercase; letter-spacing: 0.04em; z-index: 2;
-}
-.fork-badge i { margin-right: 0.2em; }
 
 /* Les deux sources d'image sont en 2:1 — vos cartes (1280x640) comme celles
    générées par GitHub (1200x600). On impose donc le rapport plutôt qu'une
    hauteur fixe, sinon le bas du visuel est rogné. */
-.project-img {
-    width: 100%; aspect-ratio: 2 / 1;
-    object-fit: cover; object-position: center;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg-alt);
-}
-.project-body { padding: 1.15rem; display: flex; flex-direction: column; flex-grow: 1; }
-.project-header { margin-bottom: 0.4rem; }
-.project-title {
-    font-size: 1rem; font-weight: 700; margin: 0;
-    color: var(--accent);
-}
-.project-title a { color: inherit; }
-.project-title a:hover { text-decoration: underline; }
-.project-desc {
-    font-size: 0.82rem; color: var(--text-secondary);
-    margin-bottom: 0.75rem; flex-grow: 1; line-height: 1.55;
-}
-.project-topics { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.75rem; }
-.project-topic {
-    font-size: 0.65rem; padding: 0.15rem 0.5rem;
-    border-radius: 999px; background: var(--accent-subtle);
-    color: var(--accent); font-weight: 600;
-}
-.project-footer {
-    display: flex; align-items: center; gap: 0.75rem;
-    font-size: 0.75rem; color: var(--text-secondary); margin-top: auto;
-}
-.project-stat { display: inline-flex; align-items: center; gap: 0.25rem; }
 .lang-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
-.project-meta {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-top: 0.6rem; padding-top: 0.6rem;
-    border-top: 1px solid var(--border);
-}
-.project-updated {
-    font-size: 0.7rem; color: var(--text-secondary);
-    display: flex; align-items: center; gap: 0.25rem;
-}
 
-.project-card-placeholder {
-    background: var(--bg-card); padding: 2rem; border-radius: var(--radius);
-    text-align: center; color: var(--text-secondary);
-    border: 1px solid var(--border);
-    display: flex; flex-direction: column; align-items: center; gap: 1rem;
-}
 
 /* Spinner */
-.spinner {
-    width: 24px; height: 24px;
-    border: 2.5px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-}
 
 .center-link { text-align: center; margin-top: 1.5rem; }
 .text-link {
@@ -978,13 +975,6 @@ footer p {
    ========================================= */
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* Scroll reveal */
-.reveal {
-    opacity: 0; transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
 .reveal.active { opacity: 1; transform: translateY(0); }
 
 /* Sans animation : le contenu doit rester visible, pas rester à opacity 0 */
@@ -1025,12 +1015,10 @@ html.dark #theme-toggle .fa-sun { display: inline-block; }
     .about-extras-grid { margin-top: 2rem; padding-top: 1.75rem; gap: 1.75rem; }
 
     .experiences-grid { grid-template-columns: 1fr; }
-    .projects-grid { grid-template-columns: 1fr; }
 
     .contact-card { padding: 1.75rem 1.25rem; }
     .social-links { gap: 1rem; font-size: 1.2rem; }
 
-    .project-meta { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
 
     .github-stats-bar { gap: 1rem; padding: 1rem 0; }
 }
@@ -1047,15 +1035,11 @@ html.dark #theme-toggle .fa-sun { display: inline-block; }
     .filter-bar { gap: 0.35rem; }
     .filter-chip { font-size: 0.74rem; padding: 0.3rem 0.65rem; }
 
-    .experience-card { padding: 1rem 1rem 1rem 1.25rem; }
+    .experience-card { padding: 1rem; }
     .experience-role { font-size: 0.88rem; }
     .experience-desc { font-size: 0.78rem; }
 
-    .project-body { padding: 1rem; }
-    .project-title { font-size: 0.92rem; }
-    .project-desc { font-size: 0.78rem; }
 
-    .stack-grid { grid-template-columns: 1fr; }
 
     .current-card { flex-direction: column; }
     .current-card-icon { width: 36px; height: 36px; font-size: 1rem; }
