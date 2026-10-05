@@ -344,6 +344,117 @@ const TAG_LOGOS = {
     'Blender / FreeCAD': 'fa-solid fa-cube'
 };
 
+// ========================================
+// BOÎTE À OUTILS — DÉFILEMENT CONTINU
+// ========================================
+// Panneau publicitaire circulaire. Le contenu est écrit deux fois ; dès que
+// le défilement atteint la moitié, on retranche cette moitié : la seconde
+// copie se trouve alors exactement là où était la première, et la boucle
+// est invisible. On pilote scrollLeft plutôt qu une animation CSS, pour que
+// la zone reste réellement défilante à la souris.
+function initMarquee() {
+    const zone = document.querySelector('.stack-marquee');
+    if (!zone || zone.dataset.initialise) return;
+    zone.dataset.initialise = '1';
+
+    const prec = document.querySelector('.stack-fleche.prec');
+    const suiv = document.querySelector('.stack-fleche.suiv');
+
+    const VITESSE = 0.45;     // pixels par image, ~27 px/s
+    const REPRISE = 2500;     // délai avant que le défilement reparte seul
+    let enPause = false, glisse = false;
+    let cible = null;         // destination du saut de flèche en cours
+    let minuteur = null;
+    let departX = 0, departScroll = 0;
+
+    const demiTour = () => zone.scrollWidth / 2;
+
+    // Largeur d une case, gouttière comprise : le pas d un cran de flèche.
+    function pas() {
+        const carte = zone.querySelector('.stack-card');
+        const run = zone.querySelector('.stack-run');
+        if (!carte) return 320;
+        const gap = run ? parseFloat(getComputedStyle(run).gap) || 0 : 0;
+        return (carte.offsetWidth || 310) + gap;
+    }
+
+    function boucler() {
+        const demi = demiTour();
+        if (demi <= 0) return;
+        if (zone.scrollLeft >= demi) { zone.scrollLeft -= demi; if (cible !== null) cible -= demi; }
+        else if (zone.scrollLeft <= 0) { zone.scrollLeft += demi; if (cible !== null) cible += demi; }
+    }
+
+    // Toute interaction suspend le défilement ; il repart seul après un délai.
+    function suspendre() {
+        enPause = true;
+        clearTimeout(minuteur);
+        minuteur = setTimeout(() => { enPause = false; cible = null; }, REPRISE);
+    }
+
+    function avancer() {
+        if (cible !== null) {
+            const reste = cible - zone.scrollLeft;
+            if (Math.abs(reste) < 0.5) { zone.scrollLeft = cible; cible = null; }
+            else zone.scrollLeft += reste * 0.18;
+            boucler();
+        } else if (!enPause && !glisse) {
+            zone.scrollLeft += VITESSE;
+            boucler();
+        }
+        requestAnimationFrame(avancer);
+    }
+
+    function sauter(sens) {
+        cible = (cible === null ? zone.scrollLeft : cible) + sens * pas();
+        suspendre();
+    }
+
+    if (prec) prec.addEventListener('click', () => sauter(-1));
+    if (suiv) suiv.addEventListener('click', () => sauter(1));
+
+    zone.addEventListener('mouseenter', () => { enPause = true; clearTimeout(minuteur); });
+    zone.addEventListener('mouseleave', suspendre);
+    zone.addEventListener('focusin', () => { enPause = true; clearTimeout(minuteur); });
+    zone.addEventListener('focusout', suspendre);
+
+    zone.addEventListener('pointerdown', (e) => {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        glisse = true; cible = null;
+        departX = e.clientX;
+        departScroll = zone.scrollLeft;
+        zone.classList.add('glisse');
+        zone.setPointerCapture(e.pointerId);
+    });
+    zone.addEventListener('pointermove', (e) => {
+        if (!glisse) return;
+        zone.scrollLeft = departScroll - (e.clientX - departX);
+        boucler();
+    });
+    const relacher = (e) => {
+        if (!glisse) return;
+        glisse = false;
+        zone.classList.remove('glisse');
+        if (e.pointerId !== undefined && zone.hasPointerCapture?.(e.pointerId)) {
+            zone.releasePointerCapture(e.pointerId);
+        }
+        suspendre();
+    };
+    zone.addEventListener('pointerup', relacher);
+    zone.addEventListener('pointercancel', relacher);
+
+    zone.addEventListener('wheel', (e) => {
+        if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+        e.preventDefault();
+        cible = null;
+        zone.scrollLeft += e.deltaY;
+        boucler();
+        suspendre();
+    }, { passive: false });
+
+    requestAnimationFrame(avancer);
+}
+
 function renderStack() {
     const piste = document.getElementById('stack-grid');
     if (!piste) return;
@@ -371,6 +482,8 @@ function renderStack() {
     // pas. Le doublon est aria-hidden pour ne pas être lu deux fois.
     piste.innerHTML = `<div class="stack-run">${cases}</div>` +
                       `<div class="stack-run" aria-hidden="true">${cases}</div>`;
+
+    initMarquee();
 }
 
 // ========================================
@@ -408,7 +521,6 @@ function renderExtras() {
 // GITHUB API
 // ========================================
 const githubUsername = 'simonet4';
-const projectsContainer = document.getElementById('github-projects');
 const featuredRepos = ['Proximars', 'Devier_Project', 'RobotSumo'];
 
 // Base de l'API. Laisser sur api.github.com, OU mettre l'URL d'un proxy
@@ -480,12 +592,12 @@ async function fetchProjects() {
     } catch (e) {}
 
     // 4) Message propre.
+    // Les fiches restent affichées : seules les données vivantes manquent.
     const t = translations[currentLang].projects;
-    projectsContainer.innerHTML = `
-        <div class="project-card-placeholder">
-            <span>${t.error}</span>
-            <a href="https://github.com/${githubUsername}" target="_blank" rel="noopener noreferrer">${t.errorLink}</a>
-        </div>`;
+    const bar = document.getElementById('github-stats');
+    if (bar) {
+        bar.innerHTML = `<p class="github-indispo">${t.error} <a href="https://github.com/${githubUsername}" target="_blank" rel="noopener noreferrer">${t.errorLink}</a></p>`;
+    }
 }
 
 // Données GitHub vivantes (langage, étoiles, date) indexées par dépôt. Elles
