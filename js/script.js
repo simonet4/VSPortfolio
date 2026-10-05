@@ -59,6 +59,49 @@ function detectLanguage() {
     return 'en';
 }
 
+// Pays où le français, puis le portugais, sont langue officielle ou
+// largement pratiqués. Le Canada reste en anglais : la majorité y est
+// anglophone, et un Québécois sera de toute façon rattrapé par fr-CA.
+const PAYS_FR = new Set(['FR', 'BE', 'CH', 'LU', 'MC', 'SN', 'CI', 'ML', 'BF',
+    'NE', 'TG', 'BJ', 'GA', 'CG', 'CD', 'CM', 'MG', 'TN', 'MA', 'DZ', 'HT',
+    'GN', 'TD', 'CF', 'DJ', 'KM', 'RW', 'BI', 'VU', 'NC', 'PF', 'GP', 'MQ',
+    'RE', 'GF', 'YT', 'PM', 'WF', 'BL', 'MF']);
+const PAYS_PT = new Set(['PT', 'BR', 'AO', 'MZ', 'CV', 'GW', 'ST', 'TL', 'MO']);
+
+function langueDuPays(code) {
+    if (PAYS_FR.has(code)) return 'fr';
+    if (PAYS_PT.has(code)) return 'pt';
+    return 'en';
+}
+
+// Le pays du visiteur, via Cloudflare qui sert /cdn-cgi/trace sur notre
+// propre domaine : même origine, aucun service tiers, aucune clé. Contrairement
+// à la langue du navigateur, cette information suit bien l adresse IP.
+//
+// L appel est asynchrone : la page s affiche aussitôt dans la langue déduite
+// du navigateur, puis bascule si le pays dit autre chose. Un choix manuel
+// mémorisé a toujours le dernier mot.
+async function affinerSelonPays() {
+    let memorise = null;
+    try { memorise = localStorage.getItem(LANG_STORAGE_KEY); } catch (e) {}
+    if (memorise && languages.includes(memorise)) return;
+
+    try {
+        const r = await fetch('/cdn-cgi/trace', { cache: 'no-store' });
+        if (!r.ok) return;
+        const pays = (await r.text()).match(/^loc=([A-Z]{2})$/m);
+        if (!pays) return;
+
+        const langue = langueDuPays(pays[1]);
+        if (langue === currentLang) return;
+        langIndex = languages.indexOf(langue);
+        currentLang = langue;
+        applyLanguage();
+    } catch (e) {
+        // hors ligne, ou hébergeur sans Cloudflare : on garde la langue du navigateur
+    }
+}
+
 function initLanguage() {
     let saved = null;
     try { saved = localStorage.getItem(LANG_STORAGE_KEY); } catch (e) {}
@@ -679,6 +722,7 @@ function animateCounter(el, target) {
 initTheme();
 initLanguage();
 applyLanguage();
+affinerSelonPays();
 
 const yearSpan = document.getElementById('current-year');
 if (yearSpan) yearSpan.textContent = new Date().getFullYear();
