@@ -296,6 +296,20 @@ translations = {
             text: "Je suis en alternance chez Gembaware jusqu'à l'été 2027, mais toujours partant pour parler tech, projets perso ou collaborations. Une question, une idée ? Écrivez-moi, je réponds vite.",
             btn: "Envoyer un email"
         },
+        chat: {
+            titre: "Sam",
+            sousTitre: "Assistant du portfolio",
+            ouvrir: "Discuter avec Sam",
+            fermer: "Fermer",
+            accueil: "Bonjour, je suis Sam, l'assistant de Victor. Posez-moi une question sur son parcours, ses projets ou ses compétences.",
+            espace: "Votre question…",
+            envoyer: "Envoyer",
+            horsService: "Sam n'est pas joignable pour le moment. Écrivez à Victor : contact@victorsimonet.com.",
+            quota: "Vous avez posé beaucoup de questions : faites une pause et réessayez un peu plus tard.",
+            global: "Sam a beaucoup discuté aujourd'hui et se repose jusqu'à demain. Écrivez à Victor : contact@victorsimonet.com.",
+            avis: "Réponses générées par une IA : elles peuvent comporter des erreurs.",
+            suggestions: ["Quelles sont ses compétences en IA ?","Parle-moi de Proximars","Quel est son parcours ?"]
+        },
         footer: {
             credit: "Codé par",
             sam: "épaulé par Sam, mon IA"
@@ -597,6 +611,20 @@ translations = {
             text: "I'm on a work-study contract at Gembaware until summer 2027, but always up for talking tech, side projects or collaborations. Got a question or an idea? Drop me a line, I reply fast.",
             btn: "Send an email"
         },
+        chat: {
+            titre: "Sam",
+            sousTitre: "Portfolio assistant",
+            ouvrir: "Chat with Sam",
+            fermer: "Close",
+            accueil: "Hi, I'm Sam, Victor's assistant. Ask me about his background, projects or skills.",
+            espace: "Your question…",
+            envoyer: "Send",
+            horsService: "Sam is unreachable right now. Email Victor at contact@victorsimonet.com.",
+            quota: "You've asked a lot of questions: take a break and try again a bit later.",
+            global: "Sam has chatted a lot today and is resting until tomorrow. Email Victor at contact@victorsimonet.com.",
+            avis: "Answers are AI-generated and may contain mistakes.",
+            suggestions: ["What are his AI skills?","Tell me about Proximars","What's his background?"]
+        },
         footer: {
             credit: "Coded by",
             sam: "with a hand from Sam, my AI"
@@ -897,6 +925,20 @@ translations = {
             title: "Vamos conversar?",
             text: "Estou em alternância na Gembaware até o verão de 2027, mas sempre a fim de falar sobre tech, projetos pessoais ou colaborações. Uma dúvida ou ideia? Me escreve, respondo rápido.",
             btn: "Enviar email"
+        },
+        chat: {
+            titre: "Sam",
+            sousTitre: "Assistente do portfólio",
+            ouvrir: "Conversar com o Sam",
+            fermer: "Fechar",
+            accueil: "Olá, sou o Sam, assistente do Victor. Pergunte-me sobre o percurso, os projetos ou as competências dele.",
+            espace: "A sua pergunta…",
+            envoyer: "Enviar",
+            horsService: "O Sam não está acessível neste momento. Escreva ao Victor: contact@victorsimonet.com.",
+            quota: "Fez muitas perguntas: faça uma pausa e tente novamente um pouco mais tarde.",
+            global: "O Sam conversou muito hoje e descansa até amanhã. Escreva ao Victor: contact@victorsimonet.com.",
+            avis: "Respostas geradas por IA: podem conter erros.",
+            suggestions: ["Quais são as competências em IA?","Fale-me do Proximars","Qual é o percurso dele?"]
         },
         footer: {
             credit: "Feito por",

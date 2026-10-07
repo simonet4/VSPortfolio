@@ -35,6 +35,7 @@ function applyLanguage() {
     iLetter = 0;
     isDeleting = false;
 
+    window.dispatchEvent(new CustomEvent('portfolio:langue'));
     renderExperienceFilters();
     renderExperiences();
     renderStack();
@@ -152,7 +153,8 @@ const themeBtn = document.getElementById('theme-toggle');
 const html = document.documentElement;
 
 function initTheme() {
-    const saved = localStorage.getItem('theme');
+    let saved = null;
+    try { saved = localStorage.getItem('theme'); } catch (e) {}   // stockage bloqué : on suit le système
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (saved === 'dark' || (!saved && prefersDark)) {
         html.classList.add('dark');
@@ -161,7 +163,7 @@ function initTheme() {
 
 function toggleTheme() {
     html.classList.toggle('dark');
-    localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    try { localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light'); } catch (e) {}
 }
 
 if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
@@ -214,6 +216,143 @@ window.addEventListener('scroll', () => {
         if (link.getAttribute('href') === '#' + current) link.classList.add('nav-active');
     });
 });
+
+// ========================================
+// ASSISTANT
+// ========================================
+// L'interface vit ici, le modèle tourne sur Cloudflare Workers AI (voir
+// chatbot/README.md). Aucune clé ne transite par cette page : le Worker porte
+// la consigne, la base de connaissances et les plafonds. Service muet ou quota
+// atteint, le volet le dit et renvoie vers l'adresse mail.
+const SAM_ENDPOINT = '/api/chat';
+
+function initChat() {
+    const ouvrir = document.getElementById('chat-ouvrir');
+    const volet = document.getElementById('chat-volet');
+    const fil = document.getElementById('chat-fil');
+    const form = document.getElementById('chat-formulaire');
+    const champ = document.getElementById('chat-champ');
+    const envoyer = document.getElementById('chat-envoyer');
+    const pistes = document.getElementById('chat-pistes');
+    if (!ouvrir || !volet || !fil || !form) return;
+
+    let historique = [];
+    let occupe = false;
+
+    const texte = () => translations[currentLang].chat;
+
+    function bulle(role, contenu) {
+        const el = document.createElement('div');
+        el.className = 'chat-bulle ' + role;
+        el.textContent = contenu;
+        fil.appendChild(el);
+        fil.scrollTop = fil.scrollHeight;
+        return el;
+    }
+
+    function proposerPistes() {
+        pistes.innerHTML = '';
+        for (const p of texte().suggestions) {
+            const b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'chat-piste';
+            b.textContent = p;
+            b.addEventListener('click', () => { champ.value = p; form.requestSubmit(); });
+            pistes.appendChild(b);
+        }
+    }
+
+    // Les libellés suivent la langue ; on repart d'une conversation vierge
+    // pour ne pas mélanger deux langues dans le même fil.
+    function habiller(reinitialiser) {
+        const x = texte();
+        ouvrir.querySelector('.chat-ouvrir-texte').textContent = x.ouvrir;
+        ouvrir.setAttribute('aria-label', x.ouvrir);
+        document.getElementById('chat-titre').textContent = x.titre;
+        volet.querySelector('.chat-sous-titre').textContent = x.sousTitre;
+        volet.querySelector('.chat-avis').textContent = x.avis;
+        document.getElementById('chat-fermer').setAttribute('aria-label', x.fermer);
+        champ.placeholder = x.espace;
+        envoyer.setAttribute('aria-label', x.envoyer);
+        if (reinitialiser) {
+            historique = [];
+            fil.innerHTML = '';
+            bulle('sam', x.accueil);
+            proposerPistes();
+        }
+    }
+
+    function basculer(ouvert) {
+        volet.hidden = !ouvert;
+        ouvrir.setAttribute('aria-expanded', String(ouvert));
+        if (ouvert) champ.focus();
+        else ouvrir.focus();
+    }
+
+    ouvrir.addEventListener('click', () => basculer(true));
+    document.getElementById('chat-fermer').addEventListener('click', () => basculer(false));
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !volet.hidden) basculer(false);
+    });
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const question = champ.value.trim();
+        if (!question || occupe) return;
+
+        occupe = true;
+        envoyer.disabled = true;
+        champ.value = '';
+        pistes.innerHTML = '';
+        bulle('moi', question);
+
+        const reponse = bulle('sam', '');
+        reponse.innerHTML = '<span class="chat-attente"><span></span><span></span><span></span></span>';
+
+        try {
+            const r = await fetch(SAM_ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question, langue: currentLang, historique })
+            });
+
+            // le Worker précise quel plafond est atteint : le visiteur ou le site
+            if (r.status === 429) {
+                const { erreur } = await r.json().catch(() => ({}));
+                throw new Error(erreur === 'global' ? 'global' : 'quota');
+            }
+            if (!r.ok || !r.body) throw new Error('indisponible');
+
+            // lecture au fil de l'eau : le texte apparaît pendant qu'il se forme
+            const lecteur = r.body.getReader();
+            const dec = new TextDecoder();
+            let recu = '';
+            for (;;) {
+                const { done, value } = await lecteur.read();
+                if (done) break;
+                recu += dec.decode(value, { stream: true });
+                reponse.textContent = recu;
+                fil.scrollTop = fil.scrollHeight;
+            }
+
+            if (!recu.trim()) throw new Error('indisponible');
+            historique.push({ role: 'user', content: question },
+                            { role: 'assistant', content: recu });
+            historique = historique.slice(-6);
+        } catch (err) {
+            reponse.remove();
+            const x = texte();
+            bulle('alerte', x[err.message === 'quota' || err.message === 'global' ? err.message : 'horsService']);
+        } finally {
+            occupe = false;
+            envoyer.disabled = false;
+            champ.focus();
+        }
+    });
+
+    habiller(true);
+    window.addEventListener('portfolio:langue', () => habiller(true));
+}
 
 // ========================================
 // EXPERIENCES + FILTRES
@@ -338,8 +477,7 @@ function renderExperiences() {
         // la relie visiblement au code, et évite de la répéter plus bas.
         const visuel = exp.repo
             ? `<img class="experience-img" loading="lazy" alt=""
-                    src="https://raw.githubusercontent.com/${githubUsername}/${encodeURIComponent(exp.repo)}/HEAD/docs/cards/card.png"
-                    onerror="this.closest('.experience-card').classList.add('sans-visuel');this.remove()">`
+                    src="https://raw.githubusercontent.com/${githubUsername}/${encodeURIComponent(exp.repo)}/HEAD/docs/cards/card.png">`
             : '';
 
         card.innerHTML = `
@@ -356,6 +494,11 @@ function renderExperiences() {
             ${meta}
             ${link}
         `;
+
+        // dépôt sans visuel : la fiche se replie (écouteur plutôt qu'un
+        // onerror en ligne, que la politique de sécurité du site bloque)
+        const img = card.querySelector('.experience-img');
+        if (img) img.addEventListener('error', () => { card.classList.add('sans-visuel'); img.remove(); });
 
         grid.appendChild(card);
 
@@ -564,11 +707,7 @@ function renderExtras() {
 // GITHUB API
 // ========================================
 const githubUsername = 'simonet4';
-const featuredRepos = ['Proximars', 'Devier_Project', 'RobotSumo'];
 
-// Base de l'API. Laisser sur api.github.com, OU mettre l'URL d'un proxy
-// Cloudflare Worker (token GitHub = 5000 req/h + cache edge) pour ne jamais
-// être rate-limité. Ex : 'https://gh.victorsimonet.com'
 const GITHUB_API_BASE = 'https://api.github.com';
 // Fichier de secours statique (généré dans le repo) si l'API est indispo.
 const GITHUB_FALLBACK_JSON = 'docs/github-fallback.json';
@@ -605,7 +744,7 @@ async function fetchProjects() {
     let repos = cachedRepos || loadReposCache(false);
     if (repos) { cachedRepos = repos; appliquerDonneesGitHub(repos); return; }
 
-    // 1) API GitHub (directe ou via proxy Worker) — un seul appel, `topics` inclus.
+    // 1) API GitHub — un seul appel, `topics` inclus.
     try {
         const res = await fetch(`${GITHUB_API_BASE}/users/${githubUsername}/repos?sort=updated&per_page=100`, {
             headers: { 'Accept': 'application/vnd.github+json' }
@@ -723,9 +862,19 @@ initTheme();
 initLanguage();
 applyLanguage();
 affinerSelonPays();
+initChat();
 
 const yearSpan = document.getElementById('current-year');
 if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
 // Content is ready — reveal the page
 document.body.classList.add('loaded');
+
+// Fond animé chargé en dernier, une fois la page utilisable
+function chargerFond() {
+    const s = document.createElement('script');
+    s.src = 'js/background.js';
+    document.body.appendChild(s);
+}
+if ('requestIdleCallback' in window) requestIdleCallback(chargerFond);
+else window.addEventListener('load', () => setTimeout(chargerFond, 100));

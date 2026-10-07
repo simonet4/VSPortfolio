@@ -39,7 +39,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="css/style.css">
     <noscript><style>body{opacity:1!important;}</style></noscript>
 </head>
@@ -51,11 +51,11 @@
         <div class="nav-content">
             <a href="#home" class="nav-logo" aria-label="Accueil">VS<img src="docs/Simonetoile.png" class="nav-star" alt="" aria-hidden="true"></a>
             
-            <div class="nav-links" role="menubar">
-                <a href="#about" role="menuitem" data-i18n="nav.about">À propos</a>
-                <a href="#experiences" role="menuitem" data-i18n="nav.work">Parcours</a>
-                <a href="#now" role="menuitem" data-i18n="nav.now">En ce moment</a>
-                <a href="#contact" role="menuitem" data-i18n="nav.contact">Contact</a>
+            <div class="nav-links">
+                <a href="#about" data-i18n="nav.about">À propos</a>
+                <a href="#experiences" data-i18n="nav.work">Parcours</a>
+                <a href="#now" data-i18n="nav.now">En ce moment</a>
+                <a href="#contact" data-i18n="nav.contact">Contact</a>
             </div>
 
             <div class="nav-tools">
@@ -97,14 +97,13 @@
                         <span class="prompt" aria-hidden="true">&gt;</span>
                         <span id="typing-text"></span><span class="cursor" aria-hidden="true">_</span>
                     </div>
+                    <p class="hero-desc" data-i18n="hero.desc">
+                        Étudiant en BUT Informatique à Toulouse, DUT en poche. En alternance chez Gembaware, intégrateur Odoo, je développe des modules et des connecteurs Odoo en Python, une application mobile Flutter adossée à l'ERP, et j'y branche de l'IA appliquée (RAG sur Qdrant, Mistral AI). Ce qui me fait vibrer : transformer des données et des documents bruts en quelque chose d'utile.
+                    </p>
                 </div>
                 <img src="docs/photo.png" alt="Portrait de Victor Simonet"
                      class="hero-photo" width="400" height="400" tabindex="0">
             </div>
-
-            <p class="hero-desc" data-i18n="hero.desc">
-                Étudiant en BUT Informatique à Toulouse, DUT en poche. En alternance chez Gembaware, intégrateur Odoo, je développe des modules et des connecteurs Odoo en Python, une application mobile Flutter adossée à l'ERP, et j'y branche de l'IA appliquée (RAG sur Qdrant, Mistral AI). Ce qui me fait vibrer : transformer des données et des documents bruts en quelque chose d'utile.
-            </p>
 
             <div class="hero-highlights" aria-label="En bref">
                 <a href="#now" class="hl">
@@ -125,10 +124,10 @@
                 <a href="#experiences" class="btn btn-primary">
                     <i class="fas fa-code" aria-hidden="true"></i> <span data-i18n="hero.cta">Voir mes projets</span>
                 </a>
-                <a href="docs/CV_Victor_Simonet.pdf" target="_blank" class="btn btn-outline">
+                <a href="docs/CV_Victor_Simonet.pdf" target="_blank" rel="noopener" class="btn btn-outline">
                     <i class="fas fa-file-arrow-down" aria-hidden="true"></i> <span data-i18n="hero.cv">Télécharger CV</span>
                 </a>
-                <a href="docs/Lettre_Motivation_Victor_Simonet.pdf" target="_blank" class="btn btn-outline">
+                <a href="docs/Lettre_Motivation_Victor_Simonet.pdf" target="_blank" rel="noopener" class="btn btn-outline">
                     <i class="fas fa-envelope-open-text" aria-hidden="true"></i> <span data-i18n="hero.letter">Télécharger lettre de motivation</span>
                 </a>
             </div>
@@ -148,16 +147,6 @@
                     </p>
                 </div>
 
-                <!-- <div class="about-video reveal">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/ktuTW-eHiIU" 
-                            title="Présentation vidéo" 
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            allowfullscreen
-                            loading="lazy"></iframe>
-                    </div>
-                </div> -->
             </div>
 
             <div class="about-timeline-wrapper">
@@ -354,25 +343,39 @@
         <p><span id="current-year">2025</span> · <span data-i18n="footer.credit">Codé par</span> <span class="signature">Victor Simonet</span><span class="footer-sam"><i class="fa-solid fa-brain" aria-hidden="true"></i> <span data-i18n="footer.sam">épaulé par Sam, mon IA</span></span></p>
     </footer>
 
+    <!-- Assistant : interface seule. Le modèle tourne sur Cloudflare
+         Workers AI, voir chatbot/README.md -->
+    <button id="chat-ouvrir" class="chat-ouvrir" aria-expanded="false" aria-controls="chat-volet">
+        <i class="fa-solid fa-comment-dots" aria-hidden="true"></i>
+        <span class="chat-ouvrir-texte"></span>
+    </button>
+
+    <section id="chat-volet" class="chat-volet" role="dialog" aria-modal="false"
+             aria-labelledby="chat-titre" hidden>
+        <header class="chat-tete">
+            <span class="chat-pastille" aria-hidden="true"><i class="fa-solid fa-brain"></i></span>
+            <span class="chat-identite">
+                <strong id="chat-titre"></strong>
+                <small class="chat-sous-titre"></small>
+            </span>
+            <button id="chat-fermer" class="chat-fermer">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+        </header>
+
+        <div id="chat-fil" class="chat-fil" role="log" aria-live="polite"></div>
+        <div id="chat-pistes" class="chat-pistes"></div>
+
+        <form id="chat-formulaire" class="chat-saisie">
+            <input id="chat-champ" type="text" maxlength="500" autocomplete="off" required>
+            <button type="submit" id="chat-envoyer">
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+            </button>
+        </form>
+        <p class="chat-avis"></p>
+    </section>
+
     <script src="js/translations.js"></script>
     <script src="js/script.js"></script>
-    <script>
-        // Defer background animation — load after content is interactive
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(function() {
-                var s = document.createElement('script');
-                s.src = 'js/background.js';
-                document.body.appendChild(s);
-            });
-        } else {
-            window.addEventListener('load', function() {
-                setTimeout(function() {
-                    var s = document.createElement('script');
-                    s.src = 'js/background.js';
-                    document.body.appendChild(s);
-                }, 100);
-            });
-        }
-    </script>
 </body>
 </html>

@@ -1,0 +1,31 @@
+name = "sam-portfolio"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+
+# Le Worker répond sur le domaine du site : même origine, pas de CORS à gérer
+# côté navigateur. Le reste de victorsimonet.com continue d'aller sur GitHub Pages.
+routes = [
+  { pattern = "victorsimonet.com/api/*", zone_name = "victorsimonet.com" },
+  { pattern = "www.victorsimonet.com/api/*", zone_name = "victorsimonet.com" }
+]
+
+[ai]
+binding = "AI"
+
+[[durable_objects.bindings]]
+name = "COMPTEUR"
+class_name = "Compteur"
+
+# SQLite : seul stockage de Durable Object disponible sur l'offre gratuite
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Compteur"]
+
+[vars]
+MODELE = "@cf/meta/llama-3.2-3b-instruct"
+LIMITE_GLOBALE_JOUR = "250"   # ~17 à 32 neurons par question : reste sous 10 000/jour
+LIMITE_IP_JOUR = "25"
+LIMITE_IP_RAFALE = "8"
+FENETRE_RAFALE_MIN = "10"
+
+# Secret, à définir une fois : npx wrangler secret put SEL

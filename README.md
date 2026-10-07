@@ -48,9 +48,10 @@ Aucun framework, aucune dépendance npm : le site tourne tel quel.
 │   ├── background.js          # Particules Canvas
 │   ├── script.js              # i18n, filtres, API GitHub, UI
 │   └── translations.js        # Contenu des 3 langues
-├── worker/
-│   ├── github-proxy.js        # Cloudflare Worker : proxy API GitHub
-│   └── README.md              # Déploiement du Worker
+├── chatbot/
+│   ├── worker.js              # Sam : Cloudflare Worker + Workers AI
+│   ├── wrangler.toml          # Route /api/*, limites, modèle
+│   └── README.md              # Déploiement et plafonds
 ├── index.html                 # Point d'entrée unique
 ├── CNAME                      # Domaine personnalisé
 ├── LICENSE                    # MIT + exception sur le contenu personnel
@@ -85,9 +86,6 @@ curl -s "https://api.github.com/users/simonet4/repos?sort=updated&per_page=100" 
   | node -e "let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{const r=JSON.parse(d);console.log(JSON.stringify({generated_at:new Date().toISOString(),repos:r.map(x=>({name:x.name,description:x.description,html_url:x.html_url,language:x.language,stargazers_count:x.stargazers_count,forks_count:x.forks_count,updated_at:x.updated_at,topics:x.topics||[],fork:!!x.fork,homepage:x.homepage||null}))},null,2))}" \
   > docs/github-fallback.json
 ```
-
-Pour supprimer la limite, déployez le Worker de [`worker/`](worker/) et pointez
-`GITHUB_API_BASE` dans `js/script.js` vers son URL.
 
 ## Licence
 

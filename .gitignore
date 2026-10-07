@@ -13,9 +13,9 @@ npm-debug.log*
 *.swp
 *.swo
 
-# --- Dépendances (Si jamais on utilise npm plus tard) ---
+# --- Dépendances (chatbot/) ---
 node_modules/
-package-lock.json
+.wrangler/
 yarn.lock
 
 # --- Build (Si on compile des choses plus tard) ---

@@ -1,0 +1,15 @@
+{
+  "name": "sam-portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --remote",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "json5": "^2.2.3"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
