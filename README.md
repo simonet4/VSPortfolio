@@ -53,6 +53,8 @@ Aucun framework, aucune dépendance npm : le site tourne tel quel.
 │   ├── wrangler.toml          # Route /api/*, limites, modèle
 │   └── README.md              # Déploiement et plafonds
 ├── index.html                 # Point d'entrée unique
+├── robots.txt                 # Autorise l'indexation, pointe vers le sitemap
+├── sitemap.xml                # Pages à indexer (accueil + CV)
 ├── CNAME                      # Domaine personnalisé
 ├── LICENSE                    # MIT + exception sur le contenu personnel
 └── README.md

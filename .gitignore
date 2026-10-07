@@ -25,3 +25,5 @@ build/
 # --- Environnement (Clés API, secrets) ---
 .env
 .env.local
+# --- Secrets locaux de wrangler dev ---
+.dev.vars

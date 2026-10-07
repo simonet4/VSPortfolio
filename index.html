@@ -3,38 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Victor Simonet — Alternant développeur Odoo chez Gembaware, orienté data & IA. DUT Informatique obtenu, 3e année de BUT à l'IUT Paul Sabatier Toulouse. Modules et connecteurs Odoo en Python, connecteur ShippingBo, étiquettes ZPL, application mobile Flutter, assistant de devis par IA (RAG, Qdrant, Mistral AI, n8n).">
-    <meta name="keywords" content="Victor Simonet, Odoo, développeur Odoo, ERP, Python, data, IA, RAG, Qdrant, Mistral AI, n8n, Flutter, ShippingBo, ZPL, portfolio, DUT Informatique, BUT Informatique, Toulouse, alternance, Gembaware">
+    <meta name="description" content="Victor Simonet, développeur Odoo en alternance chez Gembaware (Toulouse) : Python, data et IA appliquée — RAG, Mistral AI, Flutter. Portfolio, CV et projets.">
+    <meta name="keywords" content="Victor Simonet, développeur Odoo, Odoo Python, data, IA, RAG, Qdrant, Mistral AI, n8n, Flutter, ShippingBo, ZPL, alternance, BUT Informatique, IUT Paul Sabatier, Toulouse, Gembaware, Proximars">
     <meta name="author" content="Victor Simonet">
+    <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://victorsimonet.com/">
-    <meta property="og:title" content="Victor Simonet — Développeur Odoo, data & IA">
+    <meta property="og:site_name" content="Victor Simonet">
+    <meta property="og:title" content="Victor Simonet — Développeur Odoo, Data & IA">
     <meta property="og:description" content="Alternant développeur Odoo chez Gembaware : modules et connecteurs Odoo en Python, application mobile Flutter adossée à l'ERP, assistant de devis par IA (RAG, Qdrant, Mistral AI). Projet Proximars présenté au CNES.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://victorsimonet.com">
-    <meta property="og:image" content="https://victorsimonet.com/docs/Simonetoile.png">
+    <meta property="og:type" content="profile">
+    <meta property="profile:first_name" content="Victor">
+    <meta property="profile:last_name" content="Simonet">
+    <meta property="og:url" content="https://victorsimonet.com/">
+    <meta property="og:image" content="https://victorsimonet.com/docs/photo.png">
+    <meta property="og:image:width" content="400">
+    <meta property="og:image:height" content="400">
+    <meta property="og:image:alt" content="Portrait de Victor Simonet">
     <meta property="og:locale" content="fr_FR">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:locale:alternate" content="pt_BR">
     <meta name="twitter:card" content="summary">
     <meta name="theme-color" content="#111827">
 
+    <!-- Données structurées : relient le nom « Victor Simonet » à ce site, à ses
+         profils et à ses domaines de compétence dans les moteurs de recherche. -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Victor Simonet",
-        "url": "https://victorsimonet.com",
-        "jobTitle": "Odoo Developer Apprentice — Data & AI",
-        "email": "contact@victorsimonet.com",
-        "worksFor": { "@type": "Organization", "name": "Gembaware" },
-        "alumniOf": { "@type": "CollegeOrUniversity", "name": "IUT Paul Sabatier, Toulouse" },
-        "knowsLanguage": ["fr", "pt", "en", "es"],
-        "sameAs": [
-            "https://github.com/simonet4",
-            "https://www.linkedin.com/in/victorsimonet/"
+        "@graph": [
+            {
+                "@type": "Person",
+                "@id": "https://victorsimonet.com/#victor",
+                "name": "Victor Simonet",
+                "givenName": "Victor",
+                "familyName": "Simonet",
+                "url": "https://victorsimonet.com/",
+                "image": "https://victorsimonet.com/docs/photo.png",
+                "email": "mailto:contact@victorsimonet.com",
+                "jobTitle": "Développeur Odoo en alternance — Data & IA",
+                "description": "Développeur Odoo en alternance chez Gembaware, étudiant en BUT Informatique (parcours données) à l'IUT Paul Sabatier de Toulouse.",
+                "worksFor": { "@type": "Organization", "name": "Gembaware" },
+                "alumniOf": [
+                    { "@type": "CollegeOrUniversity", "name": "IUT Paul Sabatier, Toulouse" },
+                    { "@type": "HighSchool", "name": "Lycée Déodat de Séverac" }
+                ],
+                "address": { "@type": "PostalAddress", "addressLocality": "Toulouse", "addressCountry": "FR" },
+                "knowsAbout": ["Odoo", "Python", "ERP", "Analyse de données", "Intelligence artificielle", "RAG", "Qdrant", "Mistral AI", "n8n", "Flutter", "SQL", "Power BI"],
+                "knowsLanguage": ["fr", "pt", "en", "es"],
+                "sameAs": [
+                    "https://github.com/simonet4",
+                    "https://www.linkedin.com/in/victorsimonet/"
+                ]
+            },
+            {
+                "@type": "WebSite",
+                "@id": "https://victorsimonet.com/#site",
+                "name": "Victor Simonet",
+                "alternateName": "Portfolio de Victor Simonet",
+                "url": "https://victorsimonet.com/",
+                "inLanguage": ["fr", "en", "pt"],
+                "author": { "@id": "https://victorsimonet.com/#victor" }
+            },
+            {
+                "@type": "ProfilePage",
+                "@id": "https://victorsimonet.com/#page",
+                "url": "https://victorsimonet.com/",
+                "name": "Victor Simonet — Développeur Odoo, Data & IA",
+                "isPartOf": { "@id": "https://victorsimonet.com/#site" },
+                "mainEntity": { "@id": "https://victorsimonet.com/#victor" }
+            }
         ]
     }
     </script>
 
-    <title>Victor Simonet — Développeur Odoo, Data & IA</title>
+    <title>Victor Simonet — Développeur Odoo, Data & IA à Toulouse</title>
     <link rel="icon" type="image/png" href="docs/Simonetoile.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -101,7 +143,7 @@
                         Étudiant en BUT Informatique à Toulouse, DUT en poche. En alternance chez Gembaware, intégrateur Odoo, je développe des modules et des connecteurs Odoo en Python, une application mobile Flutter adossée à l'ERP, et j'y branche de l'IA appliquée (RAG sur Qdrant, Mistral AI). Ce qui me fait vibrer : transformer des données et des documents bruts en quelque chose d'utile.
                     </p>
                 </div>
-                <img src="docs/photo.png" alt="Portrait de Victor Simonet"
+                <img src="docs/photo.png" alt="Victor Simonet, développeur Odoo, data et IA"
                      class="hero-photo" width="400" height="400" tabindex="0">
             </div>
 

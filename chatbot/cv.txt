@@ -1,0 +1,40 @@
+# CV de Victor Simonet — Étudiant en informatique
+
+## Profil
+Alternant chez Gembaware, consultant spécialisé Odoo, où il développe des modules et des connecteurs Odoo en Python et y branche de l'IA appliquée. DUT Informatique obtenu, il poursuit une troisième année pour le BUT, parcours administration et exploitation des données. À l'aise de la base de données à l'application mobile.
+
+## Expériences professionnelles
+### Consultant technique chez Gembaware
+Alternance juil. 2026 – août 2027, précédée d'un stage avr. – juil. 2026.
+- Développement de modules Odoo en Python et XML pour plusieurs clients : conception, configuration et mise en production.
+- Connecteur API entre ShippingBo et Odoo pour un client vendant sur plusieurs plateformes, et génération d'étiquettes ZPL imprimées sur imprimantes industrielles.
+- Application mobile Flutter adossée à un back-end Odoo : messagerie temps réel, notifications push, fil d'actualités alimenté par scraping et support client.
+- Assistant de devis par IA intégré à Odoo : RAG (Retrieval-Augmented Generation, recherche documentaire couplée à un modèle de langage) sur Qdrant et Mistral AI orchestrés avec n8n, estimation de la probabilité de vente selon le prix et l'historique.
+- Audit de performances : analyse des logs et des requêtes SQL lentes en Python, tests d'API sous Postman, restitution des causes et des correctifs au client.
+
+### Bénévole — Restos du Cœur (régulièrement)
+Assistance informatique et création d'automatisations Excel pour l'organisme ; logistique alimentaire et relations avec le public pour la récupération de dons.
+
+### Animateur BAFA
+- Arboucalot, 2023 : colonie de vacances, encadrement d'un groupe de 15 adolescents (12–17 ans), gestion d'activités et responsabilités pédagogiques.
+- TUC Vacances, 2024 : centre de loisirs, organisation d'activités pour enfants (6–15 ans).
+
+## Projets personnels
+- Développement web & données : portfolio personnel en ligne, site commercial pour un hôtel, site de gestion d'une équipe sportive en PHP avec intégration d'API tierces, webdocumentaire interactif sur les vignerons du sud de la France, visualisation et traitement des données OpenFoodFacts avec Power BI et Knime, dashboard analytique sous Oracle APEX.
+- Applications mobiles & bureau : application mobile de gestion du temps et des tâches (JavaScript), application Java de vente de graines de tomates, application Java de gestion de biens immobiliers, application de prise de rendez-vous vétérinaire sous WinDev, outils de visualisation de graphes et de matrices en Python.
+- Systèmes embarqués & bas niveau : serre spatiale Proximars (en partenariat avec le CNES) et robot sumo télécommandé, tous deux en C++ ; jeu de Sudoku et système de gestion de parking en Ada.
+- Infrastructure & hackathon : hébergement auto-géré d'une adresse mail et de plusieurs sites web sur un Raspberry Pi sous Linux avec Docker, ainsi qu'une IA en local ; Nuit de l'Info (Paul Sabatier), 2ᵉ prix du défi visualisation audio de Capgemini.
+
+## Formations
+- 2024 – aujourd'hui : IUT de Toulouse (Paul Sabatier), BUT Informatique, spécialisation administration, gestion et exploitation des données et IA.
+- Lycée Déodat de Séverac : bac STI2D, spécialité Systèmes d'Information et Numérique.
+- 2023 : BAFA, spécialisation assistant sanitaire, et PSC1.
+
+## Compétences
+- Bases de données : Excel, Oracle APEX, Oracle SQL, Access, Knime, Power BI, HeidiSQL, MySQL, RAG.
+- Langages : C++, C, Java, JavaScript, Python/XML, PHP, HTML/CSS, Ada, PL/SQL, Bash, ZPL.
+- Outils : Git, méthodes agiles, Eclipse, JUnit, WindowBuilder, Oracle, VS Code, Knime, VirtualBox, Docker, Android Studio, Odoo, WinDev, ShippingBo, Flutter, Postman.
+- Langues : français (langue maternelle), portugais (bilingue), anglais (B2), espagnol (B2).
+
+## Contact
+contact@victorsimonet.com — +33 6 37 26 54 89 — victorsimonet.com — linkedin.com/in/victorsimonet — github.com/simonet4

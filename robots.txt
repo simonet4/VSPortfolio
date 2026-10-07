@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /chatbot/
+
+Sitemap: https://victorsimonet.com/sitemap.xml
