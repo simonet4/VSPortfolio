@@ -37,12 +37,12 @@ refusés.
 ## Les plafonds
 
 L'offre gratuite donne 10 000 neurons par jour (remise à zéro à 00:00 UTC). Une
-question coûte ~27 neurons (filtre compris), ~38 au pire avec un long historique :
-230 questions par jour restent sous le plafond.
+question coûte ~28 neurons (filtre compris), ~41 au pire avec un long historique :
+220 questions par jour restent sous le plafond.
 
 | Variable | Défaut | Rôle |
 |---|---|---|
-| `LIMITE_GLOBALE_JOUR` | 230 | questions par jour pour tout le site |
+| `LIMITE_GLOBALE_JOUR` | 220 | questions par jour pour tout le site |
 | `LIMITE_IP_JOUR` | 25 | questions par jour et par visiteur |
 | `LIMITE_IP_RAFALE` | 8 | questions par visiteur… |
 | `FENETRE_RAFALE_MIN` | 10 | …sur cette fenêtre (minutes) |

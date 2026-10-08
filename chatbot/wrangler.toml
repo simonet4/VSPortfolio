@@ -23,7 +23,7 @@ new_sqlite_classes = ["Compteur"]
 
 [vars]
 MODELE = "@cf/meta/llama-3.1-8b-instruct-fp8-fast"
-LIMITE_GLOBALE_JOUR = "230"   # ~27 neurons par question, ~38 au pire (filtre compris) : reste sous 10 000/jour
+LIMITE_GLOBALE_JOUR = "220"   # ~28 neurons par question, ~41 au pire (filtre compris) : reste sous 10 000/jour
 LIMITE_IP_JOUR = "25"
 LIMITE_IP_RAFALE = "8"
 FENETRE_RAFALE_MIN = "10"
