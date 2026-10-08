@@ -11,38 +11,30 @@ garder allumée : le site et Sam restent joignables PC éteint.
   données publiques y entrent : rien de la base RAG privée de Sam.
 * Y ajoute le CV, recopié dans [`cv.txt`](cv.txt) et embarqué au déploiement.
   **Après chaque mise à jour du PDF, mettez ce fichier à jour puis redéployez.**
-* Ne répond qu'aux questions sur Victor (voir ci-dessous).
+* Reste centré sur Victor (voir ci-dessous).
 * Diffuse la réponse au fil de l'eau, dans la langue du visiteur (fr / en / pt).
 * Applique trois plafonds **avant** d'appeler le modèle.
 
 ## Rester sur le sujet
 
-Une consigne seule ne suffit pas à un petit modèle : testé sur le vrai service,
-il finissait par écrire du code ou une recette dès qu'on lui demandait
-d'« ignorer ses instructions ». Chaque question passe donc d'abord par un
-**filtre** : un appel très court (sans la fiche, 3 jetons de réponse) qui
-tranche OUI/NON. Si c'est NON, le Worker renvoie lui-même un refus fixe dans la
-langue du visiteur, et le modèle n'écrit rien.
+Seule la consigne cadre Sam : il s'appuie sur le portfolio et le CV, peut
+déduire et relier (en le signalant), n'invente pas de fait précis, refuse les
+tâches à la place de Victor (code, lettre, mail) et ignore les demandes de
+changer de rôle. Une question sans rapport reçoit une phrase de réponse, puis
+Sam ramène la conversation vers Victor.
 
-Le filtre penche vers OUI : un visiteur du portfolio parle presque toujours de
-Victor, même sans le nommer (« il parle anglais ? », « et ses projets ? »). Il
-voit le dernier échange pour rattacher une relance. Seules les demandes
-nettement étrangères sont écartées.
-
-Essais sur `llama-3.1-8b-instruct-fp8-fast`, 22 questions sur 22 bien classées :
-questions au pronom, relances, qualités, recrutement, Odoo répondues ; météo,
-script bash, « oublie tes règles », traduction, politique et mail à rédiger
-refusés.
+Un filtre OUI/NON placé avant le modèle a été essayé puis retiré : il
+bridait trop les réponses.
 
 ## Les plafonds
 
 L'offre gratuite donne 10 000 neurons par jour (remise à zéro à 00:00 UTC). Une
-question coûte ~28 neurons (filtre compris), ~41 au pire avec un long historique :
-220 questions par jour restent sous le plafond.
+question coûte ~25 neurons, ~38 au pire avec un long historique :
+250 questions par jour restent sous le plafond.
 
 | Variable | Défaut | Rôle |
 |---|---|---|
-| `LIMITE_GLOBALE_JOUR` | 220 | questions par jour pour tout le site |
+| `LIMITE_GLOBALE_JOUR` | 250 | questions par jour pour tout le site |
 | `LIMITE_IP_JOUR` | 25 | questions par jour et par visiteur |
 | `LIMITE_IP_RAFALE` | 8 | questions par visiteur… |
 | `FENETRE_RAFALE_MIN` | 10 | …sur cette fenêtre (minutes) |
