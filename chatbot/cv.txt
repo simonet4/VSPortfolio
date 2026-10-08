@@ -1,4 +1,4 @@
-# CV de Victor Simonet — Étudiant en informatique
+# CV de Victor Simonet -- Étudiant en informatique
 
 ## Profil
 Alternant chez Gembaware, consultant spécialisé Odoo, où il développe des modules et des connecteurs Odoo en Python et y branche de l'IA appliquée. DUT Informatique obtenu, il poursuit une troisième année pour le BUT, parcours administration et exploitation des données. À l'aise de la base de données à l'application mobile.
@@ -12,7 +12,7 @@ Alternance juil. 2026 – août 2027, précédée d'un stage avr. – juil. 2026
 - Assistant de devis par IA intégré à Odoo : RAG (Retrieval-Augmented Generation, recherche documentaire couplée à un modèle de langage) sur Qdrant et Mistral AI orchestrés avec n8n, estimation de la probabilité de vente selon le prix et l'historique.
 - Audit de performances : analyse des logs et des requêtes SQL lentes en Python, tests d'API sous Postman, restitution des causes et des correctifs au client.
 
-### Bénévole — Restos du Cœur (régulièrement)
+### Bénévole -- Restos du Cœur (régulièrement)
 Assistance informatique et création d'automatisations Excel pour l'organisme ; logistique alimentaire et relations avec le public pour la récupération de dons.
 
 ### Animateur BAFA
@@ -37,4 +37,4 @@ Assistance informatique et création d'automatisations Excel pour l'organisme ; 
 - Langues : français (langue maternelle), portugais (bilingue), anglais (B2), espagnol (B2).
 
 ## Contact
-contact@victorsimonet.com — +33 6 37 26 54 89 — victorsimonet.com — linkedin.com/in/victorsimonet — github.com/simonet4
+contact@victorsimonet.com -- +33 6 37 26 54 89 -- victorsimonet.com -- linkedin.com/in/victorsimonet -- github.com/simonet4

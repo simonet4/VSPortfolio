@@ -1,5 +1,5 @@
 // ========================================
-// script.js — Portfolio Victor Simonet
+// script.js -- Portfolio Victor Simonet
 // ========================================
 
 // --- Configuration ---
@@ -10,7 +10,7 @@ let currentLang = 'fr';
 
 const langBtn = document.getElementById('lang-btn');
 
-// Échappement — les descriptions viennent de l'API GitHub, donc de l'extérieur.
+// Échappement -- les descriptions viennent de l'API GitHub, donc de l'extérieur.
 function esc(str) {
     return String(str ?? '').replace(/[&<>"']/g, c => ({
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -45,8 +45,8 @@ function applyLanguage() {
 }
 
 // Première visite : on suit la langue du navigateur, pas le pays. C'est plus
-// juste — un lusophone peut être au Brésil comme au Portugal, un francophone
-// en Belgique ou au Québec — et ça n'exige ni géolocalisation, ni service
+// juste -- un lusophone peut être au Brésil comme au Portugal, un francophone
+// en Belgique ou au Québec -- et ça n'exige ni géolocalisation, ni service
 // tiers, ni requête réseau. Tout ce qui n'est ni fr ni pt tombe en anglais.
 // Un choix manuel est mémorisé et prime sur la détection.
 function detectLanguage() {
@@ -450,7 +450,7 @@ function renderExperiences() {
         const depot = exp.repo ? githubParDepot.get(exp.repo) : null;
         const meta = depot ? `
             <div class="experience-meta">
-                <span><span class="lang-dot" style="background-color: ${languageColors[depot.language] || '#888'};"></span>${esc(depot.language || '—')}</span>
+                <span><span class="lang-dot" style="background-color: ${languageColors[depot.language] || '#888'};"></span>${esc(depot.language || '--')}</span>
                 <span><i class="fa-regular fa-star" aria-hidden="true"></i> ${depot.stargazers_count}</span>
                 <span><i class="fa-regular fa-clock" aria-hidden="true"></i> ${new Date(depot.updated_at).toLocaleDateString(translations[currentLang].locale || 'fr-FR', { year: 'numeric', month: 'short' })}</span>
             </div>` : '';
@@ -531,7 +531,7 @@ const TAG_LOGOS = {
 };
 
 // ========================================
-// BOÎTE À OUTILS — DÉFILEMENT CONTINU
+// BOÎTE À OUTILS -- DÉFILEMENT CONTINU
 // ========================================
 // Panneau publicitaire circulaire. Le contenu est écrit deux fois ; dès que
 // le défilement atteint la moitié, on retranche cette moitié : la seconde
@@ -546,6 +546,8 @@ function initMarquee() {
     const prec = document.querySelector('.stack-fleche.prec');
     const suiv = document.querySelector('.stack-fleche.suiv');
 
+    // Sous 620 px les familles sont empilées (voir le CSS) : rien ne défile.
+    const empile = window.matchMedia('(max-width: 620px)');
     const VITESSE = 0.45;     // pixels par image, ~27 px/s
     const REPRISE = 2500;     // délai avant que le défilement reparte seul
     let enPause = false, glisse = false;
@@ -584,7 +586,7 @@ function initMarquee() {
             if (Math.abs(reste) < 0.5) { zone.scrollLeft = cible; cible = null; }
             else zone.scrollLeft += reste * 0.18;
             boucler();
-        } else if (!enPause && !glisse) {
+        } else if (!enPause && !glisse && !empile.matches) {
             zone.scrollLeft += VITESSE;
             boucler();
         }
@@ -599,13 +601,23 @@ function initMarquee() {
     if (prec) prec.addEventListener('click', () => sauter(-1));
     if (suiv) suiv.addEventListener('click', () => sauter(1));
 
-    zone.addEventListener('mouseenter', () => { enPause = true; clearTimeout(minuteur); });
-    zone.addEventListener('mouseleave', suspendre);
+    // Survol à la souris seulement : sur un écran tactile, un appui simule un
+    // survol qui ne se termine jamais et figeait le bandeau pour de bon.
+    zone.addEventListener('pointerenter', (e) => {
+        if (e.pointerType === 'mouse') { enPause = true; clearTimeout(minuteur); }
+    });
+    zone.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') suspendre(); });
     zone.addEventListener('focusin', () => { enPause = true; clearTimeout(minuteur); });
     zone.addEventListener('focusout', suspendre);
 
+    // Au doigt, le défilement natif du navigateur fait le travail : on se
+    // contente de suspendre l'animation le temps du geste.
+    zone.addEventListener('touchstart', () => { enPause = true; cible = null; clearTimeout(minuteur); }, { passive: true });
+    zone.addEventListener('touchend', suspendre, { passive: true });
+    zone.addEventListener('scroll', boucler, { passive: true });
+
     zone.addEventListener('pointerdown', (e) => {
-        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        if (e.pointerType !== 'mouse' || e.button !== 0) return;
         glisse = true; cible = null;
         departX = e.clientX;
         departScroll = zone.scrollLeft;
@@ -744,7 +756,7 @@ async function fetchProjects() {
     let repos = cachedRepos || loadReposCache(false);
     if (repos) { cachedRepos = repos; appliquerDonneesGitHub(repos); return; }
 
-    // 1) API GitHub — un seul appel, `topics` inclus.
+    // 1) API GitHub -- un seul appel, `topics` inclus.
     try {
         const res = await fetch(`${GITHUB_API_BASE}/users/${githubUsername}/repos?sort=updated&per_page=100`, {
             headers: { 'Accept': 'application/vnd.github+json' }
@@ -867,7 +879,7 @@ initChat();
 const yearSpan = document.getElementById('current-year');
 if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-// Content is ready — reveal the page
+// Content is ready -- reveal the page
 document.body.classList.add('loaded');
 
 // Fond animé chargé en dernier, une fois la page utilisable

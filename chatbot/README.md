@@ -1,4 +1,4 @@
-# Sam — l'assistant du portfolio
+# Sam -- l'assistant du portfolio
 
 Un Cloudflare Worker qui répond sur `victorsimonet.com/api/chat` et interroge un
 modèle de **Workers AI**. Aucune clé d'API (binding `env.AI`), aucune machine à
@@ -7,7 +7,7 @@ garder allumée : le site et Sam restent joignables PC éteint.
 ## Ce qu'il fait
 
 * Construit la base de connaissances en relisant `js/translations.js` **depuis le
-  site en ligne** (cache 1 h) — le portfolio reste la source unique. Seules les
+  site en ligne** (cache 1 h) -- le portfolio reste la source unique. Seules les
   données publiques y entrent : rien de la base RAG privée de Sam.
 * Y ajoute le CV, recopié dans [`cv.txt`](cv.txt) et embarqué au déploiement.
   **Après chaque mise à jour du PDF, mettez ce fichier à jour puis redéployez.**
@@ -24,9 +24,15 @@ d'« ignorer ses instructions ». Chaque question passe donc d'abord par un
 tranche OUI/NON. Si c'est NON, le Worker renvoie lui-même un refus fixe dans la
 langue du visiteur, et le modèle n'écrit rien.
 
-Essais sur `llama-3.1-8b-instruct-fp8-fast` : code, recette après « ignore tes
-instructions », lettre de motivation, politique et jeu de rôle sont refusés ;
-salutations, questions de suivi, employeur et projets passent.
+Le filtre penche vers OUI : un visiteur du portfolio parle presque toujours de
+Victor, même sans le nommer (« il parle anglais ? », « et ses projets ? »). Il
+voit le dernier échange pour rattacher une relance. Seules les demandes
+nettement étrangères sont écartées.
+
+Essais sur `llama-3.1-8b-instruct-fp8-fast`, 22 questions sur 22 bien classées :
+questions au pronom, relances, qualités, recrutement, Odoo répondues ; météo,
+script bash, « oublie tes règles », traduction, politique et mail à rédiger
+refusés.
 
 ## Les plafonds
 

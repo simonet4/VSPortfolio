@@ -1,4 +1,4 @@
-// background.js — Particules interactives + Mode Magique
+// background.js -- Particules interactives + Mode Magique
 const canvas = document.getElementById('interactive-bg');
 const ctx = canvas.getContext('2d');
 const magicWandButton = document.getElementById('interaction-toggle');
@@ -180,7 +180,7 @@ function stopAnimation() {
     rafId = null;
 }
 
-// Respecte le réglage système « réduire les animations » — et réagit s'il
+// Respecte le réglage système « réduire les animations » -- et réagit s'il
 // change en cours de route, sans rechargement.
 function applyMotionPreference() {
     if (reduceMotion.matches) {

@@ -1,5 +1,5 @@
 ﻿/* ==========================================================================
-   VICTOR Simonet — Portfolio 2025
+   VICTOR Simonet -- Portfolio 2025
    Clean, minimal, professional design
    ========================================================================== */
 
@@ -76,7 +76,7 @@ a:hover { color: var(--accent-hover); }
 img { max-width: 100%; height: auto; display: block; }
 button { font-family: inherit; cursor: pointer; }
 
-/* Skip link (a11y) — removed */
+/* Skip link (a11y) -- removed */
 
 /* Selection */
 ::selection { background: var(--accent); color: #fff; }
@@ -294,7 +294,7 @@ main { position: relative; }
 
 .hero-naming { min-width: 0; }
 
-/* Écran étroit : plus de place pour deux colonnes — la photo passe au-dessus
+/* Écran étroit : plus de place pour deux colonnes -- la photo passe au-dessus
    et le texte prend toute la largeur. */
 @media (max-width: 760px) {
     .hero-identity {
@@ -320,7 +320,7 @@ main { position: relative; }
     line-height: 1.7;
 }
 
-/* Hero Highlights — chips contextuels cliquables */
+/* Hero Highlights -- chips contextuels cliquables */
 .hero-highlights {
     display: flex; flex-wrap: wrap; gap: 0.6rem;
     margin: 0.25rem 0 2rem 0;
@@ -478,7 +478,7 @@ html.dark .btn-primary { color: #0f1219; }
     margin: 0; line-height: 1.5;
 }
 
-/* Tech Stack — integrated in About, borderless */
+/* Tech Stack -- integrated in About, borderless */
 .tech-stack { margin-top: 2.75rem; }
 /* Boîte à outils : les cases défilent en continu, de droite à gauche, à la
    manière des réclames d'autrefois. La piste contient deux copies et
@@ -567,7 +567,24 @@ html.dark .btn-primary { color: #0f1219; }
 }
 .stack-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 
-/* Étiquette de techno — sert aussi aux cartes « En ce moment ». */
+/* Téléphone : un bandeau défilant sur un écran étroit ne montre jamais plus
+   d'une case, toujours en mouvement. Les familles s'empilent donc, immobiles
+   et lisibles d'un coup d'œil ; la copie qui servait à boucler est masquée. */
+@media (max-width: 620px) {
+    .stack-fleche { display: none; }
+    .stack-marquee {
+        overflow: visible; padding: 0; cursor: auto;
+        -webkit-mask-image: none; mask-image: none;
+    }
+    .stack-track { display: block; width: auto; }
+    .stack-run { flex-direction: column; gap: 0.75rem; padding-right: 0; }
+    .stack-run[aria-hidden="true"] { display: none; }
+    .stack-card { width: auto; padding: 0.95rem 1rem; }
+    .stack-head { margin-bottom: 0.7rem; }
+    .stack-icon { width: 34px; height: 34px; font-size: 0.95rem; }
+}
+
+/* Étiquette de techno -- sert aussi aux cartes « En ce moment ». */
 .tag {
     display: inline-flex; align-items: center; gap: 0.38rem;
     font-size: 0.78rem; padding: 0.3rem 0.65rem;
@@ -733,7 +750,7 @@ html.dark .filter-chip.active { color: var(--bg); }
 }
 
 /* Carte cliquable d'un bout à l'autre : le lien principal s'étire en
-   superposition. On garde un vrai <a> — clic milieu, menu contextuel et
+   superposition. On garde un vrai <a> -- clic milieu, menu contextuel et
    navigation clavier continuent de fonctionner. Les autres liens repassent
    au-dessus. */
 .experience-card:has(.lien-principal).lien-principal::after {
@@ -829,7 +846,7 @@ html.dark .filter-chip.active { color: var(--bg); }
 
 
 
-/* Les deux sources d'image sont en 2:1 — vos cartes (1280x640) comme celles
+/* Les deux sources d'image sont en 2:1 -- vos cartes (1280x640) comme celles
    générées par GitHub (1200x600). On impose donc le rapport plutôt qu'une
    hauteur fixe, sinon le bas du visuel est rogné. */
 .lang-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
@@ -873,7 +890,7 @@ html.dark .filter-chip.active { color: var(--bg); }
 }
 
 /* =========================================
-   9. "EN CE MOMENT" — PROJETS EN COURS
+   9. "EN CE MOMENT" -- PROJETS EN COURS
    ========================================= */
 .current-projects-grid {
     display: grid;

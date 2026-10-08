@@ -1,4 +1,4 @@
-# Portfolio — Victor Simonet
+# Portfolio -- Victor Simonet
 
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fvictorsimonet.com&label=victorsimonet.com)](https://victorsimonet.com)
 ![Project Status](https://img.shields.io/badge/status-active-brightgreen)
@@ -12,25 +12,25 @@ Site statique, sans framework ni étape de compilation : on clone, on ouvre
 
 ## Fonctionnalités
 
-* ** Trilingue (i18n)** — français, anglais, portugais, sans rechargement.
+* ** Trilingue (i18n)** -- français, anglais, portugais, sans rechargement.
   La langue choisie est mémorisée et `<html lang>` suit.
-* ** Thème clair / sombre** — détection système, bascule manuelle, persistance.
-* ** Réalisations filtrables** — la page ouvre sur une sélection courte
+* ** Thème clair / sombre** -- détection système, bascule manuelle, persistance.
+* ** Réalisations filtrables** -- la page ouvre sur une sélection courte
   (« L'essentiel »), les filtres dépliant l'ensemble par catégorie ou distinction.
-* ** Projets GitHub** — récupérés via l'API, avec une chaîne de repli robuste :
+* ** Projets GitHub** -- récupérés via l'API, avec une chaîne de repli robuste :
   cache local → cache périmé → instantané statique → message clair.
-* ** Fond interactif** — particules en Canvas 2D, respectant
+* ** Fond interactif** -- particules en Canvas 2D, respectant
   `prefers-reduced-motion`.
-* ** Responsive** — pensé mobile d'abord.
+* ** Responsive** -- pensé mobile d'abord.
 
 ## Stack
 
 Aucun framework, aucune dépendance npm : le site tourne tel quel.
 
-* **HTML5** — structure sémantique, données structurées Schema.org
-* **CSS3** — variables CSS pour le thème, pas de préprocesseur
-* **JavaScript (ES6+)** — vanilla, aucune bibliothèque
-* **Font Awesome** + **Google Fonts** — via CDN
+* **HTML5** -- structure sémantique, données structurées Schema.org
+* **CSS3** -- variables CSS pour le thème, pas de préprocesseur
+* **JavaScript (ES6+)** -- vanilla, aucune bibliothèque
+* **Font Awesome** + **Google Fonts** -- via CDN
 
 ## Structure
 
@@ -67,7 +67,7 @@ trois langues. Les blocs `experiences.items` acceptent :
 
 | Champ | Rôle |
 | --- | --- |
-| `cat` | `pro`, `study` ou `perso` — pilote les filtres |
+| `cat` | `pro`, `study` ou `perso` -- pilote les filtres |
 | `featured` | remonte la fiche dans « L'essentiel » |
 | `award` | affiche un bandeau de distinction |
 | `link` / `linkLabel` | lien externe en bas de fiche |
@@ -91,5 +91,5 @@ curl -s "https://api.github.com/users/simonet4/repos?sort=updated&per_page=100" 
 
 ## Licence
 
-Code sous [MIT](LICENSE). Le contenu personnel — textes, photo, CV, lettre de
-motivation — n'est pas réutilisable.
+Code sous [MIT](LICENSE). Le contenu personnel -- textes, photo, CV, lettre de
+motivation -- n'est pas réutilisable.
